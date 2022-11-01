@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">RecipeApp</string>
+    <string name="k_premium_r">100K+ Premium Recipe</string>
+    <string name="lbl_start_cooking">Start Cooking</string>
+    <string name="header_title">Get\nCooking</string>
+    <string name="caption">Simple way to find Tasty Recipe</string>
+    <string name="hello_">Hello,</string>
+    <string name="welcome_back">Welcome Back!</string>
+    <string name="lbl_email">Email</string>
+    <string name="lbl_enter_password">Enter Password</string>
+    <string name="forgot_pass">Forgot Password?</string>
+    <string name="or_sign_in_">Or Sign in With</string>
+    <string name="don_t_have_">Don’t have an account?</string>
+    <string name="sign_up">Sign up</string>
+    <string name="create_an_a">Create an account</string>
+    <string name="let_s_help_">Let’s help you set up your account,\nit won’t take long.</string>
+</resources>

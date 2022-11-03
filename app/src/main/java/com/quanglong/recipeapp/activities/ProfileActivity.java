@@ -23,7 +23,7 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        addReadMore(getResources().getString(R.id.description), R.id.description);
+//        addReadMore(getResources().getString(R.id.description), R.id.description);
 
     }
 

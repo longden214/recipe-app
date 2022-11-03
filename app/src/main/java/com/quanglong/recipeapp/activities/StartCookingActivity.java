@@ -23,7 +23,7 @@ public class StartCookingActivity extends AppCompatActivity {
         doInitialization();
 
         this.btn_start.setOnClickListener(view -> {
-            Intent intent = new Intent(this, SignInActivity.class);
+            Intent intent = new Intent(this, ProfileActivity.class);
             startActivity(intent);
         });
     }

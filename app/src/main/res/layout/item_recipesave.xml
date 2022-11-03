@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="30dp">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rectangle_646"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="110dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/recipename"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Traditional spare ribs baked"
+                android:textColor="@color/white"
+                android:textSize="14dp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="By "
+                    android:textColor="@color/white"
+                    android:textSize="8dp" />
+
+                <TextView
+                    android:id="@+id/author"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="Chef John"
+                    android:textColor="@color/white"
+                    android:textSize="8dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/icontime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="110dp"
+            android:src="@drawable/timer"/>
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="11dp"
+            android:text="20 Min"
+            android:textColor="@color/white"/>
+        <ImageView
+            android:id="@+id/iconsave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="110dp"
+            android:src="@drawable/bookmark"/>
+
+
+    </LinearLayout>
+
+</RelativeLayout>

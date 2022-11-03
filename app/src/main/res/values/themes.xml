@@ -22,4 +22,10 @@
         <item name="android:fitsSystemWindows">true</item>
     </style>
 
+    <!-- Base application theme. -->
+    <style name="Theme.BottomNavigation" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/_default</item>
+    </style>
+
 </resources>

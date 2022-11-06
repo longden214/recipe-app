@@ -13,4 +13,5 @@
     <color name="forgot_pass">#FF9C00</color>
     <color name="recipe_name">#484848</color>
     <color name="btn_send">#FFAD30</color>
+    <color name="transparent">@android:color/transparent</color>
 </resources>

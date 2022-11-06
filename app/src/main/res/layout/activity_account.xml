@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.AccountActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:gravity="center"
+        android:background="@color/transparent">
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/poppins_semibold"
+            android:includeFontPadding="false"
+            android:textColor="#121212"
+            android:textSize="@dimen/_14ssp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="@dimen/_11ssp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textColor="#797979"
+        android:lineHeight="@dimen/_17ssp"
+        android:text="Cung cấp thông tin cá nhân của bạn, bất kể bạn dùng dài khoản cho doang nghiệp , thú cưng hay gì khác. Thông tin này sẽ không hiển thị trên trang cá nhân công khai của bạn." />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_gravity="start|center_vertical"
+            android:textColor="#121212"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/itemEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_horizontal"
+            android:layout_weight="3"
+            android:hint="Enter Email"
+            android:inputType="textEmailAddress"
+            android:text="phamduyentba@gmail.com"
+            android:textColor="#121212"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_gravity="start|center_vertical"
+            android:textColor="#121212"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/itemPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_weight="3"
+            android:inputType="phone"
+            android:hint="Enter Phone Number"
+            android:text="0987654321"
+            android:textColor="#121212"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Gender"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_gravity="start|center_vertical"
+            android:textColor="#121212"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_weight="3" >
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16sp"
+                android:text="Nam" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:textSize="16sp"
+                android:text="Nữ" />
+        </RadioGroup>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Birthday"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_gravity="start|center_vertical"
+            android:textColor="#121212"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/itembirthday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_weight="3"
+            android:hint="dd/MM/yyyy"
+            android:inputType="text"
+            android:textColor="#121212"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</LinearLayout>

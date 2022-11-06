@@ -53,17 +53,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
 
-//        TextView actionBarTitle = new TextView(this);
-//        actionBarTitle.setText("Title");
-//        actionBarTitle.setTextSize(18);
-//        actionBarTitle.setTextColor(getResources().getColor(R.color.text_color));
-//        actionBarTitle.setTypeface(null, Typeface.BOLD);
-//        actionBarTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-//        actionBarTitle.setGravity(Gravity.CENTER);
-//
-//        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-//        actionBar.setCustomView(actionBarTitle);
-
     }
 
     private void doInitialization() {
@@ -71,7 +60,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu( Menu menu ) {
-        getMenuInflater().inflate(R.menu.recipe_detail_menu, menu);
+        getMenuInflater().inflate(R.menu.recipe_header_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

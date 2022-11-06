@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         StatusBarConfig.StatusBarCustom(this);
-
         doInitialization();
 
         this.bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavigationView);

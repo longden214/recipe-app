@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:minWidth="@dimen/_280sdp"
+    android:background="@drawable/bg_category"
+    android:padding="@dimen/_10sdp"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        app:srcCompat="@drawable/ic_close" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:textSize="@dimen/_20ssp"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:text="Recipe Link " />
+
+    <TextView
+        android:id="@+id/textView34"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#797979"
+        android:textSize="@dimen/_11ssp"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:text="Copy recipe link and share your recipe link with  friends and family." />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_43sdp"
+        android:background="@drawable/bg_ingrident"
+        android:layout_marginTop="@dimen/_10sdp"
+        >
+
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/_14sdp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:text="app.Recipe.co/jollof_rice"
+            android:textColor="#121212"
+            android:textSize="@dimen/_11ssp" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="@dimen/_85sdp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_button_follow"
+            android:textAllCaps="false"
+            android:includeFontPadding="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_11ssp"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_alignParentRight="true"
+            android:text="Copy Link" />
+    </RelativeLayout>
+</LinearLayout>

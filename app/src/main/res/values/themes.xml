@@ -28,4 +28,7 @@
         <item name="colorPrimary">@color/_default</item>
     </style>
 
+    <style name="Theme.RecipeActionBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@android:color/transparent</item>
+    </style>
 </resources>

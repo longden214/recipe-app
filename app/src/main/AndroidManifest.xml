@@ -21,30 +21,21 @@
         <activity
             android:name=".activities.EditProfileActivity"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".activities.PasswordActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".activities.AccountActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".activities.SettingActivity"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
             android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
         </activity>
         <activity
             android:name=".activities.AddRecipeActivity"
@@ -57,7 +48,7 @@
             android:exported="false" />
         <activity
             android:name=".activities.StartCookingActivity"
-            android:exported="true"
+            android:exported="false"
             android:theme="@style/Theme.RecipeApp.NoActonBarAndStatusBar" />
         <activity
             android:name=".activities.MainActivity"
@@ -69,6 +60,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activities.RecipeDetailActivity"
+            android:theme="@style/Theme.RecipeActionBar"
+            android:exported="false">
+        </activity>
     </application>
-
 </manifest>

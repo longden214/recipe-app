@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.utilities.StatusBarConfig;
 
 import java.text.DateFormat;
 import java.util.Calendar;
@@ -24,7 +25,7 @@ public class EditProfileActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
-
+        StatusBarConfig.StatusBarCustom(this);
         doInitialization();
 
         this.txtsettingAccount.setOnClickListener(view -> {

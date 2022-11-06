@@ -14,6 +14,7 @@
         android:id="@+id/txt_hello"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:includeFontPadding="false"
         android:fontFamily="@font/poppins_semibold"
         android:lineHeight="@dimen/_45sdp"
         android:text="@string/hello_"
@@ -26,6 +27,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppins_regular"
         android:text="@string/welcome_back"
+        android:includeFontPadding="false"
         android:textColor="@color/text_color"
         android:textSize="@dimen/_20ssp" />
 
@@ -41,6 +43,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/lbl_email"
+            android:includeFontPadding="false"
             android:textColor="@color/text_color"
             android:textSize="@dimen/_14ssp" />
 
@@ -51,6 +54,7 @@
             android:background="@drawable/custom_edit_text_cut"
             android:ems="10"
             android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
             android:hint="Enter Email"
             android:inputType="textPersonName"
             android:paddingStart="20dp"
@@ -71,6 +75,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
             android:text="@string/lbl_enter_password"
+            android:includeFontPadding="false"
             android:textColor="@color/text_color"
             android:textSize="@dimen/_14ssp" />
 
@@ -82,6 +87,7 @@
             android:ems="10"
             android:fontFamily="@font/poppins_regular"
             android:hint="Enter Password"
+            android:includeFontPadding="false"
             android:inputType="textPassword"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
@@ -94,6 +100,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"
+        android:includeFontPadding="false"
         android:layout_marginBottom="20dp"
         android:text="@string/forgot_pass"
         android:fontFamily="@font/poppins_regular"
@@ -184,6 +191,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:textSize="@dimen/_11ssp"
+            android:includeFontPadding="false"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/don_t_have_" />
 
@@ -193,6 +201,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_toRightOf="@id/don_t_have_"
+            android:includeFontPadding="false"
             android:layout_weight="1"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/sign_up"

@@ -26,6 +26,7 @@
             android:id="@+id/k_premium_r"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:includeFontPadding="false"
             android:gravity="center_horizontal|top"
             android:text="@string/k_premium_r"
             android:textAppearance="@style/k_premium_r" />
@@ -66,6 +67,7 @@
             android:lineHeight="@dimen/_60ssp"
             android:lineSpacingExtra="-15sp"
             android:text="@string/header_title"
+            android:includeFontPadding="false"
             android:textColor="@color/white"
             android:textSize="@dimen/_50ssp"
             android:textStyle="bold" />
@@ -75,6 +77,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
             android:gravity="center_horizontal|top"
             android:text="@string/caption"
             android:textColor="@color/white"

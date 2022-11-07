@@ -22,7 +22,20 @@
             android:fontFamily="@font/poppins_semibold"
             android:includeFontPadding="false"
             android:textColor="#121212"
+            android:layout_marginEnd="@dimen/_8sdp"
             android:textSize="@dimen/_14ssp" />
+
+        <TextView
+            android:id="@+id/fullscreen_dialog_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:padding="8dp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:text="SAVE"
+            android:layout_gravity="center_vertical|end"
+            android:textColor="#0092FF"
+            android:textSize="@dimen/_11ssp" />
 
     </androidx.appcompat.widget.Toolbar>
 

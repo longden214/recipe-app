@@ -17,15 +17,16 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.quanglong.recipeapp.R;
-import com.quanglong.recipeapp.activities.EditProfileActivity;
 import com.quanglong.recipeapp.activities.SettingActivity;
 
 /**
@@ -59,8 +60,14 @@ public class ProfileFragment extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                startActivity(intent);
+                DialogFragment dialog = EditProfileDialog.newInstance();
+                ((EditProfileDialog) dialog).setCallback(new EditProfileDialog.Callback() {
+                    @Override
+                    public void onActionClick(String name) {
+                        Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.show(getActivity().getSupportFragmentManager(), "tag");
             }
         });
 
@@ -95,6 +102,7 @@ public class ProfileFragment extends Fragment {
             case R.id.menu_setting:
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
                 startActivity(intent);
+                getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
         }
         return super.onOptionsItemSelected(item);

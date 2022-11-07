@@ -52,6 +52,7 @@ public class PasswordActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 super.onBackPressed();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
         }
         return super.onOptionsItemSelected(item);

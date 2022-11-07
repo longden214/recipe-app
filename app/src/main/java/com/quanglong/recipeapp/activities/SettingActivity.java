@@ -37,11 +37,13 @@ public class SettingActivity extends AppCompatActivity {
         this.rv_account.setOnClickListener(view -> {
             Intent intent = new Intent(this, AccountActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
         this.rv_password.setOnClickListener(view -> {
             Intent intent = new Intent(this, PasswordActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
     }
@@ -72,6 +74,7 @@ public class SettingActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 super.onBackPressed();
+                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 break;
         }
         return super.onOptionsItemSelected(item);

@@ -27,7 +27,7 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/actionbar_layout.xml" value="0.253125" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_account.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_add_recipe.xml" value="0.25416666666666665" />
-        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_notification.xml" value="0.24010416666666667" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_password.xml" value="0.25416666666666665" />
@@ -40,6 +40,7 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_signin.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_start_cooking.xml" value="0.25" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/bottom_navigation.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/dialog_edit_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/fragment_home.xml" value="0.264" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/fragment_ingrident.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/fragment_notification.xml" value="0.25416666666666665" />

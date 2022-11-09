@@ -62,7 +62,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:includeFontPadding="false"
-            android:background="@drawable/search_bg"
+            android:background="@drawable/custom_edit_text_cut"
             android:drawableLeft="@drawable/ic_search_normal"
             android:drawablePadding="8dp"
             android:ems="10"

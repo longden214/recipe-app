@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginBottom="@dimen/_10sdp">
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/avatar2" />
+
+    <TextView
+        android:id="@+id/recipe_chef_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_toRightOf="@id/profile_image"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:text="Laura wilson"
+        android:textColor="#121212"
+        android:textSize="@dimen/_14ssp" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_chef_name"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_toRightOf="@id/profile_image">
+
+
+        <TextView
+            android:id="@+id/location_name"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:lineHeight="@dimen/_17ssp"
+            android:maxLines="1"
+            android:text="233 recipes"
+            android:textColor="#A9A9A9"
+            android:textSize="@dimen/_11ssp" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="@dimen/_85sdp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_button_follow"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:text="Follow"
+        android:layout_centerVertical="true"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11ssp" />
+
+</RelativeLayout>

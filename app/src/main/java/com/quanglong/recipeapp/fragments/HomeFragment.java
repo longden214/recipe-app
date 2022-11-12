@@ -1,5 +1,6 @@
 package com.quanglong.recipeapp.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.CategoryAdapter;
@@ -21,6 +23,7 @@ import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.quanglong.recipeapp.activities.CatagoryActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -32,6 +35,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private List<Category> categoryList;
     private CategoryAdapter categoryAdapter;
     private RecyclerView category_recycler;
+    ImageView imageView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -50,12 +54,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         doInitialization(view);
 
         btn_filter.setOnClickListener(this);
-
+        imageView.setOnClickListener(this);
         setCategoryRecycler(categoryList);
         getAllCategory();
     }
 
     private void doInitialization(View view) {
+        imageView = view.findViewById(R.id.ic_arrow_right);
         category_recycler = view.findViewById(R.id.category_list);
         btn_filter = (RelativeLayout) view.findViewById(R.id.btn_search_filter);
         categoryList = new ArrayList<Category>();
@@ -93,7 +98,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 FilterBottomSheetFragment bottomSheetFragment = new FilterBottomSheetFragment();
                 bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
                 break;
-
+            case R.id.ic_arrow_right:
+                Intent intent = new Intent(getActivity(),CatagoryActivity.class);
+                startActivity(intent);
+                break;
         }
     }
 }

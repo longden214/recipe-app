@@ -19,6 +19,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.CatagoryActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".activities.SearchActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".activities.CookingStepsActivity"
             android:exported="false" />
         <activity

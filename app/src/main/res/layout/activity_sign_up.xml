@@ -91,10 +91,42 @@
                 android:ems="10"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Enter Email"
-                android:inputType="textPersonName"
+                android:inputType="textEmailAddress"
                 android:paddingStart="20dp"
                 android:textColor="@color/black"
                 android:paddingEnd="20dp"
+                android:textSize="@dimen/_11ssp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:includeFontPadding="false"
+                android:text="Phone"
+                android:textColor="@color/text_color"
+                android:textSize="@dimen/_14ssp" />
+
+            <EditText
+                android:id="@+id/edt_phone"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:includeFontPadding="false"
+                android:background="@drawable/custom_edit_text_cut"
+                android:ems="10"
+                android:fontFamily="@font/poppins_regular"
+                android:hint="Enter Phone"
+                android:inputType="text"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:textColor="@color/black"
                 android:textSize="@dimen/_11ssp" />
         </LinearLayout>
 
@@ -162,25 +194,12 @@
                 android:textSize="@dimen/_11ssp" />
         </LinearLayout>
 
-        <CheckBox
-            android:id="@+id/checkBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="10dp"
-            android:button="@drawable/image_checkbox"
-            android:fontFamily="@font/poppins_regular"
-            android:minHeight="48dp"
-            android:includeFontPadding="false"
-            android:text="Accept terms &amp; Condition"
-            android:textColor="@color/forgot_pass"
-            android:textSize="@dimen/_11ssp" />
-
         <Button
-            android:id="@+id/medium_butt"
+            android:id="@+id/btn_sign_up"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="18dp"
+            android:layout_marginTop="18dp"
             android:background="@drawable/medium_butt"
             android:drawableEnd="@drawable/ic_arrow_forward_24"
             android:paddingStart="70dp"

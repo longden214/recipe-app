@@ -5,20 +5,33 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.adapter.CategoryAdapter;
+import com.quanglong.recipeapp.model.Category;
+import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
+    private RelativeLayout btn_filter;
+    private CategoryViewModel viewModel;
+    private List<Category> categoryList;
+    private CategoryAdapter categoryAdapter;
+    private RecyclerView category_recycler;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -34,9 +47,40 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        doInitialization(view);
 
-        RelativeLayout btn = (RelativeLayout) view.findViewById(R.id.btn_search_filter);
-        btn.setOnClickListener(this);
+        btn_filter.setOnClickListener(this);
+
+        setCategoryRecycler(categoryList);
+        getAllCategory();
+    }
+
+    private void doInitialization(View view) {
+        category_recycler = view.findViewById(R.id.category_list);
+        btn_filter = (RelativeLayout) view.findViewById(R.id.btn_search_filter);
+        categoryList = new ArrayList<Category>();
+        viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+    }
+
+    private void setCategoryRecycler(List<Category> categoryList) {
+//        category_recycler.setHasFixedSize(true);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
+        category_recycler.setLayoutManager(layoutManager);
+        categoryAdapter = new CategoryAdapter(getActivity(), categoryList);
+        category_recycler.setAdapter(categoryAdapter);
+    }
+
+    public void getAllCategory(){
+        viewModel.getAllCategory().observe(getViewLifecycleOwner(), res ->{
+            if (res != null){
+                if (res.size() > 0){
+                    int oldCount = categoryList.size();
+
+                    categoryList.addAll(res);
+                    categoryAdapter.notifyItemRangeInserted(oldCount,categoryList.size());
+                }
+            }
+        });
     }
 
     @Override

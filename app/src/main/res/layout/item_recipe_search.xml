@@ -1,0 +1,83 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_150sdp"
+    android:background="@drawable/bg_category">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardCornerRadius="@dimen/_10sdp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/rectangle_646" />
+
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/tv_chef_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:includeFontPadding="false"
+        android:translationZ="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:textColor="#D9D9D9"
+        android:textSize="@dimen/_8ssp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="By Chef John" />
+
+    <TextView
+        android:id="@+id/tv_recipe_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tv_chef_name"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:lineHeight="@dimen/_21ssp"
+        android:maxWidth="@dimen/_190sdp"
+        android:maxLines="2"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:text="spice roasted chicken with flavored rice"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14ssp"
+        android:translationZ="@dimen/_10sdp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="@dimen/_37sdp"
+        android:layout_height="@dimen/_16sdp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:backgroundTint="#FFE1B3"
+        app:cardCornerRadius="@dimen/_16sdp">
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="@dimen/_8sdp"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="8dp"
+            app:srcCompat="@drawable/ic_start" />
+
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="7dp"
+            android:text="4.0" />
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

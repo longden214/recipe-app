@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="190dp"
+    android:layout_width="140dp"
     android:background="@drawable/bg_category"
-    android:layout_height="250dp">
+    android:layout_marginEnd="@dimen/_10sdp"
+    android:layout_height="180dp">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -27,8 +28,8 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:layout_above="@id/txt_cate_recipe"
-        android:layout_marginStart="30dp"
-        android:textSize="@dimen/_16ssp"
+        android:layout_marginStart="17dp"
+        android:textSize="@dimen/_14ssp"
         android:translationZ="@dimen/_10sdp"
         android:layout_marginEnd="5dp"
         android:ellipsize="end"
@@ -42,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="30dp"
+        android:layout_marginStart="17dp"
         android:translationZ="@dimen/_10sdp"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/poppins_regular"

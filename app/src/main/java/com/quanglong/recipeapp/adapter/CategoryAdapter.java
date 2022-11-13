@@ -1,5 +1,7 @@
 package com.quanglong.recipeapp.adapter;
 
+import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,53 +10,61 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
-import com.quanglong.recipeapp.entity.Category;
+import com.quanglong.recipeapp.model.Category;
 
-import java.util.ArrayList;
+import java.util.List;
 
-public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.MyViewHolder> {
-    ArrayList<Category> mlist;
-    Context mContext;
+public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder> {
 
-    public CategoryAdapter(ArrayList<Category> _list, Context _mContext){
-        this.mlist = _list;
-        this.mContext = _mContext;
+    Context context;
+    List<Category> categoryList;
+
+
+    public CategoryAdapter(Context context, List<Category> categoryList) {
+        this.context = context;
+        this.categoryList = categoryList;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.item_categories,parent,false);
-        MyViewHolder mvh = new MyViewHolder(v);
+    public CategoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_home_category,parent,false);
 
-        return mvh;
+        return new CategoryViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.name.setText(mlist.get(position).getName());
-        holder.image.setImageResource(mlist.get(position).getImageRes());
-        holder.recipe.setText(mlist.get(position).getRecipe());
+    public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
+        Category category = categoryList.get(position);
+        if (category == null){
+            return;
+        }
+
+        setImageURL(holder.categoryImg, category.getImage());
+        holder.categoryName.setText(category.getName());
+        holder.totalRecipes.setText(category.getTotalRecipes() + " Recipes");
     }
 
     @Override
     public int getItemCount() {
-        return mlist.size();
+        return categoryList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView name;
-        ImageView image;
-        TextView recipe;
+    public static final class CategoryViewHolder extends RecyclerView.ViewHolder{
 
-        public MyViewHolder(View v){
-            super(v);
-            this.name = v.findViewById(R.id.tvname);
-            this.image = v.findViewById(R.id.ivImage);
-            this.recipe=v.findViewById(R.id.txtrecipe);
+        ImageView categoryImg;
+        TextView categoryName, totalRecipes;
+
+        public CategoryViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            categoryImg = itemView.findViewById(R.id.img_category);
+            categoryName = itemView.findViewById(R.id.txt_cate_name);
+            totalRecipes = itemView.findViewById(R.id.txt_cate_recipe);
         }
     }
 }

@@ -68,8 +68,8 @@
         <ImageView
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/forward_icon" />
     </RelativeLayout>
 
@@ -123,8 +123,8 @@
         <ImageView
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/forward_icon" />
     </RelativeLayout>
 
@@ -177,8 +177,8 @@
         <ImageView
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/forward_icon" />
     </RelativeLayout>
 
@@ -231,8 +231,8 @@
         <ImageView
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/forward_icon" />
     </RelativeLayout>
 
@@ -334,8 +334,8 @@
             android:id="@+id/btn_lang_arrow"
             android:layout_width="@dimen/_16sdp"
             android:layout_height="@dimen/_16sdp"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:src="@drawable/forward_icon" />
     </RelativeLayout>
 

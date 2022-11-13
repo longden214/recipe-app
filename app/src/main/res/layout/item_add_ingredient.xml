@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="ingredient"
+            type="com.quanglong.recipeapp.model.Ingredient" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        >
+
+        <EditText
+            android:id="@+id/ingredient_name"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:background="@drawable/custom_edit_text_cut"
+            android:ems="10"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Item name"
+            android:includeFontPadding="false"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textColor="#303030"
+            android:text="@={ingredient.name}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:textSize="@dimen/_11ssp" />
+
+        <EditText
+            android:id="@+id/ingredient_quantity"
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:background="@drawable/custom_edit_text_cut"
+            android:ems="10"
+            android:fontFamily="@font/poppins_regular"
+            android:hint="Quantity"
+            android:maxWidth="@dimen/_115sdp"
+            android:includeFontPadding="false"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:inputType="text"
+            android:text="@={ingredient.quantity}"
+            android:paddingStart="16dp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:paddingEnd="16dp"
+            android:textColor="#303030"
+            android:textSize="@dimen/_11ssp"
+            app:layout_constraintBottom_toBottomOf="@+id/ingredient_name"
+            app:layout_constraintEnd_toStartOf="@id/btn_remove_ingredient"
+            app:layout_constraintStart_toEndOf="@id/ingredient_name"
+            app:layout_constraintTop_toTopOf="@+id/ingredient_name" />
+
+        <ImageView
+            android:id="@+id/btn_remove_ingredient"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/ingredient_quantity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ingredient_quantity"
+            app:srcCompat="@drawable/ic_add_ingredient" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

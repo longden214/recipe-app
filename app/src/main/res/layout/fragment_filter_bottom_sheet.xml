@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/_15sdp"
+    tools:context=".fragments.FilterBottomSheetFragment">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:text="Filter Search"
+        android:textColor="#000000"
+        android:textSize="@dimen/_14ssp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Time"
+        android:textColor="#000000"
+        android:textSize="@dimen/_14ssp" />
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+        android:id="@+id/time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:justifyContent="flex_start"> <!-- this attribute is from the underlying FlexboxLayout -->
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="All"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btn2"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Newest"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btn3"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Oldest"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/btn4"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Popularity"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Rate"
+        android:textColor="#000000"
+        android:textSize="@dimen/_14ssp" />
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:justifyContent="flex_start">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/rate_5"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="38dp"
+            app:toggle_icon="@drawable/ic_filter_star_24"
+            app:toggle_iconPaddingLeft="@dimen/_30sdp"
+            app:toggle_iconPaddingRight="@dimen/_10sdp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="5"
+            app:toggle_textGravity="left|center"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_14ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/rate_4"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="38dp"
+            app:toggle_icon="@drawable/ic_filter_star_24"
+            app:toggle_iconPaddingLeft="@dimen/_30sdp"
+            app:toggle_iconPaddingRight="@dimen/_10sdp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="4"
+            app:toggle_textGravity="left|center"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_14ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/rate_3"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="38dp"
+            app:toggle_icon="@drawable/ic_filter_star_24"
+            app:toggle_iconPaddingLeft="@dimen/_30sdp"
+            app:toggle_iconPaddingRight="@dimen/_10sdp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="3"
+            app:toggle_textGravity="left|center"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_14ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/rate_2"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="38dp"
+            app:toggle_icon="@drawable/ic_filter_star_24"
+            app:toggle_iconPaddingLeft="@dimen/_30sdp"
+            app:toggle_iconPaddingRight="@dimen/_10sdp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="2"
+            app:toggle_textGravity="left|center"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_14ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:id="@+id/rate_1"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="38dp"
+            app:toggle_icon="@drawable/ic_filter_star_24"
+            app:toggle_iconPaddingLeft="@dimen/_30sdp"
+            app:toggle_iconPaddingRight="@dimen/_10sdp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="1"
+            app:toggle_textGravity="left|center"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_14ssp" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Category"
+        android:textColor="#000000"
+        android:textSize="@dimen/_14ssp" />
+
+    <nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:flexWrap="wrap"
+        app:toggle_selectableAmount="999"
+        app:justifyContent="flex_start">
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_iconGravity="end"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="All"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Cereal"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Vegetables"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Dinner"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Chinese"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Local Dish"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Fruit"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="BreakFast"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Spanish"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Chinese"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+        <nl.bryanderidder.themedtogglebuttongroup.ThemedButton
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_margin="3dp"
+            app:toggle_backgroundColor="@color/white"
+            app:toggle_borderColor="#71B1A1"
+            app:toggle_borderWidth="1dp"
+            app:toggle_selectedBackgroundColor="#71B1A1"
+            app:toggle_selectedTextColor="@color/white"
+            app:toggle_text="Lunch"
+            app:toggle_textColor="#71B1A1"
+            app:toggle_textSize="@dimen/_11ssp" />
+
+    </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
+
+    <Button
+        android:id="@+id/btn_filter"
+        android:layout_width="@dimen/_174sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:backgroundTint="#129575"
+        android:text="Filter"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_13ssp" />
+
+</LinearLayout>

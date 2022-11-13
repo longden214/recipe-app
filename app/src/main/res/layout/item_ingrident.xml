@@ -10,13 +10,13 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginStart="@dimen/_15sdp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semibold"
         android:includeFontPadding="false"
         android:maxLines="1"
-        android:ellipsize="end"
+        android:text="Tomatos"
         android:textColor="#121212"
-        android:fontFamily="@font/poppins_semibold"
-        android:textSize="@dimen/_16ssp"
-        android:text="Tomatos" />
+        android:textSize="@dimen/_16ssp" />
 
     <TextView
         android:id="@+id/textView25"

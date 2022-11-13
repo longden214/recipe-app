@@ -11,12 +11,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ImageView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.activities.SearchActivity;
 import com.quanglong.recipeapp.adapter.CategoryAdapter;
 import com.quanglong.recipeapp.model.Category;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
@@ -35,7 +39,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private List<Category> categoryList;
     private CategoryAdapter categoryAdapter;
     private RecyclerView category_recycler;
-    ImageView imageView;
+    private LinearLayout category_see_all;
+    private EditText edt_search;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -54,21 +59,33 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         doInitialization(view);
 
         btn_filter.setOnClickListener(this);
-        imageView.setOnClickListener(this);
+        category_see_all.setOnClickListener(this);
+
+        edt_search.setOnTouchListener(new View.OnTouchListener()
+        {
+            public boolean onTouch(View arg0, MotionEvent arg1)
+            {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+
+                return false;
+            }
+        });
+
         setCategoryRecycler(categoryList);
         getAllCategory();
     }
 
     private void doInitialization(View view) {
-        imageView = view.findViewById(R.id.ic_arrow_right);
+        category_see_all = view.findViewById(R.id.category_see_all);
         category_recycler = view.findViewById(R.id.category_list);
+        edt_search = view.findViewById(R.id.edt_search);
         btn_filter = (RelativeLayout) view.findViewById(R.id.btn_search_filter);
         categoryList = new ArrayList<Category>();
         viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
     }
 
     private void setCategoryRecycler(List<Category> categoryList) {
-//        category_recycler.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         category_recycler.setLayoutManager(layoutManager);
         categoryAdapter = new CategoryAdapter(getActivity(), categoryList);
@@ -95,12 +112,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         switch (id) {
 
             case R.id.btn_search_filter:
-                FilterBottomSheetFragment bottomSheetFragment = new FilterBottomSheetFragment();
-                bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
-                break;
-            case R.id.ic_arrow_right:
-                Intent intent = new Intent(getActivity(),CatagoryActivity.class);
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
+
+                break;
+            case R.id.category_see_all:
+                Intent intent2 = new Intent(getActivity(),CatagoryActivity.class);
+                startActivity(intent2);
                 break;
         }
     }

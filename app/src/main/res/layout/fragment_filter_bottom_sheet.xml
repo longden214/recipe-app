@@ -350,7 +350,7 @@
     </nl.bryanderidder.themedtogglebuttongroup.ThemedToggleButtonGroup>
 
     <Button
-        android:id="@+id/btn_sign_in"
+        android:id="@+id/btn_filter"
         android:layout_width="@dimen/_174sdp"
         android:layout_height="@dimen/_45sdp"
         android:layout_gravity="center"

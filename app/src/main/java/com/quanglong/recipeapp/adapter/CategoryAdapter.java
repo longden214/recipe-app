@@ -44,7 +44,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
             return;
         }
 
-        setImageURL(holder.categoryImg, "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=480&q=80");
+        setImageURL(holder.categoryImg, category.getImage());
         holder.categoryName.setText(category.getName());
         holder.totalRecipes.setText(category.getTotalRecipes() + " Recipes");
     }

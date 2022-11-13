@@ -16,6 +16,13 @@ public class CategoryViewModel extends ViewModel {
     }
 
     public LiveData<List<Category>> getAllCategory() {
+
         return categoryRepository.getAllCategory();
+    }
+
+    public LiveData<List<Category>> getCategoryWithParam(String keyword,boolean isGetAll,boolean sortIdDESC,
+                                                         boolean sortNameASC,boolean sortTotalRecipeDESC,int pageIndex,int pageSize) {
+
+        return categoryRepository.getCategoryWithParam(keyword,isGetAll,sortIdDESC,sortNameASC,sortTotalRecipeDESC,pageIndex,pageSize);
     }
 }

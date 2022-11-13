@@ -65,7 +65,6 @@ public class CatagoryActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-
     private void doInitialization() {
         this.toolbar = findViewById(R.id.toolbar);
         this.tv_title = findViewById(R.id.toolbar_title);

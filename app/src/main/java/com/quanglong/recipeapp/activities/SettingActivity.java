@@ -19,12 +19,15 @@ import android.widget.TextView;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
+import com.quanglong.recipeapp.utilities.UserLocalStore;
 
 public class SettingActivity extends AppCompatActivity {
     RelativeLayout rv_account;
     RelativeLayout rv_password;
     Toolbar toolbar;
     TextView tv_title;
+    TextView btn_signout;
+    UserLocalStore userLocalStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,13 @@ public class SettingActivity extends AppCompatActivity {
             overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
 
+        this.btn_signout.setOnClickListener(view -> {
+            userLocalStore.clearUserData();
+            userLocalStore.setUserLoggedIn(false);
+            Intent loginIntent = new Intent(this, SignInActivity.class);
+            startActivity(loginIntent);
+        });
+
     }
 
     public void doInitialization(){
@@ -53,6 +63,8 @@ public class SettingActivity extends AppCompatActivity {
         this.rv_password = (RelativeLayout) findViewById(R.id.password_setting);
         this.toolbar = findViewById(R.id.toolbar);
         this.tv_title = findViewById(R.id.toolbar_title);
+        this.btn_signout = findViewById(R.id.btn_signout);
+        this.userLocalStore = new UserLocalStore(this);
     }
 
     private void customActionBar() {

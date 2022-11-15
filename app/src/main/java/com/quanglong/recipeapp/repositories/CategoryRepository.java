@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.quanglong.recipeapp.apiServices.CategoryAPIService;
 import com.quanglong.recipeapp.model.Category;
 import com.quanglong.recipeapp.network.ApiClient;
+import com.quanglong.recipeapp.responses.CategoryResponse;
 
 import java.util.List;
 
@@ -39,18 +40,18 @@ public class CategoryRepository {
         return data;
     }
 
-    public LiveData<List<Category>> getCategoryWithParam(String keyword,boolean isGetAll,boolean sortIdDESC,
-                                                         boolean sortNameASC,boolean sortTotalRecipeDESC,int pageIndex,int pageSize){
-        MutableLiveData<List<Category>> data = new MutableLiveData<>();
+    public LiveData<CategoryResponse> getCategoryWithParam(String keyword, boolean isGetAll, boolean sortIdDESC,
+                                                           boolean sortNameASC, boolean sortTotalRecipeDESC, int pageIndex, int pageSize){
+        MutableLiveData<CategoryResponse> data = new MutableLiveData<>();
 
-        apiService.getCategoryWithParam(keyword,isGetAll,sortIdDESC,sortNameASC,sortTotalRecipeDESC,pageIndex,pageSize).enqueue(new Callback<List<Category>>() {
+        apiService.getCategoryWithParam(keyword,isGetAll,sortIdDESC,sortNameASC,sortTotalRecipeDESC,pageIndex,pageSize).enqueue(new Callback<CategoryResponse>() {
             @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
                 data.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
+            public void onFailure(Call<CategoryResponse> call, Throwable t) {
                 data.setValue(null);
             }
         });

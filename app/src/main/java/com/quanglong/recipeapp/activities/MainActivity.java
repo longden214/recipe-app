@@ -15,10 +15,13 @@ import com.quanglong.recipeapp.fragments.HomeFragment;
 import com.quanglong.recipeapp.fragments.NotificationFragment;
 import com.quanglong.recipeapp.fragments.ProfileFragment;
 import com.quanglong.recipeapp.fragments.SaveFragment;
+import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
+import com.quanglong.recipeapp.utilities.UserLocalStore;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
+    UserLocalStore userLocalStore;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton btn_add_recipe;
 
@@ -47,8 +50,17 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         });
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (authenticate() == true) {
+            displayUserDetails();
+        }
+    }
+
     private void doInitialization() {
         this.btn_add_recipe = findViewById(R.id.btn_add_recipe);
+        userLocalStore = new UserLocalStore(this);
     }
 
     @Override
@@ -68,5 +80,19 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
                 return true;
         }
         return false;
+    }
+
+    private boolean authenticate() {
+        if (userLocalStore.getLoggedInUser() == null) {
+            Intent intent = new Intent(this, SignInActivity.class);
+            startActivity(intent);
+
+            return false;
+        }
+        return true;
+    }
+
+    private void displayUserDetails() {
+        UserLoginResponse user = userLocalStore.getLoggedInUser();
     }
 }

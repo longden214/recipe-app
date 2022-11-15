@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.CategoryAllAdapter;
 import com.quanglong.recipeapp.model.Category;
+import com.quanglong.recipeapp.responses.CategoryResponse;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
 
@@ -43,14 +44,14 @@ public class CatagoryActivity extends AppCompatActivity {
 
     private void getCategoryAll() {
         viewModel.getCategoryWithParam("", true, true, false,
-                true, 1, 10).observe(this, new Observer<List<Category>>() {
+                true, 1, 10).observe(this, new Observer<CategoryResponse>() {
             @Override
-            public void onChanged(List<Category> categories) {
+            public void onChanged(CategoryResponse categories) {
                 if (categories != null) {
-                    if (categories.size() > 0) {
+                    if (categories.getTvShows().size() > 0) {
                         int oldCount = mlistCategory.size();
 
-                        mlistCategory.addAll(categories);
+                        mlistCategory.addAll(categories.getTvShows());
                         adapter.notifyItemRangeInserted(oldCount, mlistCategory.size());
                     }
                 }

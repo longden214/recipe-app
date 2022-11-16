@@ -16,7 +16,7 @@ public class CategoryResponse {
         return totalPage;
     }
 
-    public List<Category> getTvShows() {
+    public List<Category> getCaregoties() {
         return categoryViewModels;
     }
 }

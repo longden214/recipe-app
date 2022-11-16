@@ -1,7 +1,14 @@
 package com.quanglong.recipeapp.model;
 
-public class Ingredient {
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
+    @SerializedName("name")
     public String name;
+
+    @SerializedName("unitOfMeasurement")
     public String quantity;
 
     public Ingredient() {

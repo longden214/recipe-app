@@ -59,4 +59,20 @@
     <style name="Theme.RecipeApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.RecipeApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="CustomPickerTheme" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">true</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="colorPrimary">@color/white</item>
+        <item name="toolbarStyle">@style/ToolbarTheme</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar.Light." parent="ThemeOverlay.MaterialComponents.Toolbar.Primary">
+        <item name="colorOnPrimary">@color/white</item>
+    </style>
+
+    <style name="SmoothCheckBoxStyle.">
+        <item name="color_checked">@color/purple_500</item>
+        <item name="color_tick">@color/white</item>
+    </style>
 </resources>

@@ -25,6 +25,7 @@ import java.util.List;
 public class CatagoryActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView tv_title;
+
     private RecyclerView recyclerView;
     private ArrayList<Category> mlistCategory = new ArrayList<>();
     private CategoryViewModel viewModel;
@@ -48,10 +49,10 @@ public class CatagoryActivity extends AppCompatActivity {
             @Override
             public void onChanged(CategoryResponse categories) {
                 if (categories != null) {
-                    if (categories.getTvShows().size() > 0) {
+                    if (categories.getCaregoties().size() > 0) {
                         int oldCount = mlistCategory.size();
 
-                        mlistCategory.addAll(categories.getTvShows());
+                        mlistCategory.addAll(categories.getCaregoties());
                         adapter.notifyItemRangeInserted(oldCount, mlistCategory.size());
                     }
                 }

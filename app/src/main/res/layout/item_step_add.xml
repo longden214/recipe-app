@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-            <variable
-                name="step"
-                type="com.quanglong.recipeapp.model.Step" />
+
+        <variable
+            name="step"
+            type="com.quanglong.recipeapp.model.Step" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,35 +23,34 @@
             android:includeFontPadding="false"
             android:text='@{"Step " + step.stepNumber}'
             android:textColor="#303030"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
-            android:textSize="18sp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/edt_description"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:gravity="top|left"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@drawable/custom_edit_text_cut"
             android:fontFamily="@font/poppins_regular"
+            android:gravity="top|left"
+            android:hint="Write a comment"
             android:includeFontPadding="false"
             android:inputType="textMultiLine"
-            android:textSize="@dimen/_11ssp"
-            android:padding="16dp"
-            android:text="@{step.description}"
-            android:hint="Write a comment"
-            android:textColor="#303030"
-            android:background="@drawable/custom_edit_text_cut"
             android:lines="10"
             android:maxLines="15"
             android:minWidth="32dp"
             android:minLines="5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/step_number"
-            app:layout_constraintEnd_toStartOf="@id/btn_remove_step"
+            android:padding="16dp"
+            android:text="@={step.description}"
+            android:textColor="#303030"
+            android:textSize="@dimen/_11ssp"
             app:layout_constraintBottom_toBottomOf="parent"
-            />
+            app:layout_constraintEnd_toStartOf="@id/btn_remove_step"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/step_number" />
 
         <ImageView
             android:id="@+id/btn_remove_step"
@@ -62,4 +62,5 @@
             app:srcCompat="@drawable/ic_add_ingredient" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

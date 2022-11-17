@@ -19,7 +19,8 @@ import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
+
+import com.quanglong.recipeapp.responses.CategoryResponses;
 
 public class CatagoryActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -43,14 +44,14 @@ public class CatagoryActivity extends AppCompatActivity {
 
     private void getCategoryAll() {
         viewModel.getCategoryWithParam("", true, true, false,
-                true, 1, 10).observe(this, new Observer<List<Category>>() {
+                true, 1, 10).observe(this, new Observer<CategoryResponses>() {
             @Override
-            public void onChanged(List<Category> categories) {
-                if (categories != null) {
-                    if (categories.size() > 0) {
+            public void onChanged(CategoryResponses categoryResponses) {
+                if (categoryResponses.getCategoryShow() != null) {
+                    if (categoryResponses.getCategoryShow().size() > 0) {
                         int oldCount = mlistCategory.size();
 
-                        mlistCategory.addAll(categories);
+                        mlistCategory.addAll(categoryResponses.getCategoryShow());
                         adapter.notifyItemRangeInserted(oldCount, mlistCategory.size());
                     }
                 }

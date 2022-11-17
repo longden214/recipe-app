@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="@dimen/_100sdp"
-    android:layout_marginEnd="@dimen/_10sdp"
+    android:layout_width="@dimen/_90sdp"
      android:layout_height="wrap_content">
 
     <LinearLayout
@@ -23,7 +22,7 @@
             android:src="@drawable/avatar2" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/textuser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
@@ -36,17 +35,18 @@
             android:lineHeight="@dimen/_14ssp"
             android:maxLines="2"
             android:text="Jane Surry"
-            android:textSize="@dimen/_14ssp" />
+            android:textSize="@dimen/_12ssp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/imageView4"
-                android:layout_width="@dimen/_15sdp"
-                android:layout_height="@dimen/_15sdp"
+                android:layout_width="@dimen/_11sdp"
+                android:layout_height="@dimen/_11sdp"
                 android:layout_gravity="right"
                 android:layout_weight="1"
                 android:paddingStart="@dimen/_20sdp"
@@ -64,7 +64,7 @@
                 android:maxLines="1"
                 android:text="4077"
                 android:textColor="#A9A9A9"
-                android:textSize="@dimen/_11ssp" />
+                android:textSize="@dimen/_8ssp" />
         </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

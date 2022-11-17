@@ -3,13 +3,9 @@ package com.quanglong.recipeapp.repositories;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.quanglong.recipeapp.apiServices.CategoryAPIService;
 import com.quanglong.recipeapp.apiServices.UserService;
-import com.quanglong.recipeapp.model.Category;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.network.ApiClient;
-
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;

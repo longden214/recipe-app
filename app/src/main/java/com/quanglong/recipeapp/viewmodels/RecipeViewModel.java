@@ -9,6 +9,8 @@ import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.repositories.RecipeRepository;
 import com.quanglong.recipeapp.repositories.UserRepository;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
+import com.quanglong.recipeapp.model.RecipeRequest;
+import com.quanglong.recipeapp.responses.RecipeResponse;
 
 import okhttp3.MultipartBody;
 
@@ -17,6 +19,10 @@ public class RecipeViewModel extends ViewModel {
 
     public RecipeViewModel() {
         recipeRepository = new RecipeRepository();
+    }
+
+    public LiveData<RecipeResponse> getAllNewRecipe(RecipeRequest newRequest){
+        return  newRecipeRepository.getAllNewRecipe(newRequest);
     }
 
     public LiveData<String> createUser(RecipeDataRequest dataRequest, MultipartBody.Part file) {

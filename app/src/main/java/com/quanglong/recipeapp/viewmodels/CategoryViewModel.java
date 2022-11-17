@@ -8,6 +8,8 @@ import com.quanglong.recipeapp.repositories.CategoryRepository;
 
 import java.util.List;
 
+import com.quanglong.recipeapp.responses.CategoryResponses;
+
 public class CategoryViewModel extends ViewModel {
     private CategoryRepository categoryRepository;
 
@@ -20,8 +22,8 @@ public class CategoryViewModel extends ViewModel {
         return categoryRepository.getAllCategory();
     }
 
-    public LiveData<List<Category>> getCategoryWithParam(String keyword,boolean isGetAll,boolean sortIdDESC,
-                                                         boolean sortNameASC,boolean sortTotalRecipeDESC,int pageIndex,int pageSize) {
+    public LiveData<CategoryResponses> getCategoryWithParam(String keyword, boolean isGetAll, boolean sortIdDESC,
+                                                            boolean sortNameASC, boolean sortTotalRecipeDESC, int pageIndex, int pageSize) {
 
         return categoryRepository.getCategoryWithParam(keyword,isGetAll,sortIdDESC,sortNameASC,sortTotalRecipeDESC,pageIndex,pageSize);
     }

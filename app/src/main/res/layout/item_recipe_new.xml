@@ -62,5 +62,8 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:textSize="@dimen/_10ssp" />
+
+
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

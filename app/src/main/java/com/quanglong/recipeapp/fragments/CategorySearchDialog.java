@@ -34,6 +34,7 @@ public class CategorySearchDialog extends DialogFragment implements View.OnClick
     private ArrayList<Category> mlistCategory = new ArrayList<>();
     private CategoryViewModel viewModel;
     private CategorySearchAdapter adapter;
+
     private int currentPage = 1;
     private int totalAvailablePages = 1;
     private ProgressBar progressBar_loading;

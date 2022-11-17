@@ -11,6 +11,7 @@ import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.network.ApiClient;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,10 +23,10 @@ public class RecipeRepository {
         apiService = ApiClient.getRetrofit().create(RecipeService.class);
     }
 
-    public LiveData<String> RecipeInsert(RecipeDataRequest dataRequest){
+    public LiveData<String> RecipeInsert(RecipeDataRequest dataRequest, MultipartBody.Part file ){
         MutableLiveData<String> data = new MutableLiveData<>();
 
-        apiService.RecipeInsert(dataRequest).enqueue(new Callback<String>() {
+        apiService.RecipeInsert(dataRequest,file).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 data.setValue(response.body());

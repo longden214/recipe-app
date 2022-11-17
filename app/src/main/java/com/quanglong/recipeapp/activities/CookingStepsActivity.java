@@ -10,7 +10,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.FileUtils;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -24,12 +27,18 @@ import com.quanglong.recipeapp.listener.StepListener;
 import com.quanglong.recipeapp.model.Ingredient;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.Step;
+import com.quanglong.recipeapp.utilities.RealPathUtil;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
 import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class CookingStepsActivity extends AppCompatActivity implements View.OnClickListener, StepListener {
     private Toolbar toolbar;
@@ -38,6 +47,7 @@ public class CookingStepsActivity extends AppCompatActivity implements View.OnCl
     private StepAddAdapter stepAddAdapter;
     private RecipeDataRequest recipe_request;
     private RecipeViewModel viewModel;
+    private Uri img_uri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +94,7 @@ public class CookingStepsActivity extends AppCompatActivity implements View.OnCl
         this.binding = DataBindingUtil.setContentView(this, R.layout.activity_cooking_steps);
         this.viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         this.recipe_request = (RecipeDataRequest) getIntent().getSerializableExtra("recipe_request");
+        this.img_uri = Uri.parse(getIntent().getStringExtra("imageUri"));
 
         Step st = new Step();
         st.setDescription("");
@@ -102,7 +113,18 @@ public class CookingStepsActivity extends AppCompatActivity implements View.OnCl
                 if (checkAllField()){
                     recipe_request.setListSteps(steps);
 
-                    viewModel.createUser(recipe_request).observe(this, new Observer<String>() {
+                    String strRealPath = RealPathUtil.getRealPath(this,img_uri);
+                    Log.e("get real path",strRealPath);
+                    File file = new File(strRealPath);
+
+                    RequestBody requestBody = RequestBody.create(
+                            MediaType.parse(getContentResolver().getType(img_uri)),
+                            file);
+
+                    MultipartBody.Part filePart =
+                            MultipartBody.Part.createFormData("recipe_img", file.getName(), requestBody);
+
+                    viewModel.createUser(recipe_request,filePart).observe(this, new Observer<String>() {
                         @Override
                         public void onChanged(String s) {
                             if (s.equals("Success!")){

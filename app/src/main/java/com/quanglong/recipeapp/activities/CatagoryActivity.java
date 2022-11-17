@@ -2,6 +2,8 @@ package com.quanglong.recipeapp.activities;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,11 +27,16 @@ import java.util.List;
 public class CatagoryActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private TextView tv_title;
-
     private RecyclerView recyclerView;
     private ArrayList<Category> mlistCategory = new ArrayList<>();
     private CategoryViewModel viewModel;
     private CategoryAllAdapter adapter;
+    private int currentPage = 1;
+    private int totalAvailablePages = 1;
+    private ProgressBar progressBar_loading;
+    private ProgressBar progressBar_more;
+    private boolean isLoading = false;
+    private boolean isLoadingMore = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,15 +48,56 @@ public class CatagoryActivity extends AppCompatActivity {
 
         setCategoryAllRecycler(mlistCategory);
         getCategoryAll();
+
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!recyclerView.canScrollVertically(1)) {
+                    if (currentPage < totalAvailablePages) {
+                        currentPage += 1;
+                        getCategoryAll();
+                    }
+                }
+            }
+        });
+    }
+
+    private void toggleLoading() {
+        if (currentPage == 1) {
+            // dữ liêu server trả về thành công
+            if (isLoading) {
+                progressBar_loading.setVisibility(View.GONE);
+                isLoading = false;
+            } else {// đang trong quá trình load dữ liệu từ server
+                progressBar_loading.setVisibility(View.VISIBLE);
+            }
+        } else {
+            // dữ liêu server page tiếp theo trả về thành công
+            if (isLoadingMore) {
+                progressBar_more.setVisibility(View.GONE);
+                isLoadingMore = false;
+            } else {
+                progressBar_more.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     private void getCategoryAll() {
+        toggleLoading();
         viewModel.getCategoryWithParam("", true, true, false,
-                true, 1, 10).observe(this, new Observer<CategoryResponse>() {
+                true, currentPage, 10).observe(this, new Observer<CategoryResponse>() {
             @Override
             public void onChanged(CategoryResponse categories) {
                 if (categories != null) {
+                    totalAvailablePages = categories.getTotalPage();
                     if (categories.getCaregoties().size() > 0) {
+                        if (currentPage == 1) {
+                            isLoading = true;
+                        } else {
+                            isLoadingMore = true;
+                        }
+                        toggleLoading();
                         int oldCount = mlistCategory.size();
 
                         mlistCategory.addAll(categories.getCaregoties());
@@ -72,6 +120,8 @@ public class CatagoryActivity extends AppCompatActivity {
         this.tv_title = findViewById(R.id.toolbar_title);
         recyclerView = (RecyclerView) findViewById(R.id.rvMain);
         viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+        progressBar_loading = findViewById(R.id.progressBar_loading);
+        progressBar_more = findViewById(R.id.progressBar_more);
     }
 
     private void customActionBar() {

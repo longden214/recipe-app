@@ -1,6 +1,9 @@
 package com.quanglong.recipeapp.fragments;
 
+import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -32,6 +35,8 @@ import java.util.ArrayList;
 import java.util.List;
 import com.quanglong.recipeapp.activities.CatagoryActivity;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
@@ -47,6 +52,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     private LinearLayout new_see_all;
     private LinearLayout trending_see_all;
     private EditText edt_search;
+    private CircleImageView avatar;
+    private SharedPreferences userLocalDatabase;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -70,6 +77,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         new_see_all.setOnClickListener(this);
         trending_see_all.setOnClickListener(this);
 
+        setImageURL(avatar, userLocalDatabase.getString("avatar", ""));
+
         edt_search.setOnTouchListener(new View.OnTouchListener()
         {
             public boolean onTouch(View arg0, MotionEvent arg1)
@@ -92,12 +101,15 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         trending_see_all = view.findViewById(R.id.trending_see_all);
         category_recycler = view.findViewById(R.id.category_list);
         edt_search = view.findViewById(R.id.edt_search);
+        avatar = view.findViewById(R.id.home_avatar);
         btn_filter = (RelativeLayout) view.findViewById(R.id.btn_search_filter);
         categoryList = new ArrayList<Category>();
         viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+        this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
     }
 
     private void setCategoryRecycler(List<Category> categoryList) {
+        category_recycler.setHasFixedSize(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         category_recycler.setLayoutManager(layoutManager);
         categoryAdapter = new CategoryAdapter(getActivity(), categoryList);

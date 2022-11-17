@@ -131,6 +131,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
 
                     Intent intent2 = new Intent(AddRecipeActivity.this, CookingStepsActivity.class);
                     intent2.putExtra("recipe_request", data);
+                    intent2.putExtra("imageUri", images_picker.get(0).toString());
                     startActivity(intent2);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }

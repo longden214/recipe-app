@@ -18,7 +18,7 @@
         android:drawablePadding="8dp"
         android:paddingEnd="10dp"
         android:ems="10"
-        android:hint="@android:string/search_go"
+        android:hint="Search category"
         android:inputType="textPersonName"
         android:paddingStart="16dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_cancel"

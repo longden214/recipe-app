@@ -70,16 +70,17 @@
                         app:cardCornerRadius="@dimen/_10sdp">
 
                         <ImageView
-                            android:id="@+id/imageView2"
+                            android:id="@+id/recipe_image"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:clipToOutline="true"
                             android:scaleType="centerCrop"
-                            app:srcCompat="@drawable/rectangle_646" />
+                            app:srcCompat="@drawable/noimage" />
 
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/btn_pick_image"
                         android:layout_width="@dimen/_26sdp"
                         android:layout_height="@dimen/_26sdp"
                         android:layout_alignParentEnd="true"
@@ -99,7 +100,7 @@
                 </RelativeLayout>
 
                 <EditText
-                    android:id="@+id/edt_email"
+                    android:id="@+id/edt_name"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginStart="@dimen/_16sdp"
@@ -111,7 +112,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:hint="Name"
                     android:includeFontPadding="false"
-                    android:inputType="textPersonName"
+                    android:inputType="text"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:textColor="@color/black"
@@ -164,6 +165,7 @@
                         android:src="@drawable/forward_icon" />
 
                     <TextView
+                        android:id="@+id/category_selected"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
@@ -171,8 +173,8 @@
                         android:layout_toLeftOf="@+id/btn_choose"
                         android:fontFamily="@font/poppins_regular"
                         android:includeFontPadding="false"
-                        android:text="Breakfast"
-                        android:textColor="#121212"
+                        android:text="Choose..."
+                        android:textColor="#2196F3"
                         android:textSize="14sp" />
 
                 </RelativeLayout>
@@ -224,7 +226,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/itemName"
+                        android:id="@+id/cook_time"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -448,6 +450,7 @@
                         android:textSize="16sp" />
 
                     <EditText
+                        android:id="@+id/protein"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -488,6 +491,7 @@
                         android:textSize="16sp" />
 
                     <EditText
+                        android:id="@+id/calories"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -527,6 +531,7 @@
                         android:textSize="16sp" />
 
                     <EditText
+                        android:id="@+id/fat"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
@@ -567,6 +572,7 @@
                         android:textSize="16sp" />
 
                     <EditText
+                        android:id="@+id/carbohydrate"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"

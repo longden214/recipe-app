@@ -397,4 +397,17 @@
         android:layout_centerInParent="true"
         android:background="#D9D9D9" />
 
+    <TextView
+        android:id="@+id/btn_signout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:includeFontPadding="false"
+        android:text="Signout"
+        android:textColor="#2196F3"
+        android:textSize="16dp" />
+
 </LinearLayout>

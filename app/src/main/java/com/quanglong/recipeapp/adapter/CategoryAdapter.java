@@ -14,6 +14,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.listener.CategoryListener;
 import com.quanglong.recipeapp.model.Category;
 
 import java.util.List;
@@ -22,11 +23,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     Context context;
     List<Category> categoryList;
+    private CategoryListener categoryListener;
 
-
-    public CategoryAdapter(Context context, List<Category> categoryList) {
+    public CategoryAdapter(Context context, List<Category> categoryList,CategoryListener _categoryListener) {
         this.context = context;
         this.categoryList = categoryList;
+        this.categoryListener = _categoryListener;
     }
 
     @NonNull
@@ -47,6 +49,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         setImageURL(holder.categoryImg, category.getImage());
         holder.categoryName.setText(category.getName());
         holder.totalRecipes.setText(category.getTotalRecipes() + " Recipes");
+        holder.itemView.setOnClickListener(view -> { categoryListener.onCategoryClicked(category.getId(), category.getName()); });
     }
 
     @Override

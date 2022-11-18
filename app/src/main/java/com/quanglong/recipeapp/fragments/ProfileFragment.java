@@ -1,5 +1,7 @@
 package com.quanglong.recipeapp.fragments;
 
+import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -28,6 +30,10 @@ import androidx.fragment.app.Fragment;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.activities.SettingActivity;
+import com.quanglong.recipeapp.responses.UserLoginResponse;
+import com.quanglong.recipeapp.utilities.UserLocalStore;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +43,17 @@ public class ProfileFragment extends Fragment {
     Button button;
     ImageView imagesetting;
     Toolbar toolbar;
+    TextView txt_description;
     TextView tv_title;
+    TextView dplName;
+    UserLocalStore userLocalStore;
+    UserLoginResponse user;
+    private CircleImageView profile_image;
+    private TextView itemrecipe;
+    private TextView itemFollwer;
+    private TextView itemFollwing;
+    private TextView job;
+    private TextView total_item;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -49,14 +65,24 @@ public class ProfileFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         setHasOptionsMenu(true);
 
-        // Inflate the layout for this fragment
-        TextView txt_description = (TextView) view.findViewById(R.id.description);
+        return view;
+    }
 
-        if (txt_description.getLineCount() > 2) {
-            addReadMore(txt_description.getText().toString(), txt_description);
-        }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        doInitialization(view);
 
-        button = view.findViewById(R.id.change_profile);
+        user = userLocalStore.getLoggedInUser();
+
+        toolbar = view.findViewById(R.id.toolbar);
+        this.tv_title = view.findViewById(R.id.toolbar_title);
+        AppCompatActivity activity = (AppCompatActivity) getActivity();
+
+        activity.setSupportActionBar(toolbar);
+        activity.getSupportActionBar().setTitle("");
+        this.tv_title.setText("Profile");
+
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,21 +97,32 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        return view;
+        this.dplName.setText(user.getDisplayName());
+        this.txt_description.setText(user.getDescription());
+
+        if (txt_description.getLineCount() > 2) {
+            addReadMore(txt_description.getText().toString(), txt_description);
+        }
+        setImageURL(profile_image, user.getAvatar());
+        this.itemrecipe.setText(String.valueOf(user.getTotalRecipe()));
+        this.itemFollwer.setText(String.valueOf(user.getTotalFollowedByOthersUser()));
+        this.itemFollwing.setText(String.valueOf(user.getTotalFollowOtherUser()));
+        this.job.setText(user.getJob());
+        this.total_item.setText(user.getTotalRecipe() + " item");
     }
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        toolbar = view.findViewById(R.id.toolbar);
-        this.tv_title = view.findViewById(R.id.toolbar_title);
-        AppCompatActivity activity = (AppCompatActivity) getActivity();
-
-        activity.setSupportActionBar(toolbar);
-        activity.getSupportActionBar().setTitle("");
-        this.tv_title.setText("Profile");
-
+    private void doInitialization(View view) {
+        userLocalStore = new UserLocalStore(getActivity());
+        user = new UserLoginResponse();
+        this.dplName = view.findViewById(R.id.itemUsername);
+        txt_description = (TextView) view.findViewById(R.id.description);
+        button = view.findViewById(R.id.change_profile);
+        profile_image = view.findViewById(R.id.profile_image);
+        itemrecipe = view.findViewById(R.id.itemrecipe);
+        itemFollwer = view.findViewById(R.id.itemFollwer);
+        itemFollwing = view.findViewById(R.id.itemFollwing);
+        job = view.findViewById(R.id.job);
+        total_item = view.findViewById(R.id.total_item);
     }
 
     @Override

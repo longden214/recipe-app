@@ -6,6 +6,19 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+
+    <queries>
+        <intent>
+            <action android:name="android.media.action.IMAGE_CAPTURE" />
+        </intent>
+        <intent>
+            <action android:name="android.media.action.VIDEO_CAPTURE" />
+        </intent>
+    </queries>
 
     <application
         android:allowBackup="true"
@@ -19,14 +32,26 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activities.UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.FollowerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.FollowingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.RecipeByCategoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.TrendingActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activities.NewRecipeActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activities.PopularChefsActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".activities.CatagoryActivity"
             android:exported="false" />

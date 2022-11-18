@@ -1,6 +1,8 @@
 package com.quanglong.recipeapp.model;
 
-public class Step {
+import java.io.Serializable;
+
+public class Step implements Serializable {
     private int id;
     private int recipeId;
     private int stepNumber;

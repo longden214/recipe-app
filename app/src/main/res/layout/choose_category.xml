@@ -18,7 +18,7 @@
         android:drawablePadding="8dp"
         android:paddingEnd="10dp"
         android:ems="10"
-        android:hint="@android:string/search_go"
+        android:hint="Search category"
         android:inputType="textPersonName"
         android:paddingStart="16dp"
         app:layout_constraintEnd_toStartOf="@+id/btn_cancel"
@@ -62,29 +62,40 @@
             android:textColor="#000000"
             android:text="Search Result" />
 
-        <TextView
-            android:id="@+id/textView37"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="end"
-            android:textSize="@dimen/_11ssp"
-            android:includeFontPadding="false"
-            android:fontFamily="@font/poppins_regular"
-            android:textColor="#A9A9A9"
-            android:text="255 results" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/category_rv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
         app:layout_constraintTop_toBottomOf="@id/result_total"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         />
+
+    <ProgressBar
+        android:id="@+id/progressBar_loading"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginTop="@dimen/_50sdp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar_more"
+        android:layout_width="@dimen/_25sdp"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

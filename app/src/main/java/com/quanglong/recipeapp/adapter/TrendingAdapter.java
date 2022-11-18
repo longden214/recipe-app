@@ -47,7 +47,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
         holder.TrendingName.setText(trendingRecipe.getName());
         holder.TrendingAuthor.setText("by " +trendingRecipe.getAuthor());
         holder.TrendingCategory.setText(trendingRecipe.getCategoryDisplay());
-        holder.TrendingTime.setText(Integer.toString(trendingRecipe.getTotalViews())+ " Min");
+        holder.TrendingTime.setText(trendingRecipe.getCookTime()+ " Mins");
         holder.TrendingRating.setText(Integer.toString(trendingRecipe.getTotalRating()));
         setImageURL(holder.TrendingImgAvatar, trendingRecipe.getAuthorAvatar());
 

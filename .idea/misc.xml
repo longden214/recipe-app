@@ -29,12 +29,15 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout-v28/activity_recipe_trending.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout-v28/activity_sign_in.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout-v28/item_recipe.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout-v28/item_recipe_my_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/actionbar_layout.xml" value="0.253125" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_account.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_add_recipe.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_catagory.xml" value="0.264" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_cooking_steps.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_follower.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_following.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_notification.xml" value="0.24010416666666667" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_password.xml" value="0.25416666666666665" />
@@ -42,6 +45,7 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_recipe_all.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_recipe_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_recype_by_category.xml" value="0.264" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_save.xml" value="0.24010416666666667" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_search.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_setting.xml" value="0.25416666666666665" />
@@ -49,6 +53,7 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_sign_up.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_signin.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_start_cooking.xml" value="0.25" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_user_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/bottom_navigation.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/choose_category.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/content_popular_chef.xml" value="0.25416666666666665" />
@@ -67,8 +72,9 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/fragment_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/fragment_save.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/fragment_second.xml" value="0.25416666666666665" />
-        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_add_ingredient.xml" value="0.1" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_add_ingredient.xml" value="0.4" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_categories.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_category_search.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_home_category.xml" value="0.2" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_home_chef.xml" value="0.264" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_home_recipe.xml" value="0.264" />
@@ -76,6 +82,7 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_notification.xml" value="0.264" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_procedure.xml" value="0.253125" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_recipe_new.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_recipe_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_recipe_save.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_recipe_search.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/item_recipe_trending.xml" value="0.264" />

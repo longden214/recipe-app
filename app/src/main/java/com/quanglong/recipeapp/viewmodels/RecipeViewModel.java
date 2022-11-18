@@ -22,7 +22,7 @@ public class RecipeViewModel extends ViewModel {
     }
 
     public LiveData<RecipeResponse> getAllNewRecipe(RecipeRequest newRequest){
-        return  newRecipeRepository.getAllNewRecipe(newRequest);
+        return  recipeRepository.getAllNewRecipe(newRequest);
     }
 
     public LiveData<String> createUser(RecipeDataRequest dataRequest, MultipartBody.Part file) {

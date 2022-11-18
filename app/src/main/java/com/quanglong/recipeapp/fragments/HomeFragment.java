@@ -26,12 +26,14 @@ import android.widget.ImageView;
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.activities.NewRecipeActivity;
 import com.quanglong.recipeapp.activities.PopularChefsActivity;
+import com.quanglong.recipeapp.activities.RecipeByCategoryActivity;
 import com.quanglong.recipeapp.activities.SearchActivity;
 import com.quanglong.recipeapp.activities.TrendingActivity;
 import com.quanglong.recipeapp.adapter.CategoryAdapter;
 import com.quanglong.recipeapp.adapter.NewAdapter;
 import com.quanglong.recipeapp.adapter.PopularAdapter;
 import com.quanglong.recipeapp.adapter.TrendingAdapter;
+import com.quanglong.recipeapp.listener.CategoryListener;
 import com.quanglong.recipeapp.model.Category;
 import com.quanglong.recipeapp.model.ChefRequest;
 import com.quanglong.recipeapp.model.Recipe;
@@ -53,7 +55,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment implements View.OnClickListener {
+public class HomeFragment extends Fragment implements View.OnClickListener, CategoryListener {
     private RelativeLayout btn_filter;
     private CategoryViewModel viewModel;
     private List<Category> categoryList;
@@ -119,7 +121,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         getPopularChef();
         setNewRecycler(NewRecipeList);
         getNewRecipe();
-
         setTrending(TrendingRecipeList);
         getTrending();
 
@@ -150,10 +151,10 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setCategoryRecycler(List<Category> categoryList) {
-        category_recycler.setHasFixedSize(false);
+        category_recycler.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         category_recycler.setLayoutManager(layoutManager);
-        categoryAdapter = new CategoryAdapter(getActivity(), categoryList);
+        categoryAdapter = new CategoryAdapter(getActivity(), categoryList,this);
         category_recycler.setAdapter(categoryAdapter);
     }
 
@@ -212,7 +213,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setNewRecycler(List<Recipe> newRecipeList) {
-        newrecipe_recycler.setHasFixedSize(false);
+        newrecipe_recycler.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         newrecipe_recycler.setLayoutManager(layoutManager);
         newAdapter = new NewAdapter(getActivity(), newRecipeList);
@@ -274,7 +275,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void setTrending(List<Recipe> RecipeList) {
-        trending_recycler.setHasFixedSize(false);
+        trending_recycler.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         trending_recycler.setLayoutManager(layoutManager);
         trendingAdapter = new TrendingAdapter(getActivity(), RecipeList);
@@ -335,8 +336,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
     }
 
-
-
     @Override
     public void onClick(View view) {
         int id = view.getId();
@@ -364,5 +363,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
                 startActivity(intent5);
                 break;
         }
+    }
+
+    @Override
+    public void onCategoryClicked(int cate_id, String cate_name) {
+        Intent intent = new Intent(getActivity(), RecipeByCategoryActivity.class);
+        intent.putExtra("cateId",cate_id);
+        intent.putExtra("cateName",cate_name);
+
+        startActivity(intent);
     }
 }

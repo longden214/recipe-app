@@ -148,8 +148,6 @@ public class TrendingActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void doInitialization() {
         this.toolbar = findViewById(R.id.toolbar);
         this.tv_title = findViewById(R.id.toolbar_title);

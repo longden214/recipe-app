@@ -1,6 +1,8 @@
 package com.quanglong.recipeapp.model;
 
-public class Recipe {
+import java.io.Serializable;
+
+public class Recipe implements Serializable {
     private int authorId;
     private float calories;
     private float carbo;

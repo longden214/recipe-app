@@ -2,7 +2,9 @@ package com.quanglong.recipeapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PopularChef {
+import java.io.Serializable;
+
+public class PopularChef implements Serializable {
     @SerializedName("id")
     private int id;
     @SerializedName("address")

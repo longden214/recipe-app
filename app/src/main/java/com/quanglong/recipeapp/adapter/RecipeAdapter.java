@@ -48,7 +48,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         setImageURL(holder.RecipeImg, recipe.getImage());
         holder.RecipeName.setText(recipe.getName());
         holder.RecipeAuthor.setText("by " +recipe.getAuthor());
-        holder.RecipeTime.setText(Integer.toString(recipe.getTotalViews())+ " Min");
+        holder.RecipeTime.setText(recipe.getCookTime()+ " Mins");
         holder.RecipeRating.setText(Integer.toString(recipe.getTotalRating()));
 //        setImageURL(holder.RecipeImgAvatar, recipe.getAuthorAvatar());
 

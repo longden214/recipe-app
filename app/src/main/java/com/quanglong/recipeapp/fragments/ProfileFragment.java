@@ -29,6 +29,8 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.activities.FollowerActivity;
+import com.quanglong.recipeapp.activities.FollowingActivity;
 import com.quanglong.recipeapp.activities.SettingActivity;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.utilities.UserLocalStore;
@@ -108,7 +110,15 @@ public class ProfileFragment extends Fragment {
         this.itemFollwer.setText(String.valueOf(user.getTotalFollowedByOthersUser()));
         this.itemFollwing.setText(String.valueOf(user.getTotalFollowOtherUser()));
         this.job.setText(user.getJob());
-        this.total_item.setText(user.getTotalRecipe() + " item");
+        this.total_item.setText(user.getTotalRecipe() + " items");
+
+        itemFollwer.setOnClickListener(view1 -> {
+            startActivity(new Intent(getActivity(), FollowerActivity.class));
+        });
+
+        itemFollwing.setOnClickListener(view2 -> {
+            startActivity(new Intent(getActivity(), FollowingActivity.class));
+        });
     }
 
     private void doInitialization(View view) {

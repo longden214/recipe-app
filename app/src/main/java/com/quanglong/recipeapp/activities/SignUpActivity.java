@@ -17,6 +17,7 @@ import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.UserViewModel;
 
+import java.util.ArrayList;
 import java.util.regex.Pattern;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -76,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.setEmail(this.edt_email.getText().toString());
         user.setJob("");
         user.setRole(0);
-        user.setAvatar("");
+        user.setImageInput(new ArrayList<>());
         user.setDescription("");
         user.setCreateUser(0);
 

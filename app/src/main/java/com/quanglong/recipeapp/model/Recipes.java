@@ -1,6 +1,7 @@
 package com.quanglong.recipeapp.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Recipes implements Serializable {
     private int id;
@@ -13,7 +14,7 @@ public class Recipes implements Serializable {
     private float fat;
     private float protein;
     private float carbo;
-    private String image;
+    private List<String> imageInput;
     private String cookTime;
     private int createUser;
 
@@ -21,7 +22,7 @@ public class Recipes implements Serializable {
     }
 
     public Recipes(int id, int categoryId, int authorId, String name, String origin, int serves, float calories,
-                   float fat, float protein, float carbo, String image, String cookTime, int createUser) {
+                   float fat, float protein, float carbo, List<String> imageInput, String cookTime, int createUser) {
         this.id = id;
         this.categoryId = categoryId;
         this.authorId = authorId;
@@ -32,7 +33,7 @@ public class Recipes implements Serializable {
         this.fat = fat;
         this.protein = protein;
         this.carbo = carbo;
-        this.image = image;
+        this.imageInput = imageInput;
         this.cookTime = cookTime;
         this.createUser = createUser;
     }
@@ -117,12 +118,12 @@ public class Recipes implements Serializable {
         this.carbo = carbo;
     }
 
-    public String getImage() {
-        return image;
+    public List<String> GetImageInput() {
+        return imageInput;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setImageInput(List<String> imageInput) {
+        this.imageInput = imageInput;
     }
 
     public String getCookTime() {

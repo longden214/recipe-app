@@ -96,7 +96,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         super.onViewCreated(view, savedInstanceState);
         doInitialization(view);
 
-
         user = userLocalStore.getLoggedInUser();
 
         toolbar = view.findViewById(R.id.toolbar);
@@ -127,7 +126,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         if (txt_description.getLineCount() > 2) {
             addReadMore(txt_description.getText().toString(), txt_description);
         }
-        setImageURL(profile_image, user.getAvatar());
+        if (!user.getAvatar().equals("")){
+            setImageURL(profile_image, user.getAvatar());
+        }else{
+            profile_image.setImageResource(R.drawable.avater_default);
+        }
         this.itemrecipe.setText(String.valueOf(user.getTotalRecipe()));
         this.itemFollwer.setText(String.valueOf(user.getTotalFollowedByOthersUser()));
         this.itemFollwing.setText(String.valueOf(user.getTotalFollowOtherUser()));

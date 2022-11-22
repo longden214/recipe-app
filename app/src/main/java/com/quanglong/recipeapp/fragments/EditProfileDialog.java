@@ -73,7 +73,11 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
         this.edit_avatar = view.findViewById(R.id.edit_avatar);
         this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
 
-        setImageURL(avatar, userLocalDatabase.getString("avatar", ""));
+        if (!userLocalDatabase.getString("avatar", "").equals("")){
+            setImageURL(avatar, userLocalDatabase.getString("avatar", ""));
+        }else{
+            avatar.setImageResource(R.drawable.avater_default);
+        }
         this.name.setText(userLocalDatabase.getString("displayName", ""));
         this.username.setText(userLocalDatabase.getString("userName", ""));
         this.description.setText(userLocalDatabase.getString("description", ""));

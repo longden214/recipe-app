@@ -1,5 +1,7 @@
 package com.quanglong.recipeapp.model;
 
+import java.util.List;
+
 public class User {
     private int id;
     private String userName;
@@ -11,7 +13,7 @@ public class User {
     private String email;
     private String job;
     private int role;
-    private String avatar;
+    private List<String> imageInput;
     private String description;
     private int status;
     private int updateUser;
@@ -21,7 +23,7 @@ public class User {
     }
 
     public User(int id, String userName, String displayName, int sex, String address, String phoneNumber,
-                String password, String email, String job, int role, String avatar,
+                String password, String email, String job, int role, List<String> imageInput,
                 String description, int status, int updateUser, int createUser) {
         this.id = id;
         this.userName = userName;
@@ -33,7 +35,7 @@ public class User {
         this.email = email;
         this.job = job;
         this.role = role;
-        this.avatar = avatar;
+        this.imageInput = imageInput;
         this.description = description;
         this.status = status;
         this.updateUser = updateUser;
@@ -128,12 +130,12 @@ public class User {
         this.role = role;
     }
 
-    public String getAvatar() {
-        return avatar;
+    public List<String> getAvatar() {
+        return imageInput;
     }
 
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
+    public void setImageInput(List<String> imageInput) {
+        this.imageInput = imageInput;
     }
 
     public String getDescription() {

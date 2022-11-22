@@ -23,7 +23,6 @@ public interface RecipeService {
     @POST("recipes/filterData")
     Call<RecipeResponse> newrecipe(@Body RecipeRequest newRequest);
 
-    @Multipart
     @POST("recipes/insert")
     Call<String> RecipeInsert(@Body RecipeDataRequest dataRequest);
 }

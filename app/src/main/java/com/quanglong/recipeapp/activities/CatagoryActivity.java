@@ -1,5 +1,7 @@
 package com.quanglong.recipeapp.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.CategoryAllAdapter;
+import com.quanglong.recipeapp.listener.CategoryListener;
 import com.quanglong.recipeapp.model.Category;
 import com.quanglong.recipeapp.responses.CategoryResponse;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
@@ -24,7 +27,7 @@ import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CatagoryActivity extends AppCompatActivity {
+public class CatagoryActivity extends AppCompatActivity implements View.OnClickListener, CategoryListener {
     private Toolbar toolbar;
     private TextView tv_title;
     private RecyclerView recyclerView;
@@ -111,7 +114,7 @@ public class CatagoryActivity extends AppCompatActivity {
     private void setCategoryAllRecycler(ArrayList<Category> mlistCategory) {
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(sglm);
-        adapter = new CategoryAllAdapter(mlistCategory, this);
+        adapter = new CategoryAllAdapter(mlistCategory,CatagoryActivity.this, this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -148,4 +151,17 @@ public class CatagoryActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onCategoryClicked(int cate_id, String cate_name) {
+        Intent intent = new Intent(CatagoryActivity.this,RecipeByCategoryActivity.class);
+        intent.putExtra("cateId",cate_id);
+        intent.putExtra("cateName",cate_name);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }

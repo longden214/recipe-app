@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.listener.RecipeDetailListener;
 import com.quanglong.recipeapp.model.Recipe;
 
 import java.util.ArrayList;
@@ -21,11 +22,13 @@ import java.util.List;
 public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.TrendingViewHolder> {
     Context context;
     List<Recipe> TrendingList;
+    private RecipeDetailListener recipeDetailListener;
 
 
-    public TrendingAdapter(Context context, List<Recipe> TrendingList) {
+    public TrendingAdapter(Context context, List<Recipe> TrendingList,RecipeDetailListener recipeDetailListener) {
         this.context = context;
         this.TrendingList= TrendingList;
+        this.recipeDetailListener = recipeDetailListener;
     }
 
     @NonNull
@@ -50,6 +53,9 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
         holder.TrendingTime.setText(trendingRecipe.getCookTime()+ " Mins");
         holder.TrendingRating.setText(Integer.toString(trendingRecipe.getTotalRating()));
         setImageURL(holder.TrendingImgAvatar, trendingRecipe.getAuthorAvatar());
+        holder.itemView.setOnClickListener(view ->{
+            recipeDetailListener.onRecipeDetailListener(trendingRecipe.getId(),trendingRecipe.getName());
+        });
 
     }
 

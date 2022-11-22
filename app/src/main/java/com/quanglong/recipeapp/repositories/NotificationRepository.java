@@ -1,41 +1,37 @@
 package com.quanglong.recipeapp.repositories;
 
-import android.os.Looper;
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.quanglong.recipeapp.apiServices.CategoryAPIService;
-import com.quanglong.recipeapp.model.Category;
+import com.quanglong.recipeapp.apiServices.NotificationAPIService;
+import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.network.ApiClient;
-import com.quanglong.recipeapp.responses.CategoryResponse;
+import com.quanglong.recipeapp.responses.NotificationResponse;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Query;
 
-public class CategoryRepository {
-    private CategoryAPIService apiService;
+public class NotificationRepository {
+    private NotificationAPIService apiService;
 
-    public CategoryRepository() {
-        apiService = ApiClient.getRetrofit().create(CategoryAPIService.class);
+    public NotificationRepository() {
+        apiService = ApiClient.getRetrofit().create(NotificationAPIService.class);
     }
 
-    public LiveData<List<Category>> getAllCategory(){
-        MutableLiveData<List<Category>> data = new MutableLiveData<>();
+    public LiveData<List<Notifications>> getAllNotification(){
+        MutableLiveData<List<Notifications>> data = new MutableLiveData<>();
 
-        apiService.getAllCategory().enqueue(new Callback<List<Category>>() {
+        apiService.getAllNotification().enqueue(new Callback<List<Notifications>>() {
             @Override
-            public void onResponse(Call<List<Category>> call, Response<List<Category>> response) {
+            public void onResponse(Call<List<Notifications>> call, Response<List<Notifications>> response) {
                 data.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Category>> call, Throwable t) {
+            public void onFailure(Call<List<Notifications>> call, Throwable t) {
                 data.setValue(null);
             }
         });
@@ -43,18 +39,17 @@ public class CategoryRepository {
         return data;
     }
 
-    public LiveData<CategoryResponse> getCategoryWithParam(String keyword, boolean isGetAll, boolean sortIdDESC,
-                                                           boolean sortNameASC, boolean sortTotalRecipeDESC, int pageIndex, int pageSize){
-        MutableLiveData<CategoryResponse> data = new MutableLiveData<>();
+    public LiveData<NotificationResponse> getNotificationWithParam(int userId,int status,int pageIndex, int pageSize){
+        MutableLiveData<NotificationResponse> data = new MutableLiveData<>();
 
-        apiService.getCategoryWithParam(keyword,isGetAll,sortIdDESC,sortNameASC,sortTotalRecipeDESC,pageIndex,pageSize).enqueue(new Callback<CategoryResponse>() {
+        apiService.getNotificationWithParam(userId,status,pageIndex,pageSize).enqueue(new Callback<NotificationResponse>() {
             @Override
-            public void onResponse(Call<CategoryResponse> call, Response<CategoryResponse> response) {
+            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
                 data.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<CategoryResponse> call, Throwable t) {
+            public void onFailure(Call<NotificationResponse> call, Throwable t) {
                 data.setValue(null);
             }
         });

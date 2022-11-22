@@ -1,13 +1,23 @@
 package com.quanglong.recipeapp.model;
 
-public class Notification {
+import com.google.gson.annotations.SerializedName;
+
+public class Notifications {
+    @SerializedName("createDate")
     private String createDate;
+    @SerializedName("createUserDisplay")
     private String createUserDisplay;
+    @SerializedName("description")
     private String description;
+    @SerializedName("id")
     private int id;
+    @SerializedName("notificationType")
     private String notificationType;
+    @SerializedName("status")
     private int status;
+    @SerializedName("userDisplay")
     private String userDisplay;
+    @SerializedName("userId")
     private int userId;
 
     public String getCreateDate() {
@@ -74,7 +84,7 @@ public class Notification {
         this.userId = userId;
     }
 
-    public Notification(String createDate, String createUserDisplay, String description, int id, String notificationType, int status, String userDisplay, int userId) {
+    public Notifications(String createDate, String createUserDisplay, String description, int id, String notificationType, int status, String userDisplay, int userId) {
         this.createDate = createDate;
         this.createUserDisplay = createUserDisplay;
         this.description = description;
@@ -85,6 +95,6 @@ public class Notification {
         this.userId = userId;
     }
 
-    public Notification() {
+    public Notifications() {
     }
 }

@@ -11,7 +11,7 @@ import com.quanglong.recipeapp.fragments.NotificationReadFragment;
 import com.quanglong.recipeapp.fragments.NotificationUnreadFragment;
 import com.quanglong.recipeapp.fragments.ProcedureFragment;
 
-public class NotificationAdapter extends FragmentPagerAdapter {
+public class NotificationAdapter extends FragmentPagerAdapter   {
 
     public NotificationAdapter(@NonNull FragmentManager fm)
     {

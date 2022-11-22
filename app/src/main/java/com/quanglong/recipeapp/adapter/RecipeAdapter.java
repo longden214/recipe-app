@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.listener.RecipeDetailListener;
 import com.quanglong.recipeapp.model.PopularChef;
 import com.quanglong.recipeapp.model.Recipe;
 
@@ -22,11 +23,13 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     Context mContext;
     ArrayList<Recipe> mlist;
+    private RecipeDetailListener recipeDetailListener;
 
 
-    public RecipeAdapter(ArrayList<Recipe> _list, Context _mContext) {
+    public RecipeAdapter(ArrayList<Recipe> _list, Context _mContext,RecipeDetailListener recipeDetailListener) {
         this.mlist = _list;
         this.mContext = _mContext;
+        this.recipeDetailListener = recipeDetailListener;
     }
 
     @NonNull
@@ -50,6 +53,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.RecipeAuthor.setText("by " +recipe.getAuthor());
         holder.RecipeTime.setText(recipe.getCookTime()+ " Mins");
         holder.RecipeRating.setText(Integer.toString(recipe.getTotalRating()));
+        holder.itemView.setOnClickListener(view ->{
+            recipeDetailListener.onRecipeDetailListener(recipe.getId(),recipe.getName());
+        });
 //        setImageURL(holder.RecipeImgAvatar, recipe.getAuthorAvatar());
 
     }

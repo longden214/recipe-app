@@ -10,6 +10,7 @@ import com.quanglong.recipeapp.model.LoginRequest;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.network.ApiClient;
+import com.quanglong.recipeapp.responses.RecipeDetailResponse;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
 
@@ -52,6 +53,25 @@ public class RecipeRepository {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+
+    public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id){
+        MutableLiveData<RecipeDetailResponse> data = new MutableLiveData<>();
+
+        apiService.getRecipeDetailWithParam(id).enqueue(new Callback<RecipeDetailResponse>() {
+            @Override
+            public void onResponse(Call<RecipeDetailResponse> call, Response<RecipeDetailResponse> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<RecipeDetailResponse> call, Throwable t) {
                 data.setValue(null);
             }
         });

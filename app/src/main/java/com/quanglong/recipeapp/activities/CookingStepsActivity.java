@@ -113,18 +113,7 @@ public class CookingStepsActivity extends AppCompatActivity implements View.OnCl
                 if (checkAllField()){
                     recipe_request.setListSteps(steps);
 
-                    String strRealPath = RealPathUtil.getRealPath(this,img_uri);
-                    Log.e("get real path",strRealPath);
-                    File file = new File(strRealPath);
-
-                    RequestBody requestBody = RequestBody.create(
-                            MediaType.parse(getContentResolver().getType(img_uri)),
-                            file);
-
-                    MultipartBody.Part filePart =
-                            MultipartBody.Part.createFormData("recipe_img", file.getName(), requestBody);
-
-                    viewModel.createUser(recipe_request,filePart).observe(this, new Observer<String>() {
+                    viewModel.createRecipe(recipe_request).observe(this, new Observer<String>() {
                         @Override
                         public void onChanged(String s) {
                             if (s.equals("Success!")){

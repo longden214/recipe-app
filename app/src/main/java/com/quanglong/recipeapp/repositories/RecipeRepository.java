@@ -41,10 +41,10 @@ public class RecipeRepository {
         return data;
     }
 
-    public LiveData<String> RecipeInsert(RecipeDataRequest dataRequest, MultipartBody.Part file ){
+    public LiveData<String> RecipeInsert(RecipeDataRequest dataRequest){
         MutableLiveData<String> data = new MutableLiveData<>();
 
-        apiService.RecipeInsert(dataRequest,file).enqueue(new Callback<String>() {
+        apiService.RecipeInsert(dataRequest).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 data.setValue(response.body());

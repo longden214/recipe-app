@@ -19,5 +19,5 @@ public interface RecipeService {
 
     @Multipart
     @POST("recipes/insert")
-    Call<String> RecipeInsert(@Body RecipeDataRequest dataRequest,@Part MultipartBody.Part file);
+    Call<String> RecipeInsert(@Body RecipeDataRequest dataRequest);
 }

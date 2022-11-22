@@ -1,6 +1,7 @@
 package com.quanglong.recipeapp.activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.CategoryAllAdapter;
 import com.quanglong.recipeapp.adapter.PopularAdapter;
 import com.quanglong.recipeapp.adapter.PopularChefAdapter;
+import com.quanglong.recipeapp.listener.UserListener;
 import com.quanglong.recipeapp.model.Category;
 import com.quanglong.recipeapp.model.ChefRequest;
 import com.quanglong.recipeapp.model.PopularChef;
@@ -32,7 +34,7 @@ import com.quanglong.recipeapp.viewmodels.PopularChefsViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PopularChefsActivity extends AppCompatActivity {
+public class PopularChefsActivity extends AppCompatActivity implements View.OnClickListener, UserListener {
     private Toolbar toolbar;
     private TextView tv_title;
     private RecyclerView recyclerView;
@@ -74,7 +76,7 @@ public class PopularChefsActivity extends AppCompatActivity {
 
     private void setPopularRecycler(ArrayList<PopularChef> popularChefList) {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PopularChefAdapter(popularChefList,this);
+        adapter = new PopularChefAdapter(popularChefList,PopularChefsActivity.this,this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -170,4 +172,16 @@ public class PopularChefsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onUserClicked(PopularChef chef) {
+        Intent intent = new Intent(PopularChefsActivity.this, UserProfileActivity.class);
+        intent.putExtra("chef",chef);
+
+        startActivity(intent);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
 }

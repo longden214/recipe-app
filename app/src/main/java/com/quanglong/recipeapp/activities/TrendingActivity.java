@@ -1,5 +1,6 @@
 package com.quanglong.recipeapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.RecipeAdapter;
+import com.quanglong.recipeapp.listener.RecipeDetailListener;
 import com.quanglong.recipeapp.model.Recipe;
 import com.quanglong.recipeapp.model.RecipeRequest;
 import com.quanglong.recipeapp.responses.RecipeResponse;
@@ -24,7 +26,7 @@ import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
 
 import java.util.ArrayList;
 
-public class TrendingActivity extends AppCompatActivity {
+public class TrendingActivity extends AppCompatActivity implements View.OnClickListener, RecipeDetailListener {
     private Toolbar toolbar;
     private TextView tv_title;
     private RecyclerView recyclerView;
@@ -64,7 +66,7 @@ public class TrendingActivity extends AppCompatActivity {
 
     private void setTrending(ArrayList<Recipe> recipesList) {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        adapter = new RecipeAdapter(recipesList,this);
+        adapter = new RecipeAdapter(recipesList,this,this);
         recyclerView.setAdapter(adapter);
     }
 
@@ -181,4 +183,16 @@ public class TrendingActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onRecipeDetailListener(int recipe_id, String recipe_name) {
+        Intent intent = new Intent(TrendingActivity.this,RecipeDetailActivity.class);
+        intent.putExtra("recipeId",recipe_id);
+        intent.putExtra("recipeName",recipe_name);
+        startActivity(intent);
+    }
 }

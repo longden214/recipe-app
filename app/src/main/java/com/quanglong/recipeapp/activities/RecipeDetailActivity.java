@@ -1,14 +1,21 @@
 package com.quanglong.recipeapp.activities;
 
+import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
@@ -16,13 +23,35 @@ import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.RecipeDetailVPAdapter;
 import com.quanglong.recipeapp.fragments.RateDialog;
 import com.quanglong.recipeapp.fragments.ShareDialog;
+import com.quanglong.recipeapp.model.Recipe;
+import com.quanglong.recipeapp.model.RecipeRequest;
+import com.quanglong.recipeapp.responses.RecipeDetailResponse;
+import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
+import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecipeDetailActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
     ViewPager viewPager;
+    private Recipe recipe;
     RecipeDetailVPAdapter viewPagerAdapter;
+    private ImageView imageView;
+    private TextView recipeName;
+    private TextView time;
+    private TextView reating;
+    private TextView recipeReview;
+    private TextView recipeChef;
+    private TextView location;
+    private TextView cal;
+    private TextView fat;
+    private TextView protein;
+    private TextView carbo;
+    private CircleImageView avatar;
+    private int id;
+    private RecipeViewModel recipeViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +60,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
         StatusBarConfig.StatusBarCustom(this);
         doInitialization();
         customActionBar();
+        Intent intent = getIntent();
+//        recipe = (Recipe) intent.getSerializableExtra("recipe");
+        id = intent.getIntExtra("recipeId", 0);
 
         viewPager = findViewById(R.id.viewPager);
         tabLayout = findViewById(R.id.tabLayout);
@@ -41,6 +73,39 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
         // It is used to join TabLayout with ViewPager.
         tabLayout.setupWithViewPager(viewPager);
+        getRecipeDetail();
+        SetRecipeDetail();
+
+    }
+
+    private void SetRecipeDetail(){
+        setImageURL(imageView,recipe.getImage());
+        this.recipeName.setText(recipe.getName());
+        this.time.setText(recipe.getCookTime()+ " mins");
+        this.reating.setText(recipe.getTotalRating()+"");
+        this.recipeChef.setText(recipe.getAuthor());
+        setImageURL(avatar,recipe.getAuthorAvatar());
+        this.location.setText(recipe.getOrigin());
+        this.recipeReview.setText(recipe.getTotalViews());
+        this.cal.setText(Float.toString(recipe.getCalories()));
+        this.fat.setText(Float.toString(recipe.getFat()));
+        this.protein.setText(Float.toString(recipe.getProtein()));
+        this.carbo.setText(Float.toString(recipe.getCarbo()));
+
+    }
+
+    private void getRecipeDetail() {
+        recipeViewModel.getRecipeDetailWithParam(id).observe(this, new Observer<RecipeDetailResponse>() {
+            @Override
+            public void onChanged(RecipeDetailResponse recipeDetailResponse) {
+                if (recipeDetailResponse != null) {
+                    if (recipeDetailResponse.getRecipeDetail().size() > 0) {
+                        recipe = (Recipe) recipeDetailResponse.getRecipeDetail();
+                    }
+                }
+            }
+        });
+
     }
 
     private void customActionBar() {
@@ -56,6 +121,20 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     private void doInitialization() {
+        this.avatar = findViewById(R.id.profile_image);
+        this.imageView = findViewById(R.id.imageView2);
+        this.recipeName = findViewById(R.id.recipe_name);
+        this.time = findViewById(R.id.textView13);
+        this.reating = findViewById(R.id.textView12);
+        this.recipeChef=findViewById(R.id.recipe_chef_name);
+        this.location=findViewById(R.id.location_name);
+        this.recipeReview=findViewById(R.id.recipe_reviews);
+        this.cal=findViewById(R.id.textView23);
+        this.fat=findViewById(R.id.textView26);
+        this.protein=findViewById(R.id.textView29);
+        this.carbo = findViewById(R.id.textView32);
+        recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
+        recipe = new Recipe();
     }
 
     @Override

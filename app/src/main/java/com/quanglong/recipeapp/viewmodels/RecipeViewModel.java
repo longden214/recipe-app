@@ -8,6 +8,7 @@ import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.repositories.RecipeRepository;
 import com.quanglong.recipeapp.repositories.UserRepository;
+import com.quanglong.recipeapp.responses.RecipeDetailResponse;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.model.RecipeRequest;
 import com.quanglong.recipeapp.responses.RecipeResponse;
@@ -27,5 +28,8 @@ public class RecipeViewModel extends ViewModel {
 
     public LiveData<String> createRecipe(RecipeDataRequest dataRequest) {
         return recipeRepository.RecipeInsert(dataRequest);
+    }
+    public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id){
+        return recipeRepository.getRecipeDetailWithParam(id);
     }
 }

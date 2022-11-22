@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.listener.UserListener;
 import com.quanglong.recipeapp.model.PopularChef;
 import com.quanglong.recipeapp.model.User;
 
@@ -21,10 +22,12 @@ import java.util.List;
 public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularChefViewHolder> {
     Context context;
     List<PopularChef> PopularChefList;
+    UserListener userListener;
 
-    public PopularAdapter(Context context, List<PopularChef> PopularChefList) {
+    public PopularAdapter(Context context, List<PopularChef> PopularChefList,UserListener userListener) {
         this.context = context;
         this.PopularChefList = PopularChefList;
+        this.userListener = userListener;
     }
 
     @NonNull
@@ -45,6 +48,9 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.PopularC
         setImageURL(holder.PopularChefImg, popularChef.getAvatar());
         holder.PopularChefName.setText(popularChef.getUserName());
         holder.totalRecipes.setText(Integer.toString(popularChef.getTotalRecipe()));
+        holder.itemView.setOnClickListener(view ->{
+            userListener.onUserClicked(popularChef);
+        });
     }
 
     @Override

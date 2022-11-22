@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.listener.RecipeDetailListener;
 import com.quanglong.recipeapp.model.Recipe;
 
 import java.util.List;
@@ -20,11 +21,13 @@ import java.util.List;
 public class NewAdapter extends RecyclerView.Adapter<NewAdapter.NewRecipeViewHolder> {
     Context context;
     List<Recipe> NewRecipeList;
+    private RecipeDetailListener recipeDetailListener;
 
 
-    public NewAdapter(Context context, List<Recipe> NewRecipeList) {
+    public NewAdapter(Context context, List<Recipe> NewRecipeList, RecipeDetailListener recipeDetailListener) {
         this.context = context;
         this.NewRecipeList= NewRecipeList;
+        this.recipeDetailListener = recipeDetailListener;
     }
 
     @NonNull
@@ -45,6 +48,9 @@ public class NewAdapter extends RecyclerView.Adapter<NewAdapter.NewRecipeViewHol
         setImageURL(holder.NewRecipeImg, newRecipe.getImage());
         holder.NewRecipeName.setText(newRecipe.getName());
         holder.NewRecipeAuthor.setText("by "+newRecipe.getAuthor());
+        holder.itemView.setOnClickListener(view ->{
+            recipeDetailListener.onRecipeDetailListener(newRecipe.getId(),newRecipe.getName());
+        });
     }
 
     @Override

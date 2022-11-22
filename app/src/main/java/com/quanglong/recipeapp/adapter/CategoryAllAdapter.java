@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.listener.CategoryListener;
 import com.quanglong.recipeapp.model.Category;
 
 import java.util.ArrayList;
@@ -20,10 +21,13 @@ import java.util.ArrayList;
 public class CategoryAllAdapter extends RecyclerView.Adapter<CategoryAllAdapter.MyViewHolder> {
     ArrayList<Category> mlist;
     Context mContext;
+    private CategoryListener categoryListener;
 
-    public CategoryAllAdapter(ArrayList<Category> _list, Context _mContext){
+    public
+    CategoryAllAdapter(ArrayList<Category> _list, Context _mContext, CategoryListener _categoryListener){
         this.mlist = _list;
         this.mContext = _mContext;
+        this.categoryListener = _categoryListener;
     }
 
     @NonNull
@@ -37,9 +41,16 @@ public class CategoryAllAdapter extends RecyclerView.Adapter<CategoryAllAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Category category = mlist.get(position);
+        if(category == null){
+            return;
+        }
         holder.name.setText(mlist.get(position).getName());
         setImageURL(holder.image, mlist.get(position).getImage());
         holder.recipe.setText(Integer.toString(mlist.get(position).getTotalRecipes()));
+        holder.itemView.setOnClickListener(view ->{
+            categoryListener.onCategoryClicked(category.getId(),category.getName());
+        });
     }
 
     @Override

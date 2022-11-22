@@ -3,6 +3,7 @@ package com.quanglong.recipeapp.fragments;
 import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -27,13 +28,28 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.activities.FollowerActivity;
 import com.quanglong.recipeapp.activities.FollowingActivity;
+import com.quanglong.recipeapp.activities.RecipeDetailActivity;
 import com.quanglong.recipeapp.activities.SettingActivity;
+import com.quanglong.recipeapp.activities.UserProfileActivity;
+import com.quanglong.recipeapp.adapter.RecipeProfileAdptar;
+import com.quanglong.recipeapp.adapter.RecipeSaveAdptar;
+import com.quanglong.recipeapp.listener.RecipeDetailListener;
+import com.quanglong.recipeapp.model.Recipe;
+import com.quanglong.recipeapp.model.RecipeRequest;
+import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.utilities.UserLocalStore;
+import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
+
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,7 +57,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener, RecipeDetailListener {
     Button button;
     ImageView imagesetting;
     Toolbar toolbar;
@@ -56,6 +72,12 @@ public class ProfileFragment extends Fragment {
     private TextView itemFollwing;
     private TextView job;
     private TextView total_item;
+    private RecyclerView recyclerView;
+    private ArrayList<Recipe> mlistreRecipes = new ArrayList<>() ;
+    private RecipeViewModel viewModel;
+    private RecipeProfileAdptar recipeProfileAdptar;
+    private int id ;
+    private SharedPreferences userLocalDatabase;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -66,7 +88,6 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
         setHasOptionsMenu(true);
-
         return view;
     }
 
@@ -74,6 +95,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         doInitialization(view);
+
 
         user = userLocalStore.getLoggedInUser();
 
@@ -119,8 +141,70 @@ public class ProfileFragment extends Fragment {
         itemFollwing.setOnClickListener(view2 -> {
             startActivity(new Intent(getActivity(), FollowingActivity.class));
         });
+        id = userLocalDatabase.getInt("id", -1);
+        setNewRecipe(mlistreRecipes);
+        getNewRecipe();
+
     }
 
+    private void setNewRecipe(ArrayList<Recipe> RecipeSaveList) {
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
+        recipeProfileAdptar = new RecipeProfileAdptar(getActivity(),RecipeSaveList,this);
+        recyclerView.setAdapter(recipeProfileAdptar);
+    }
+
+    private void getNewRecipe() {
+        RecipeRequest newRequest = new RecipeRequest();
+        newRequest.setKeyword("");
+        newRequest.setListCatId(new int[]{});
+        newRequest.setAuthorId(id);
+        newRequest.setName("");
+        newRequest.setOrigin("");
+        newRequest.setIngredient("");
+        newRequest.setMinServer(0);
+        newRequest.setMaxServer(0);
+        newRequest.setMinTotalViews(0);
+        newRequest.setMaxTotalViews(0);
+        newRequest.setMinTotalRating(0);
+        newRequest.setMaxTotalRating(0);
+        newRequest.setMinCalories(0);
+        newRequest.setMaxCalories(0);
+        newRequest.setMinFat(0);
+        newRequest.setMaxFat(0);
+        newRequest.setMinProtein(0);
+        newRequest.setMaxProtein(0);
+        newRequest.setMinCarbo(0);
+        newRequest.setMaxCarbo(0);
+        newRequest.setMinAvgRating(0);
+        newRequest.setMaxAvgRating(5);
+        newRequest.setCookTime("");
+        newRequest.setStatus(-1);
+        newRequest.setSortByIdDESC(true);
+        newRequest.setSortByNameASC(false);
+        newRequest.setSortByServesASC(false);
+        newRequest.setSortByServesDESC(false);
+        newRequest.setSortByTotalViewDESC(false);
+        newRequest.setSortByAvgRatingDESC(false);
+        newRequest.setSortByTotalRatingDESC(false);
+        newRequest.setSortByCaloriesDESC(false);
+        newRequest.setSortByFatDESC(false);
+        newRequest.setSortByProteinDESC(false);
+        newRequest.setSortByCarbo(false);
+        newRequest.setPageIndex(1);
+        newRequest.setPageSize(10);
+        viewModel.getAllNewRecipe(newRequest).observe(getViewLifecycleOwner(), new Observer<RecipeResponse>() {
+            @Override
+            public void onChanged(RecipeResponse recipeResponse) {
+                if (recipeResponse.getNewRecipeShow() != null) {
+                    if (recipeResponse.getNewRecipeShow().size() > 0) {
+                        int oldCount = mlistreRecipes.size();
+                        mlistreRecipes.addAll(recipeResponse.getNewRecipeShow());
+                        recipeProfileAdptar.notifyItemRangeInserted(oldCount, mlistreRecipes.size());
+                    }
+                }
+            }
+        });
+    }
     private void doInitialization(View view) {
         userLocalStore = new UserLocalStore(getActivity());
         user = new UserLoginResponse();
@@ -133,6 +217,11 @@ public class ProfileFragment extends Fragment {
         itemFollwing = view.findViewById(R.id.itemFollwing);
         job = view.findViewById(R.id.job);
         total_item = view.findViewById(R.id.total_item);
+        recyclerView = view.findViewById(R.id.listviewSave);
+        viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
+        this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
+
+
     }
 
     @Override
@@ -201,5 +290,18 @@ public class ProfileFragment extends Fragment {
         ss.setSpan(clickableSpan, ss.length() - 10, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(ss);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    @Override
+    public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onRecipeDetailListener(int recipe_id, String recipe_name) {
+        Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
+        intent.putExtra("recipeId",recipe_id);
+        intent.putExtra("recipeName",recipe_name);
+        startActivity(intent);
     }
 }

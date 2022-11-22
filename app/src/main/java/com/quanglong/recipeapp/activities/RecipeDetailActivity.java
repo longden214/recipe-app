@@ -61,7 +61,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         doInitialization();
         customActionBar();
         Intent intent = getIntent();
-//        recipe = (Recipe) intent.getSerializableExtra("recipe");
         id = intent.getIntExtra("recipeId", 0);
 
         viewPager = findViewById(R.id.viewPager);
@@ -74,7 +73,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
         // It is used to join TabLayout with ViewPager.
         tabLayout.setupWithViewPager(viewPager);
         getRecipeDetail();
-        SetRecipeDetail();
 
     }
 
@@ -82,11 +80,11 @@ public class RecipeDetailActivity extends AppCompatActivity {
         setImageURL(imageView,recipe.getImage());
         this.recipeName.setText(recipe.getName());
         this.time.setText(recipe.getCookTime()+ " mins");
-        this.reating.setText(recipe.getTotalRating()+"");
+        this.reating.setText(Float.toString(recipe.getAvgRating()));
         this.recipeChef.setText(recipe.getAuthor());
         setImageURL(avatar,recipe.getAuthorAvatar());
         this.location.setText(recipe.getOrigin());
-        this.recipeReview.setText(recipe.getTotalViews());
+        this.recipeReview.setText("(" + Integer.toString(recipe.getTotalRating()) + " Reviews)");
         this.cal.setText(Float.toString(recipe.getCalories()));
         this.fat.setText(Float.toString(recipe.getFat()));
         this.protein.setText(Float.toString(recipe.getProtein()));
@@ -99,8 +97,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
             @Override
             public void onChanged(RecipeDetailResponse recipeDetailResponse) {
                 if (recipeDetailResponse != null) {
-                    if (recipeDetailResponse.getRecipeDetail().size() > 0) {
+                    if (recipeDetailResponse.getRecipeDetail() != null) {
                         recipe = (Recipe) recipeDetailResponse.getRecipeDetail();
+                        SetRecipeDetail();
                     }
                 }
             }

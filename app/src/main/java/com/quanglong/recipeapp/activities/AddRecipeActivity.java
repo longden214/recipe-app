@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ import com.quanglong.recipeapp.listener.IngredientListener;
 import com.quanglong.recipeapp.model.Ingredient;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.Recipes;
+import com.quanglong.recipeapp.utilities.Base64Config;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 
 import java.io.ByteArrayOutputStream;
@@ -115,7 +117,7 @@ public class AddRecipeActivity extends AppCompatActivity implements View.OnClick
                     recipes.setAuthorId(userLocalDatabase.getInt("id", -1));
                     recipes.setCategoryId(category_select);
                     recipes.setCookTime(activityAddRecipeBinding.cookTime.getText().toString());
-                    recipes.setImage(encodeBitmapImage(bitmap));
+                    recipes.setImageInput(Base64Config.Base64Split(encodeBitmapImage(bitmap)));
                     recipes.setName(activityAddRecipeBinding.edtName.getText().toString());
                     recipes.setOrigin(activityAddRecipeBinding.edtOrigin.getText().toString());
                     recipes.setServes(Integer.parseInt(activityAddRecipeBinding.edtServes.getText().toString()));

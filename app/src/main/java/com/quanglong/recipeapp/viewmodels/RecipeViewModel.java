@@ -26,8 +26,8 @@ public class RecipeViewModel extends ViewModel {
         return  recipeRepository.getAllNewRecipe(newRequest);
     }
 
-    public LiveData<String> createUser(RecipeDataRequest dataRequest, MultipartBody.Part file) {
-        return recipeRepository.RecipeInsert(dataRequest,file);
+    public LiveData<String> createRecipe(RecipeDataRequest dataRequest) {
+        return recipeRepository.RecipeInsert(dataRequest);
     }
     public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id){
         return recipeRepository.getRecipeDetailWithParam(id);

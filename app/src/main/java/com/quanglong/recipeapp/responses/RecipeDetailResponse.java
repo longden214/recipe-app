@@ -15,7 +15,7 @@ public class RecipeDetailResponse {
     private List<Step> listSteps;
 
     @SerializedName("recipesViewModel")
-    private List<Recipe> recipesViewModel;
+    private Recipe recipesViewModel;
 
     public  List<Ingredient> getListIngredients(){
         return listIngredients;
@@ -25,7 +25,7 @@ public class RecipeDetailResponse {
         return listSteps;
     }
 
-    public List<Recipe> getRecipeDetail(){
+    public Recipe getRecipeDetail(){
         return recipesViewModel;
     }
 }

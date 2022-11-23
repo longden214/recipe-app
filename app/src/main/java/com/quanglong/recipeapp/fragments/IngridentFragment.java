@@ -15,9 +15,10 @@ import com.quanglong.recipeapp.R;
  * create an instance of this fragment.
  */
 public class IngridentFragment extends Fragment {
-
-    public IngridentFragment() {
+    int id;
+    public IngridentFragment(int _id) {
         // Required empty public constructor
+        id = _id;
     }
     
 

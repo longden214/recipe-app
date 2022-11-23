@@ -10,6 +10,7 @@ import com.quanglong.recipeapp.model.LoginRequest;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.network.ApiClient;
+import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.responses.RecipeDetailResponse;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
@@ -42,17 +43,17 @@ public class RecipeRepository {
         return data;
     }
 
-    public LiveData<String> RecipeInsert(RecipeDataRequest dataRequest){
-        MutableLiveData<String> data = new MutableLiveData<>();
+    public LiveData<RecipeAddResponse> RecipeInsert(RecipeDataRequest dataRequest){
+        MutableLiveData<RecipeAddResponse> data = new MutableLiveData<>();
 
-        apiService.RecipeInsert(dataRequest).enqueue(new Callback<String>() {
+        apiService.RecipeInsert(dataRequest).enqueue(new Callback<RecipeAddResponse>() {
             @Override
-            public void onResponse(Call<String> call, Response<String> response) {
+            public void onResponse(Call<RecipeAddResponse> call, Response<RecipeAddResponse> response) {
                 data.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<String> call, Throwable t) {
+            public void onFailure(Call<RecipeAddResponse> call, Throwable t) {
                 data.setValue(null);
             }
         });
@@ -72,6 +73,24 @@ public class RecipeRepository {
 
             @Override
             public void onFailure(Call<RecipeDetailResponse> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+    public LiveData<String> RecipeDelete(int recipe_id, int user_id){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        apiService.RecipeDelete(recipe_id,user_id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
                 data.setValue(null);
             }
         });

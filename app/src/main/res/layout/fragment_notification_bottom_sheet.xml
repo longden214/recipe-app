@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <RelativeLayout
+            android:id="@+id/mark_as_read_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
@@ -43,6 +44,7 @@
             android:background="#D9D9D9" />
 
         <RelativeLayout
+            android:id="@+id/remove_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/_10sdp">
@@ -73,6 +75,7 @@
             android:background="#D9D9D9" />
 
         <RelativeLayout
+            android:id="@+id/cancel_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_10sdp"

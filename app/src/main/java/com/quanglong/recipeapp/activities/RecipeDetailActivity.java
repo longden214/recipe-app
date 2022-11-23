@@ -67,7 +67,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
 
         viewPagerAdapter = new RecipeDetailVPAdapter(
-                getSupportFragmentManager());
+                getSupportFragmentManager(),id);
         viewPager.setAdapter(viewPagerAdapter);
 
         // It is used to join TabLayout with ViewPager.

@@ -14,9 +14,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.NotificationAllAdapter;
+import com.quanglong.recipeapp.listener.NotificationListener;
 import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.responses.NotificationResponse;
 import com.quanglong.recipeapp.viewmodels.NotificationViewModel;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
  * Use the {@link NotificationUnreadFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NotificationUnreadFragment extends Fragment {
+public class NotificationUnreadFragment extends Fragment implements NotificationListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -90,7 +92,7 @@ public class NotificationUnreadFragment extends Fragment {
     private void setNotificationAll(ArrayList<Notifications> mlistNotification){
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        notificationAllAdapter = new NotificationAllAdapter(mlistNotification,getActivity());
+        notificationAllAdapter = new NotificationAllAdapter(mlistNotification,getActivity(),this);
         recyclerView.setAdapter(notificationAllAdapter);
     }
 
@@ -122,5 +124,17 @@ public class NotificationUnreadFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_notification_unread, container, false);
+    }
+
+    @Override
+    public void onNotificationClicked(int id, int adapterPosition) {
+        NotificationBottomSheetFragment bottomSheetFragment = new NotificationBottomSheetFragment(id, adapterPosition);
+        ((NotificationBottomSheetFragment) bottomSheetFragment).setCallback(new NotificationBottomSheetFragment.Callback() {
+            @Override
+            public void onNotificationActionClick(int notiId, int optionSelected, int adapterPosition) {
+                Toast.makeText(getActivity(), "id " + notiId + " selected " + optionSelected + " position " + adapterPosition, Toast.LENGTH_SHORT).show();
+            }
+        });
+        bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 }

@@ -12,6 +12,7 @@ public class Base64Config {
             if (input.length() % totalCharPerItem > 0 && input.length() > totalCharPerItem) {
                 int totalItem = input.length() / totalCharPerItem;
                 for (int i = 0; i < totalItem; i++) {
+
                     result.add(input.substring(totalCharPerItem * i, totalCharPerItem * (i + 1)));
                 }
                 result.add(input.substring(totalCharPerItem * totalItem, input.length()));

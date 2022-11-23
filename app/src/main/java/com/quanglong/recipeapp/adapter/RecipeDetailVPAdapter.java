@@ -9,10 +9,11 @@ import com.quanglong.recipeapp.fragments.IngridentFragment;
 import com.quanglong.recipeapp.fragments.ProcedureFragment;
 
 public class RecipeDetailVPAdapter extends FragmentPagerAdapter {
-
-    public RecipeDetailVPAdapter(@NonNull FragmentManager fm)
+    private int id;
+    public RecipeDetailVPAdapter(@NonNull FragmentManager fm,int _id)
     {
         super(fm);
+        id = _id;
     }
 
     @NonNull
@@ -21,7 +22,7 @@ public class RecipeDetailVPAdapter extends FragmentPagerAdapter {
     {
         Fragment fragment = null;
         if (position == 0)
-            fragment = new IngridentFragment();
+            fragment = new IngridentFragment(id);
         else if (position == 1)
             fragment = new ProcedureFragment();
 

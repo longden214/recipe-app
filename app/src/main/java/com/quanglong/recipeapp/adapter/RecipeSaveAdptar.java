@@ -48,7 +48,7 @@ public class RecipeSaveAdptar extends RecyclerView.Adapter<RecipeSaveAdptar.Reci
         holder.RecipeName.setText(newRecipe.getName());
         holder.RecipeAuthor.setText("by "+newRecipe.getAuthor());
         holder.RecipeTime.setText((newRecipe.getCookTime()+ "mins"));
-        holder.RecipeReting.setText(Integer.toString(newRecipe.getTotalRating()));
+        holder.RecipeReting.setText(Float.toString(newRecipe.getAvgRating()));
         holder.itemView.setOnClickListener(view ->{
             recipeDetailListener.onRecipeDetailListener(newRecipe.getId(),newRecipe.getName());
         });

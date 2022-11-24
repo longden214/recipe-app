@@ -10,9 +10,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/transparent"
         android:fitsSystemWindows="true"
         android:gravity="center"
-        android:background="@color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,9 +33,9 @@
         android:id="@+id/layout_user_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -139,10 +139,10 @@
         android:id="@+id/itemUsername"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:ellipsize="end"
         android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/_16sdp"
+        android:ellipsize="end"
         android:fontFamily="@font/poppins_semibold"
         android:includeFontPadding="false"
         android:lineHeight="@dimen/_24ssp"
@@ -157,9 +157,9 @@
         android:id="@+id/job"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
-        android:ellipsize="end"
         android:layout_marginStart="@dimen/_16sdp"
         android:layout_marginEnd="@dimen/_16sdp"
+        android:ellipsize="end"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
         android:lineHeight="@dimen/_17ssp"
@@ -174,8 +174,8 @@
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:fontFamily="@font/poppins_regular"
         android:includeFontPadding="false"
@@ -191,8 +191,8 @@
         android:id="@+id/layout_item_total"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -239,22 +239,27 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_16sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_item_total">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/idMain"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/idMain"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

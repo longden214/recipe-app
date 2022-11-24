@@ -25,6 +25,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -42,6 +43,7 @@ import com.quanglong.recipeapp.activities.UserProfileActivity;
 import com.quanglong.recipeapp.adapter.RecipeProfileAdptar;
 import com.quanglong.recipeapp.adapter.RecipeSaveAdptar;
 import com.quanglong.recipeapp.listener.RecipeDetailListener;
+import com.quanglong.recipeapp.listener.RecipeListener;
 import com.quanglong.recipeapp.model.Recipe;
 import com.quanglong.recipeapp.model.RecipeRequest;
 import com.quanglong.recipeapp.responses.RecipeResponse;
@@ -152,11 +154,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
 
     private void setNewRecipe(ArrayList<Recipe> RecipeSaveList) {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
-        recipeProfileAdptar = new RecipeProfileAdptar(getActivity(),RecipeSaveList,this);
+        recipeProfileAdptar = new RecipeProfileAdptar(getActivity(),RecipeSaveList,getViewLifecycleOwner(),this);
         recyclerView.setAdapter(recipeProfileAdptar);
     }
 
     private void getNewRecipe() {
+        mlistreRecipes.clear();
         RecipeRequest newRequest = new RecipeRequest();
         newRequest.setKeyword("");
         newRequest.setListCatId(new int[]{});
@@ -181,7 +184,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         newRequest.setMinAvgRating(0);
         newRequest.setMaxAvgRating(5);
         newRequest.setCookTime("");
-        newRequest.setStatus(-1);
+        newRequest.setStatus(0);
         newRequest.setSortByIdDESC(true);
         newRequest.setSortByNameASC(false);
         newRequest.setSortByServesASC(false);
@@ -195,6 +198,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         newRequest.setSortByCarbo(false);
         newRequest.setPageIndex(1);
         newRequest.setPageSize(10);
+        newRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         viewModel.getAllNewRecipe(newRequest).observe(getViewLifecycleOwner(), new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {
@@ -223,8 +227,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         recyclerView = view.findViewById(R.id.listviewSave);
         viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
-
-
     }
 
     @Override

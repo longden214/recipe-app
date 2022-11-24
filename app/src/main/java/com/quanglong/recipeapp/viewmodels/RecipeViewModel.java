@@ -8,6 +8,7 @@ import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.repositories.RecipeRepository;
 import com.quanglong.recipeapp.repositories.UserRepository;
+import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.responses.RecipeDetailResponse;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.model.RecipeRequest;
@@ -26,10 +27,18 @@ public class RecipeViewModel extends ViewModel {
         return  recipeRepository.getAllNewRecipe(newRequest);
     }
 
-    public LiveData<String> createRecipe(RecipeDataRequest dataRequest) {
+    public LiveData<RecipeResponse> getSaveRecipe(int userId, int pageIndex, int pageSize){
+        return  recipeRepository.getSaveRecipe(userId, pageIndex, pageSize);
+    }
+
+    public LiveData<RecipeAddResponse> createRecipe(RecipeDataRequest dataRequest) {
         return recipeRepository.RecipeInsert(dataRequest);
     }
-    public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id){
-        return recipeRepository.getRecipeDetailWithParam(id);
+    public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id,int loginUserId){
+        return recipeRepository.getRecipeDetailWithParam(id,loginUserId);
+    }
+
+    public LiveData<String> recipeDelete(int recipe_id, int user_id) {
+        return recipeRepository.RecipeDelete(recipe_id, user_id);
     }
 }

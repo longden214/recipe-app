@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,6 +53,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private CircleImageView avatar;
     private int id;
     private RecipeViewModel recipeViewModel;
+    private SharedPreferences userLocalDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +69,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         tabLayout = findViewById(R.id.tabLayout);
 
         viewPagerAdapter = new RecipeDetailVPAdapter(
-                getSupportFragmentManager());
+                getSupportFragmentManager(),id);
         viewPager.setAdapter(viewPagerAdapter);
 
         // It is used to join TabLayout with ViewPager.
@@ -93,7 +95,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     }
 
     private void getRecipeDetail() {
-        recipeViewModel.getRecipeDetailWithParam(id).observe(this, new Observer<RecipeDetailResponse>() {
+        recipeViewModel.getRecipeDetailWithParam(id, userLocalDatabase.getInt("id", -1)).observe(this, new Observer<RecipeDetailResponse>() {
             @Override
             public void onChanged(RecipeDetailResponse recipeDetailResponse) {
                 if (recipeDetailResponse != null) {
@@ -134,6 +136,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         this.carbo = findViewById(R.id.textView32);
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipe = new Recipe();
+        this.userLocalDatabase = getSharedPreferences("userDetails", 0);
     }
 
     @Override

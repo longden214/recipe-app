@@ -26,6 +26,24 @@ public class Recipe implements Serializable {
     private String categoryDisplay;
     private String createUserDisplay;
     private int totalRating;
+    private boolean isSaveRecipe;
+    private boolean isFollowAuthor;
+
+    public boolean isFollowAuthor() {
+        return isFollowAuthor;
+    }
+
+    public void setFollowAuthor(boolean followAuthor) {
+        isFollowAuthor = followAuthor;
+    }
+
+    public boolean isSaveRecipe() {
+        return isSaveRecipe;
+    }
+
+    public void setSaveRecipe(boolean saveRecipe) {
+        isSaveRecipe = saveRecipe;
+    }
 
     public int getAuthorId() {
         return authorId;
@@ -211,7 +229,8 @@ public class Recipe implements Serializable {
         this.totalRating = totalRating;
     }
 
-    public Recipe(int authorId, float calories, float carbo, int categoryId, String cookTime, String createDate, int createUser, float fat, int id, String image, String name, String origin, float protein, int serves, int status, int totalViews, int updateUser, String author, String authorAvatar, float avgRating, String categoryDisplay, String createUserDisplay, int totalRating) {
+    public Recipe(int authorId, float calories, float carbo, int categoryId, String cookTime, String createDate, int createUser, float fat, int id, String image, String name, String origin, float protein, int serves, int status, int totalViews, int updateUser, String author, String authorAvatar, float avgRating,
+                  String categoryDisplay, String createUserDisplay, int totalRating, boolean isSaveRecipe, boolean isFollowAuthor) {
         this.authorId = authorId;
         this.calories = calories;
         this.carbo = carbo;
@@ -235,11 +254,9 @@ public class Recipe implements Serializable {
         this.categoryDisplay = categoryDisplay;
         this.createUserDisplay = createUserDisplay;
         this.totalRating = totalRating;
+        this.isSaveRecipe = isSaveRecipe;
+        this.isFollowAuthor = isFollowAuthor;
     }
-
-
-
-
 
     public Recipe() {
     }

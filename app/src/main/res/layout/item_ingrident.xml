@@ -5,7 +5,7 @@
     android:background="@drawable/bg_ingrident">
 
     <TextView
-        android:id="@+id/textView22"
+        android:id="@+id/ingredient_name"
         android:layout_width="@dimen/_200sdp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -19,7 +19,7 @@
         android:textSize="@dimen/_16ssp" />
 
     <TextView
-        android:id="@+id/textView25"
+        android:id="@+id/ingredient_unit"
         android:layout_width="@dimen/_60sdp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"

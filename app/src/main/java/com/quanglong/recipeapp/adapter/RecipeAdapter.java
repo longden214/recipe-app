@@ -52,7 +52,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.RecipeName.setText(recipe.getName());
         holder.RecipeAuthor.setText("by " +recipe.getAuthor());
         holder.RecipeTime.setText(recipe.getCookTime()+ " Mins");
-        holder.RecipeRating.setText(Integer.toString(recipe.getTotalRating()));
+        holder.RecipeRating.setText(Float.toString(recipe.getAvgRating()));
         holder.itemView.setOnClickListener(view ->{
             recipeDetailListener.onRecipeDetailListener(recipe.getId(),recipe.getName());
         });

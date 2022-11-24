@@ -42,6 +42,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private TextView job;
     private TextView description;
     private PopularChef chef;
+    private TextView total_item;
     private CircleImageView avatar;
     private RecyclerView recyclerView;
     private ArrayList<Recipe> mlistreRecipes = new ArrayList<>() ;
@@ -84,7 +85,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         this.itemUsername.setText(chef.getUserName());
         this.job.setText(chef.getJob());
         this.description.setText(chef.getDescription());
-
+        this.total_item.setText(chef.getTotalRecipe() + " items");
 
     }
 
@@ -119,7 +120,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         newRequest.setMinAvgRating(0);
         newRequest.setMaxAvgRating(5);
         newRequest.setCookTime("");
-        newRequest.setStatus(-1);
+        newRequest.setStatus(0);
         newRequest.setSortByIdDESC(true);
         newRequest.setSortByNameASC(false);
         newRequest.setSortByServesASC(false);
@@ -133,6 +134,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         newRequest.setSortByCarbo(false);
         newRequest.setPageIndex(1);
         newRequest.setPageSize(10);
+        newRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         viewModel.getAllNewRecipe(newRequest).observe(this, new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {
@@ -169,6 +171,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         this.itemUsername = findViewById(R.id.itemUsername);
         this.job = findViewById(R.id.job);
         this.description = findViewById(R.id.description);
+        total_item = findViewById(R.id.total_item);
         recyclerView = findViewById(R.id.idMain);
         viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         this.userLocalDatabase = UserProfileActivity.this.getSharedPreferences("userDetails", 0);

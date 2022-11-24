@@ -2,6 +2,7 @@ package com.quanglong.recipeapp.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -47,7 +48,7 @@ public class PopularChefsActivity extends AppCompatActivity implements View.OnCl
     private ProgressBar progressBar_more;
     private boolean isLoading =false;
     private boolean isLoadingMore = false;
-
+    private SharedPreferences userLocalDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,7 +91,7 @@ public class PopularChefsActivity extends AppCompatActivity implements View.OnCl
         chefRequest.setUserName("");
         chefRequest.setSex(-1);
         chefRequest.setRole(-1);
-        chefRequest.setStatus(-1);
+        chefRequest.setStatus(0);
         chefRequest.setSortByIdDESC(false);
         chefRequest.setSortByTotalRecipeDESC(true);
         chefRequest.setSortByTotalFollowOtherUserDESC(false);
@@ -98,6 +99,7 @@ public class PopularChefsActivity extends AppCompatActivity implements View.OnCl
         chefRequest.setSortByTotalViewsDESC(true);
         chefRequest.setPageIndex(currentPage);
         chefRequest.setPageSize(10);
+        chefRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         viewModel.getAllPopularChef(chefRequest).observe(this, new Observer<PopularChefResponses>() {
             @Override
             public void onChanged(PopularChefResponses popularChefResponses) {
@@ -146,6 +148,7 @@ public class PopularChefsActivity extends AppCompatActivity implements View.OnCl
         viewModel = new ViewModelProvider(this).get(PopularChefsViewModel.class);
         progressBar_loading = findViewById(R.id.progressBar_loading);
         progressBar_more = findViewById(R.id.progressBar_more);
+        this.userLocalDatabase = this.getSharedPreferences("userDetails", 0);
     }
 
     private void customActionBar() {

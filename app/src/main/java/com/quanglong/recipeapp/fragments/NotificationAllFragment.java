@@ -1,9 +1,11 @@
 package com.quanglong.recipeapp.fragments;
 
-import android.app.Notification;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,30 +15,25 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.NotificationAllAdapter;
+import com.quanglong.recipeapp.listener.NotificationListener;
 import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.responses.NotificationResponse;
 import com.quanglong.recipeapp.viewmodels.NotificationViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * create an instance of this fragment.
  */
-public class NotificationAllFragment extends Fragment implements View.OnClickListener {
+public class NotificationAllFragment extends Fragment implements NotificationListener {
     private NotificationAllAdapter notificationAllAdapter;
     private RecyclerView recyclerView;
     private ArrayList<Notifications> mlistNotification = new ArrayList<>();
     private NotificationViewModel notificationViewModel;
-    private int id ;
+    private int id;
     private SharedPreferences userLocalDatabase;
 
     public NotificationAllFragment() {
@@ -63,24 +60,21 @@ public class NotificationAllFragment extends Fragment implements View.OnClickLis
         id = userLocalDatabase.getInt("id", -1);
         setNotificationAll(mlistNotification);
         getNotificationAll();
-
-//        Button btn = view.findViewById(R.id.button3);
-//        btn.setOnClickListener(this);
     }
 
-        private void setNotificationAll(ArrayList<Notifications> mlistNotification){
+    private void setNotificationAll(ArrayList<Notifications> mlistNotification) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
-        notificationAllAdapter = new NotificationAllAdapter(mlistNotification,getActivity());
+        notificationAllAdapter = new NotificationAllAdapter(mlistNotification, getActivity(), this);
         recyclerView.setAdapter(notificationAllAdapter);
     }
 
-    private void getNotificationAll(){
-        notificationViewModel.getNotificationWithParam(id,-1,1,10).observe(getActivity(), new Observer<NotificationResponse>() {
+    private void getNotificationAll() {
+        notificationViewModel.getNotificationWithParam(id, -1, 1, 10).observe(getActivity(), new Observer<NotificationResponse>() {
             @Override
             public void onChanged(NotificationResponse notification) {
-                if(notification != null){
-                    if(notification.getNotifications().size()>0){
+                if (notification != null) {
+                    if (notification.getNotifications().size() > 0) {
                         int oldCount = mlistNotification.size();
                         mlistNotification.addAll(notification.getNotifications());
                         notificationAllAdapter.notifyItemRangeInserted(oldCount, mlistNotification.size());
@@ -95,20 +89,17 @@ public class NotificationAllFragment extends Fragment implements View.OnClickLis
         recyclerView = view.findViewById(R.id.notification_all_rv);
         mlistNotification = new ArrayList<>();
         notificationViewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
-
     }
 
     @Override
-    public void onClick(View view) {
-        int id = view.getId();
-
-        switch (id) {
-
-//            case R.id.button3:
-//                NotificationBottomSheetFragment bottomSheetFragment = new NotificationBottomSheetFragment();
-//                bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
-//                break;
-
-        }
+    public void onNotificationClicked(int id, int adapterPosition) {
+        NotificationBottomSheetFragment bottomSheetFragment = new NotificationBottomSheetFragment(id, adapterPosition);
+        ((NotificationBottomSheetFragment) bottomSheetFragment).setCallback(new NotificationBottomSheetFragment.Callback() {
+            @Override
+            public void onNotificationActionClick(int notiId, int optionSelected, int adapterPosition) {
+                Toast.makeText(getActivity(), "id " + notiId + " selected " + optionSelected + " position " + adapterPosition, Toast.LENGTH_SHORT).show();
+            }
+        });
+        bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());
     }
 }

@@ -25,8 +25,10 @@ import com.quanglong.recipeapp.databinding.ActivityCookingStepsBinding;
 import com.quanglong.recipeapp.fragments.CategorySearchDialog;
 import com.quanglong.recipeapp.listener.StepListener;
 import com.quanglong.recipeapp.model.Ingredient;
+import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.Step;
+import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.utilities.RealPathUtil;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
@@ -113,18 +115,21 @@ public class CookingStepsActivity extends AppCompatActivity implements View.OnCl
                 if (checkAllField()){
                     recipe_request.setListSteps(steps);
 
-                    viewModel.createRecipe(recipe_request).observe(this, new Observer<String>() {
+                    viewModel.createRecipe(recipe_request).observe(this, new Observer<RecipeAddResponse>() {
                         @Override
-                        public void onChanged(String s) {
-                            if (s.equals("Success!")){
+                        public void onChanged(RecipeAddResponse s) {
+                            if (s.getMessage().equals("Success!")){
+                                Toast.makeText(getApplicationContext(), "Create recipe successfully", Toast.LENGTH_SHORT).show();
+
                                 Intent intent = new Intent(CookingStepsActivity.this, MainActivity.class);
                                 startActivity(intent);
-                                Toast.makeText(getApplicationContext(), "Create recipe successfully", Toast.LENGTH_SHORT).show();
+
+                                List<Notifications> notificationModels = s.getNotificationModels();
                             }else{
-                                if (s.equals("Failed!")){
+                                if (s.getMessage().equals("Failed!")){
                                     Toast.makeText(CookingStepsActivity.this, "Create recipe failed!", Toast.LENGTH_LONG).show();
                                 }else{
-                                    Toast.makeText(CookingStepsActivity.this, s, Toast.LENGTH_LONG).show();
+                                    Toast.makeText(CookingStepsActivity.this, s.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
                         }

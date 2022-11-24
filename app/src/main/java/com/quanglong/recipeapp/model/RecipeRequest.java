@@ -38,6 +38,15 @@ public class RecipeRequest {
     private boolean sortByCarbo;
     private int pageIndex;
     private int pageSize;
+    private int loginUserId;
+
+    public int getLoginUserId() {
+        return loginUserId;
+    }
+
+    public void setLoginUserId(int loginUserId) {
+        this.loginUserId = loginUserId;
+    }
 
     public String getKeyword() {
         return keyword;
@@ -335,7 +344,7 @@ public class RecipeRequest {
         this.pageSize = pageSize;
     }
 
-    public RecipeRequest(String keyword, int[] listCatId, int authorId, String name, String origin, String ingredient, int minServer, int maxServer, int minTotalViews, int maxTotalViews, int minTotalRating, int maxTotalRating, int minCalories, int maxCalories, int minFat, int maxFat, int minProtein, int maxProtein, int minCarbo, int maxCarbo, int minAvgRating, int maxAvgRating, String cookTime, int status, boolean sortByIdDESC, boolean sortByNameASC, boolean sortByServesASC, boolean sortByServesDESC, boolean sortByTotalViewDESC, boolean sortByAvgRatingDESC, boolean sortByTotalRatingDESC, boolean sortByCaloriesDESC, boolean sortByFatDESC, boolean sortByProteinDESC, boolean sortByCarbo, int pageIndex, int pageSize) {
+    public RecipeRequest(String keyword, int[] listCatId, int authorId, String name, String origin, String ingredient, int minServer, int maxServer, int minTotalViews, int maxTotalViews, int minTotalRating, int maxTotalRating, int minCalories, int maxCalories, int minFat, int maxFat, int minProtein, int maxProtein, int minCarbo, int maxCarbo, int minAvgRating, int maxAvgRating, String cookTime, int status, boolean sortByIdDESC, boolean sortByNameASC, boolean sortByServesASC, boolean sortByServesDESC, boolean sortByTotalViewDESC, boolean sortByAvgRatingDESC, boolean sortByTotalRatingDESC, boolean sortByCaloriesDESC, boolean sortByFatDESC, boolean sortByProteinDESC, boolean sortByCarbo, int pageIndex, int pageSize, int loginUserId) {
         this.keyword = keyword;
         this.listCatId = listCatId;
         this.authorId = authorId;
@@ -373,6 +382,7 @@ public class RecipeRequest {
         this.sortByCarbo = sortByCarbo;
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;
+        this.loginUserId = loginUserId;
     }
 
     public RecipeRequest() {

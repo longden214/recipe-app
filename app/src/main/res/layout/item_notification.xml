@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp"
@@ -10,6 +11,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:orientation="horizontal">
@@ -44,18 +47,26 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_6sdp"
+        android:layout_margin="@dimen/_10sdp"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0.0px"
+        android:elevation="8dp"
         app:cardCornerRadius="@dimen/_10sdp"
-        app:layout_constraintTop_toBottomOf="@+id/layout_datetime"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layout_datetime"
+        card_view:cardElevation="10dp"
+        card_view:cardPreventCornerOverlap="false"
+        card_view:layout_constraintBottom_toBottomOf="parent">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -81,17 +92,17 @@
                         android:textSize="@dimen/_11ssp" />
 
                     <ImageView
-                        android:id="@+id/imageView8"
+                        android:id="@+id/isRead"
                         android:layout_width="10dp"
                         android:layout_height="10dp"
-                        android:layout_marginStart="5dp"
                         android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
                         android:layout_toRightOf="@+id/notifi_title"
                         app:srcCompat="@drawable/ic_notifi_circle" />
                 </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/imageView9"
+                    android:id="@+id/noti_option"
                     android:layout_width="@dimen/_16sdp"
                     android:layout_height="@dimen/_16sdp"
                     app:srcCompat="@drawable/more_icon" />
@@ -107,14 +118,14 @@
                 android:id="@+id/textView41"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:includeFontPadding="false"
                 android:layout_margin="@dimen/_8sdp"
-                android:maxLines="8"
                 android:ellipsize="end"
-                android:textColor="#A9A9A9"
                 android:fontFamily="@font/poppins_regular"
-                android:textSize="@dimen/_11ssp"
-                android:text="Lorem Ipsum tempor incididunt ut labore et dolore,in voluptate velit esse cillum" />
+                android:includeFontPadding="false"
+                android:maxLines="8"
+                android:text="Lorem Ipsum tempor incididunt ut labore et dolore,in voluptate velit esse cillum"
+                android:textColor="#A9A9A9"
+                android:textSize="@dimen/_11ssp" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RecipeApp</string>
+    <string name="app_name">Chef Recipe</string>
     <string name="k_premium_r">100K+ Premium Recipe</string>
     <string name="lbl_start_cooking">Start Cooking</string>
     <string name="header_title">Get\nCooking</string>

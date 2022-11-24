@@ -100,6 +100,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         super.onViewCreated(view, savedInstanceState);
         doInitialization(view);
 
+        edt_search.clearFocus();
         btn_filter.setOnClickListener(this);
         category_see_all.setOnClickListener(this);
         chef_see_all.setOnClickListener(this);

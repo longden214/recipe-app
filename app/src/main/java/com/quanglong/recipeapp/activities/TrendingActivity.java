@@ -1,6 +1,7 @@
 package com.quanglong.recipeapp.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,7 +40,7 @@ public class TrendingActivity extends AppCompatActivity implements View.OnClickL
     private ProgressBar progressBar_more;
     private boolean isLoading =false;
     private boolean isLoadingMore = false;
-
+    private SharedPreferences userLocalDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +97,7 @@ public class TrendingActivity extends AppCompatActivity implements View.OnClickL
         newRequest.setMinAvgRating(0);
         newRequest.setMaxAvgRating(5);
         newRequest.setCookTime("");
-        newRequest.setStatus(-1);
+        newRequest.setStatus(0);
         newRequest.setSortByIdDESC(false);
         newRequest.setSortByNameASC(false);
         newRequest.setSortByServesASC(false);
@@ -110,6 +111,7 @@ public class TrendingActivity extends AppCompatActivity implements View.OnClickL
         newRequest.setSortByCarbo(false);
         newRequest.setPageIndex(currentPage);
         newRequest.setPageSize(10);
+        newRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         viewModel.getAllNewRecipe(newRequest).observe(this, new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {
@@ -157,6 +159,7 @@ public class TrendingActivity extends AppCompatActivity implements View.OnClickL
         viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         progressBar_loading = findViewById(R.id.progressBar_loading);
         progressBar_more = findViewById(R.id.progressBar_more);
+        this.userLocalDatabase = getSharedPreferences("userDetails", 0);
     }
 
     private void customActionBar() {

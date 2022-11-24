@@ -37,6 +37,8 @@ public class PopularChef implements Serializable {
     private int updateUser;
     @SerializedName("userName")
     private String userName;
+    @SerializedName("isFollowerUser")
+    private boolean isFollowerUser;
     @SerializedName("totalFollowOtherUser")
     private int totalFollowOtherUser;
     @SerializedName("totalFollowedByOthersUser")
@@ -45,6 +47,14 @@ public class PopularChef implements Serializable {
     private int totalRecipe;
     @SerializedName("totalViews")
     private int totalViews;
+
+    public boolean isFollowerUser() {
+        return isFollowerUser;
+    }
+
+    public void setFollowerUser(boolean followerUser) {
+        isFollowerUser = followerUser;
+    }
 
     public int getId() {
         return id;
@@ -206,7 +216,7 @@ public class PopularChef implements Serializable {
         this.totalViews = totalViews;
     }
 
-    public PopularChef(int id, String address, String avatar, String createDate, int createUser, String description, String displayName, String email, String job, String phoneNumber, int role, int sex, int status, String updateDate, int updateUser, String userName, int totalFollowOtherUser, int totalFollowedByOthersUser, int totalRecipe, int totalViews) {
+    public PopularChef(int id, String address, String avatar, String createDate, int createUser, String description, String displayName, String email, String job, String phoneNumber, int role, int sex, int status, String updateDate, int updateUser, String userName, boolean isFollowerUser, int totalFollowOtherUser, int totalFollowedByOthersUser, int totalRecipe, int totalViews) {
         this.id = id;
         this.address = address;
         this.avatar = avatar;
@@ -223,6 +233,7 @@ public class PopularChef implements Serializable {
         this.updateDate = updateDate;
         this.updateUser = updateUser;
         this.userName = userName;
+        this.isFollowerUser = isFollowerUser;
         this.totalFollowOtherUser = totalFollowOtherUser;
         this.totalFollowedByOthersUser = totalFollowedByOthersUser;
         this.totalRecipe = totalRecipe;

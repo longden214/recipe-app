@@ -33,6 +33,8 @@ public class ChefRequest {
     private int pageIndex;
     @SerializedName("pageSize")
     private int pageSize;
+    @SerializedName("loginUserId")
+    private int loginUserId;
 
     public String getKeyword() {
         return keyword;
@@ -154,7 +156,15 @@ public class ChefRequest {
         this.pageSize = pageSize;
     }
 
-    public ChefRequest(String keyword, String email, String phoneNumber, String displayName, String userName, int sex, int role, int status, boolean sortByIdDESC, boolean sortByTotalRecipeDESC, boolean sortByTotalFollowOtherUserDESC, boolean sortByTotalFollowedByOthersUserDESC, boolean sortByTotalViewsDESC, int pageIndex, int pageSize) {
+    public int getLoginUserId() {
+        return loginUserId;
+    }
+
+    public void setLoginUserId(int loginUserId) {
+        this.loginUserId = loginUserId;
+    }
+
+    public ChefRequest(String keyword, String email, String phoneNumber, String displayName, String userName, int sex, int role, int status, boolean sortByIdDESC, boolean sortByTotalRecipeDESC, boolean sortByTotalFollowOtherUserDESC, boolean sortByTotalFollowedByOthersUserDESC, boolean sortByTotalViewsDESC, int pageIndex, int pageSize, int loginUserId) {
         this.keyword = keyword;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -170,6 +180,7 @@ public class ChefRequest {
         this.sortByTotalViewsDESC = sortByTotalViewsDESC;
         this.pageIndex = pageIndex;
         this.pageSize = pageSize;
+        this.loginUserId = loginUserId;
     }
 
     public ChefRequest() {

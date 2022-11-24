@@ -192,7 +192,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         chefRequest.setUserName("");
         chefRequest.setSex(-1);
         chefRequest.setRole(-1);
-        chefRequest.setStatus(-1);
+        chefRequest.setStatus(0);
         chefRequest.setSortByIdDESC(false);
         chefRequest.setSortByTotalRecipeDESC(true);
         chefRequest.setSortByTotalFollowOtherUserDESC(false);
@@ -200,6 +200,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         chefRequest.setSortByTotalViewsDESC(true);
         chefRequest.setPageIndex(1);
         chefRequest.setPageSize(10);
+        chefRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         popularChefsViewModel.getAllPopularChef(chefRequest).observe(getViewLifecycleOwner(), new Observer<PopularChefResponses>() {
             @Override
             public void onChanged(PopularChefResponses popularChefResponses) {
@@ -249,7 +250,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         newRequest.setMinAvgRating(0);
         newRequest.setMaxAvgRating(5);
         newRequest.setCookTime("");
-        newRequest.setStatus(-1);
+        newRequest.setStatus(0);
         newRequest.setSortByIdDESC(true);
         newRequest.setSortByNameASC(false);
         newRequest.setSortByServesASC(false);
@@ -263,6 +264,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         newRequest.setSortByCarbo(false);
         newRequest.setPageIndex(1);
         newRequest.setPageSize(10);
+        newRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         RecipeViewModel.getAllNewRecipe(newRequest).observe(getViewLifecycleOwner(), new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {
@@ -311,7 +313,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         newRequest.setMinAvgRating(0);
         newRequest.setMaxAvgRating(5);
         newRequest.setCookTime("");
-        newRequest.setStatus(-1);
+        newRequest.setStatus(0);
         newRequest.setSortByIdDESC(false);
         newRequest.setSortByNameASC(false);
         newRequest.setSortByServesASC(false);
@@ -325,6 +327,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         newRequest.setSortByCarbo(false);
         newRequest.setPageIndex(1);
         newRequest.setPageSize(10);
+        newRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         RecipeViewModel.getAllNewRecipe(newRequest).observe(getViewLifecycleOwner(), new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {

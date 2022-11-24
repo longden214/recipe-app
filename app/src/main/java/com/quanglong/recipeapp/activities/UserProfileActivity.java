@@ -120,7 +120,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         newRequest.setMinAvgRating(0);
         newRequest.setMaxAvgRating(5);
         newRequest.setCookTime("");
-        newRequest.setStatus(-1);
+        newRequest.setStatus(0);
         newRequest.setSortByIdDESC(true);
         newRequest.setSortByNameASC(false);
         newRequest.setSortByServesASC(false);
@@ -134,6 +134,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         newRequest.setSortByCarbo(false);
         newRequest.setPageIndex(1);
         newRequest.setPageSize(10);
+        newRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         viewModel.getAllNewRecipe(newRequest).observe(this, new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {

@@ -53,6 +53,9 @@ public class UserLoginResponse {
     @SerializedName("userName")
     private String userName;
 
+    @SerializedName("isFollowerUser")
+    private boolean isFollowerUser;
+
     @SerializedName("message")
     private String message;
 
@@ -74,10 +77,7 @@ public class UserLoginResponse {
     public UserLoginResponse() {
     }
 
-    public UserLoginResponse(String type, String address, String avatar, Date createDate, int createUser, String description,
-                             String displayName, String email, int id, String job, String phoneNumber, int role, int sex,
-                             int status, int updateUser, String userName, String message, int statusCode,
-                             int totalRecipe, int totalViews, int totalFollowOtherUser, int totalFollowedByOthersUser) {
+    public UserLoginResponse(String type, String address, String avatar, Date createDate, int createUser, String description, String displayName, String email, int id, String job, String phoneNumber, int role, int sex, int status, int updateUser, String userName, boolean isFollowerUser, String message, int statusCode, int totalRecipe, int totalViews, int totalFollowOtherUser, int totalFollowedByOthersUser) {
         this.type = type;
         this.address = address;
         this.avatar = avatar;
@@ -94,12 +94,21 @@ public class UserLoginResponse {
         this.status = status;
         this.updateUser = updateUser;
         this.userName = userName;
+        this.isFollowerUser = isFollowerUser;
         this.message = message;
         this.statusCode = statusCode;
         this.totalRecipe = totalRecipe;
         this.totalViews = totalViews;
         this.totalFollowOtherUser = totalFollowOtherUser;
         this.totalFollowedByOthersUser = totalFollowedByOthersUser;
+    }
+
+    public boolean isFollowerUser() {
+        return isFollowerUser;
+    }
+
+    public void setFollowerUser(boolean followerUser) {
+        isFollowerUser = followerUser;
     }
 
     public String getType() {

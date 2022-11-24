@@ -21,7 +21,10 @@ import retrofit2.http.Query;
 public interface RecipeService {
 
     @GET("recipes/getRecipe")
-    Call<RecipeDetailResponse> getRecipeDetailWithParam(@Query("id") int id);
+    Call<RecipeDetailResponse> getRecipeDetailWithParam(@Query("id") int id,@Query("loginUserId") int loginUserId);
+
+    @GET("recipes/getSaveRecipe")
+    Call<RecipeResponse> getSaveRecipe(@Query("userId") int userId,@Query("pageIndex") int pageIndex, @Query("pageSize") int pageSize);
 
     @POST("recipes/filterData")
     Call<RecipeResponse> newrecipe(@Body RecipeRequest newRequest);

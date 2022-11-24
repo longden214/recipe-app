@@ -27,11 +27,15 @@ public class RecipeViewModel extends ViewModel {
         return  recipeRepository.getAllNewRecipe(newRequest);
     }
 
+    public LiveData<RecipeResponse> getSaveRecipe(int userId, int pageIndex, int pageSize){
+        return  recipeRepository.getSaveRecipe(userId, pageIndex, pageSize);
+    }
+
     public LiveData<RecipeAddResponse> createRecipe(RecipeDataRequest dataRequest) {
         return recipeRepository.RecipeInsert(dataRequest);
     }
-    public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id){
-        return recipeRepository.getRecipeDetailWithParam(id);
+    public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id,int loginUserId){
+        return recipeRepository.getRecipeDetailWithParam(id,loginUserId);
     }
 
     public LiveData<String> recipeDelete(int recipe_id, int user_id) {

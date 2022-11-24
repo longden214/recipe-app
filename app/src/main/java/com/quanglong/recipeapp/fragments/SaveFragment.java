@@ -77,45 +77,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener, Reci
     }
 
     private void getNewRecipe() {
-        RecipeRequest newRequest = new RecipeRequest();
-        newRequest.setKeyword("");
-        newRequest.setListCatId(new int[]{});
-        newRequest.setAuthorId(id);
-        newRequest.setName("");
-        newRequest.setOrigin("");
-        newRequest.setIngredient("");
-        newRequest.setMinServer(0);
-        newRequest.setMaxServer(0);
-        newRequest.setMinTotalViews(0);
-        newRequest.setMaxTotalViews(0);
-        newRequest.setMinTotalRating(0);
-        newRequest.setMaxTotalRating(0);
-        newRequest.setMinCalories(0);
-        newRequest.setMaxCalories(0);
-        newRequest.setMinFat(0);
-        newRequest.setMaxFat(0);
-        newRequest.setMinProtein(0);
-        newRequest.setMaxProtein(0);
-        newRequest.setMinCarbo(0);
-        newRequest.setMaxCarbo(0);
-        newRequest.setMinAvgRating(0);
-        newRequest.setMaxAvgRating(5);
-        newRequest.setCookTime("");
-        newRequest.setStatus(-1);
-        newRequest.setSortByIdDESC(true);
-        newRequest.setSortByNameASC(false);
-        newRequest.setSortByServesASC(false);
-        newRequest.setSortByServesDESC(false);
-        newRequest.setSortByTotalViewDESC(false);
-        newRequest.setSortByAvgRatingDESC(false);
-        newRequest.setSortByTotalRatingDESC(false);
-        newRequest.setSortByCaloriesDESC(false);
-        newRequest.setSortByFatDESC(false);
-        newRequest.setSortByProteinDESC(false);
-        newRequest.setSortByCarbo(false);
-        newRequest.setPageIndex(1);
-        newRequest.setPageSize(10);
-        viewModel.getAllNewRecipe(newRequest).observe(getViewLifecycleOwner(), new Observer<RecipeResponse>() {
+        viewModel.getSaveRecipe(userLocalDatabase.getInt("id", -1),1,20).observe(getViewLifecycleOwner(), new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {
                 if (recipeResponse.getNewRecipeShow() != null) {
@@ -150,11 +112,6 @@ public class SaveFragment extends Fragment implements View.OnClickListener, Reci
         id = userLocalDatabase.getInt("id", -1);
         setNewRecipe(mlistreRecipes);
         getNewRecipe();
-
-//        // Customize the back button
-//        activity.getSupportActionBar().setHomeAsUpIndicator( R.drawable.ic_arrow_left);
-//        // showing the back button in action bar
-//        activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

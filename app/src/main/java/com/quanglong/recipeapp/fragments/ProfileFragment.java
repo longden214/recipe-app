@@ -198,6 +198,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         newRequest.setSortByCarbo(false);
         newRequest.setPageIndex(1);
         newRequest.setPageSize(10);
+        newRequest.setLoginUserId(userLocalDatabase.getInt("id", -1));
         viewModel.getAllNewRecipe(newRequest).observe(getViewLifecycleOwner(), new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {

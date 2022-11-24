@@ -19,6 +19,7 @@ import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Query;
 
 public class RecipeRepository {
     private RecipeService apiService;
@@ -30,6 +31,22 @@ public class RecipeRepository {
     public LiveData<RecipeResponse> getAllNewRecipe(RecipeRequest newRequest){
         MutableLiveData<RecipeResponse> data = new MutableLiveData<>();
         apiService.newrecipe(newRequest).enqueue(new Callback<RecipeResponse>() {
+            @Override
+            public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<RecipeResponse> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+        return data;
+    }
+
+    public LiveData<RecipeResponse> getSaveRecipe(int userId, int pageIndex, int pageSize){
+        MutableLiveData<RecipeResponse> data = new MutableLiveData<>();
+        apiService.getSaveRecipe(userId,pageIndex,pageSize).enqueue(new Callback<RecipeResponse>() {
             @Override
             public void onResponse(Call<RecipeResponse> call, Response<RecipeResponse> response) {
                 data.setValue(response.body());
@@ -62,10 +79,10 @@ public class RecipeRepository {
     }
 
 
-    public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id){
+    public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id,int loginUserId){
         MutableLiveData<RecipeDetailResponse> data = new MutableLiveData<>();
 
-        apiService.getRecipeDetailWithParam(id).enqueue(new Callback<RecipeDetailResponse>() {
+        apiService.getRecipeDetailWithParam(id,loginUserId).enqueue(new Callback<RecipeDetailResponse>() {
             @Override
             public void onResponse(Call<RecipeDetailResponse> call, Response<RecipeDetailResponse> response) {
                 data.setValue(response.body());

@@ -64,7 +64,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
 
         itemFollwer.setOnClickListener(view -> {
-            startActivity(new Intent(this, FollowerActivity.class));
+            Intent itent1 = new Intent(UserProfileActivity.this,FollowerActivity.class);
+            itent1.putExtra("id",chef.getId());
+            startActivity(itent1);
         });
 
         itemFollwing.setOnClickListener(view -> {

@@ -25,7 +25,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -39,11 +38,8 @@ import com.quanglong.recipeapp.activities.FollowerActivity;
 import com.quanglong.recipeapp.activities.FollowingActivity;
 import com.quanglong.recipeapp.activities.RecipeDetailActivity;
 import com.quanglong.recipeapp.activities.SettingActivity;
-import com.quanglong.recipeapp.activities.UserProfileActivity;
 import com.quanglong.recipeapp.adapter.RecipeProfileAdptar;
-import com.quanglong.recipeapp.adapter.RecipeSaveAdptar;
 import com.quanglong.recipeapp.listener.RecipeDetailListener;
-import com.quanglong.recipeapp.listener.RecipeListener;
 import com.quanglong.recipeapp.model.Recipe;
 import com.quanglong.recipeapp.model.RecipeRequest;
 import com.quanglong.recipeapp.responses.RecipeResponse;
@@ -140,11 +136,15 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         this.total_item.setText(user.getTotalRecipe() + " items");
 
         itemFollwer.setOnClickListener(view1 -> {
-            startActivity(new Intent(getActivity(), FollowerActivity.class));
+            Intent intent = new Intent(getActivity(),FollowerActivity.class);
+            intent.putExtra("id",userLocalDatabase.getInt("id", -1));
+            startActivity(intent);
         });
 
         itemFollwing.setOnClickListener(view2 -> {
-            startActivity(new Intent(getActivity(), FollowingActivity.class));
+            Intent intent = new Intent(getActivity(),FollowingActivity.class);
+            intent.putExtra("id",userLocalDatabase.getInt("id", -1));
+            startActivity(intent);
         });
         id = userLocalDatabase.getInt("id", -1);
         setNewRecipe(mlistreRecipes);

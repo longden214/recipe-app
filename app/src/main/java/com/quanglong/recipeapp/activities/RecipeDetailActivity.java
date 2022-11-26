@@ -15,6 +15,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +55,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private int id;
     private RecipeViewModel recipeViewModel;
     private SharedPreferences userLocalDatabase;
+    private Button btn_follow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +94,15 @@ public class RecipeDetailActivity extends AppCompatActivity {
         this.protein.setText(Float.toString(recipe.getProtein()));
         this.carbo.setText(Float.toString(recipe.getCarbo()));
 
+        if (recipe.isFollowAuthor()){
+            this.btn_follow.setText("Following");
+            this.btn_follow.setBackground(getResources().getDrawable(R.drawable.bg_following));
+            this.btn_follow.setTextColor(getResources().getColor(R.color.text_color));
+        }else{
+            this.btn_follow.setText("Follow");
+            this.btn_follow.setBackground(getResources().getDrawable(R.drawable.bg_button_follow));
+            this.btn_follow.setTextColor(getResources().getColor(R.color.white));
+        }
     }
 
     private void getRecipeDetail() {
@@ -102,6 +113,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
                     if (recipeDetailResponse.getRecipeDetail() != null) {
                         recipe = (Recipe) recipeDetailResponse.getRecipeDetail();
                         SetRecipeDetail();
+
                     }
                 }
             }
@@ -134,6 +146,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         this.fat=findViewById(R.id.textView26);
         this.protein=findViewById(R.id.textView29);
         this.carbo = findViewById(R.id.textView32);
+        this.btn_follow = findViewById(R.id.btn_follow);
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipe = new Recipe();
         this.userLocalDatabase = getSharedPreferences("userDetails", 0);

@@ -43,6 +43,7 @@ import com.quanglong.recipeapp.model.ChefRequest;
 import com.quanglong.recipeapp.model.Recipe;
 import com.quanglong.recipeapp.model.RecipeRequest;
 import com.quanglong.recipeapp.model.PopularChef;
+import com.quanglong.recipeapp.responses.CategoryResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.responses.PopularChefResponses;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
@@ -106,6 +107,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         chef_see_all.setOnClickListener(this);
         new_see_all.setOnClickListener(this);
         trending_see_all.setOnClickListener(this);
+        avatar.setOnClickListener(this);
 
         setImageURL(avatar, userLocalDatabase.getString("avatar", ""));
 
@@ -164,13 +166,17 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     }
 
     public void getAllCategory(){
-        viewModel.getAllCategory().observe(getViewLifecycleOwner(), res ->{
-            if (res != null){
-                if (res.size() > 0){
-                    int oldCount = categoryList.size();
+        viewModel.getCategoryWithParam("", false, true, false,
+                true, 1, 10).observe(getViewLifecycleOwner(), new Observer<CategoryResponse>() {
+            @Override
+            public void onChanged(CategoryResponse categories) {
+                if (categories != null) {
+                    if (categories.getCaregoties().size() > 0) {
+                        int oldCount = categoryList.size();
 
-                    categoryList.addAll(res);
-                    categoryAdapter.notifyItemRangeInserted(oldCount,categoryList.size());
+                        categoryList.addAll(categories.getCaregoties());
+                        categoryAdapter.notifyItemRangeInserted(oldCount, categoryList.size());
+                    }
                 }
             }
         });
@@ -365,6 +371,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
             case R.id.new_see_all:
                 Intent intent4 = new Intent(getActivity(), NewRecipeActivity.class);
                 startActivity(intent4);
+                break;
+            case R.id.home_avatar:
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
                 break;
             case R.id.trending_see_all:
                 Intent intent5 = new Intent(getActivity(), TrendingActivity.class);

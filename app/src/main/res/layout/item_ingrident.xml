@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/_56sdp"
+    android:layout_marginTop="@dimen/_10sdp"
     android:background="@drawable/bg_ingrident">
 
     <TextView

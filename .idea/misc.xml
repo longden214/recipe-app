@@ -10,6 +10,7 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/drawable/bg_button_send.xml" value="0.253" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/drawable/bg_category.xml" value="0.2425" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/drawable/bg_edit_profile.xml" value="0.2585" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/drawable/bg_following.xml" value="0.2365" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/drawable/bg_ingrident.xml" value="0.253" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/drawable/bg_input.xml" value="0.2555" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/drawable/bg_item_filter.xml" value="0.2595" />
@@ -45,6 +46,7 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_profile.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_recipe_all.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_recipe_detail.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_recipe_new.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_recype_by_category.xml" value="0.264" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_save.xml" value="0.24010416666666667" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_search.xml" value="0.25416666666666665" />

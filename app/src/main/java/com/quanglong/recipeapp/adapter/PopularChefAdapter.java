@@ -3,9 +3,11 @@ package com.quanglong.recipeapp.adapter;
 import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -51,6 +53,17 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
         setImageURL(holder.PopularChefImg, popularChef.getAvatar());
         holder.PopularChefName.setText(popularChef.getUserName());
         holder.totalRecipes.setText(Integer.toString(popularChef.getTotalRecipe()));
+
+        if (popularChef.isFollowerUser()){
+            holder.btn_follow.setText("Following");
+            holder.btn_follow.setBackgroundResource(R.drawable.bg_following);
+            holder.btn_follow.setTextColor(Color.parseColor("#121212"));
+        }else{
+            holder.btn_follow.setText("Follow");
+            holder.btn_follow.setBackgroundResource(R.drawable.bg_button_follow);
+            holder.btn_follow.setTextColor(Color.WHITE);
+        }
+
         holder.itemView.setOnClickListener(view ->{
             userListener.onUserClicked(popularChef);
         });
@@ -65,6 +78,7 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
 
         ImageView PopularChefImg;
         TextView PopularChefName, totalRecipes;
+        Button btn_follow;
 
         public PopularChefViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -72,6 +86,7 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
             PopularChefImg = itemView.findViewById(R.id.profile_image);
             PopularChefName = itemView.findViewById(R.id.recipe_chef_name);
             totalRecipes = itemView.findViewById(R.id.location_name);
+            btn_follow = itemView.findViewById(R.id.btn_follow);
         }
     }
 

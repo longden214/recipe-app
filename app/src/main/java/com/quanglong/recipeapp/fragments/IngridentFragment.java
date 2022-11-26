@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.activities.CatagoryActivity;
@@ -41,6 +42,7 @@ public class IngridentFragment extends Fragment {
     private List<Ingredient> listIngredients = new ArrayList<>();
     private IngridentDetailAdapter adapter;
     private RecyclerView recyclerView;
+    private TextView total_item;
 
     public IngridentFragment(int _id) {
         // Required empty public constructor
@@ -61,6 +63,7 @@ public class IngridentFragment extends Fragment {
         this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
         this.recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recyclerView = (RecyclerView) view.findViewById(R.id.ingredient_rv);
+        total_item = (TextView) view.findViewById(R.id.total_item_ingredient);
         setIngredientsRecycler(listIngredients);
         getRecipeDetail();
     }
@@ -74,6 +77,7 @@ public class IngridentFragment extends Fragment {
                         int oldCount = listIngredients.size();
                         listIngredients.addAll(recipeDetailResponse.getListIngredients());
                         adapter.notifyItemRangeInserted(oldCount, listIngredients.size());
+                        total_item.setText(listIngredients.size() + " items");
                     }
                 }
             }

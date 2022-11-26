@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.quanglong.recipeapp.apiServices.CategoryAPIService;
 import com.quanglong.recipeapp.apiServices.UserService;
+import com.quanglong.recipeapp.model.AccountSettingRequest;
 import com.quanglong.recipeapp.model.Category;
+import com.quanglong.recipeapp.model.EditProfileRequest;
 import com.quanglong.recipeapp.model.LoginRequest;
+import com.quanglong.recipeapp.model.PasswordRequest;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.network.ApiClient;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
@@ -28,6 +31,60 @@ public class UserRepository {
         MutableLiveData<String> data = new MutableLiveData<>();
 
         apiService.addUser(user).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+    public LiveData<String> editProfile(EditProfileRequest request){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        apiService.editProfile(request).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+    public LiveData<String> accountSetting(AccountSettingRequest request){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        apiService.accountSetting(request).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+    public LiveData<String> updatePassword(PasswordRequest request){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        apiService.updatePassword(request).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 data.setValue(response.body());

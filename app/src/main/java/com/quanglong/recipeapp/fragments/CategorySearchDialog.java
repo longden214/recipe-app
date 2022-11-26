@@ -66,11 +66,10 @@ public class CategorySearchDialog extends DialogFragment implements View.OnClick
         EditText edt_search = view.findViewById(R.id.category_search);
         progressBar_loading = view.findViewById(R.id.progressBar_loading);
         progressBar_more = view.findViewById(R.id.progressBar_more);
-
         recyclerView = (RecyclerView) view.findViewById(R.id.category_rv);
         viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         setCategoryRecycler(mlistCategory);
-
+        getCategoryAll("");
         close.setOnClickListener(this);
         edt_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -109,9 +108,8 @@ public class CategorySearchDialog extends DialogFragment implements View.OnClick
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (edt_search.getText().toString().length() > 0){
+                    currentPage = 1;
                     getCategoryAll(edt_search.getText().toString());
-                }
             }
         });
 
@@ -153,19 +151,19 @@ public class CategorySearchDialog extends DialogFragment implements View.OnClick
 
     private void getCategoryAll(String search) {
         toggleLoading();
-        viewModel.getCategoryWithParam(search, true, true, false,
-                true, currentPage, 10).observe(this, new Observer<CategoryResponse>() {
+        viewModel.getCategoryWithParam(search, false, true, false,
+                true, currentPage, 20).observe(this, new Observer<CategoryResponse>() {
             @Override
             public void onChanged(CategoryResponse categories) {
                 if (categories != null) {
                     totalAvailablePages = categories.getTotalPage();
+                    if (currentPage == 1) {
+                        isLoading = true;
+                    } else {
+                        isLoadingMore = true;
+                    }
+                    toggleLoading();
                     if (categories.getCaregoties().size() > 0) {
-                        if (currentPage == 1) {
-                            isLoading = true;
-                        } else {
-                            isLoadingMore = true;
-                        }
-                        toggleLoading();
                         int oldCount = mlistCategory.size();
 
                         mlistCategory.addAll(categories.getCaregoties());

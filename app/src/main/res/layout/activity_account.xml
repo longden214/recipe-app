@@ -78,7 +78,6 @@
             android:layout_weight="3"
             android:hint="Enter Email"
             android:inputType="textEmailAddress"
-            android:text="phamduyentba@gmail.com"
             android:textColor="#121212"
             android:fontFamily="@font/poppins_regular"
             android:textSize="16sp" />
@@ -109,9 +108,43 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:layout_weight="3"
-            android:inputType="phone"
+            android:inputType="text"
             android:hint="Enter Phone Number"
-            android:text="0987654321"
+            android:text=""
+            android:textColor="#121212"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="wrap_content"
+            android:text="Job"
+            android:layout_weight="1"
+            android:includeFontPadding="false"
+            android:fontFamily="@font/poppins_regular"
+            android:layout_gravity="start|center_vertical"
+            android:textColor="#121212"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/itemJob"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_weight="3"
+            android:inputType="text"
+            android:hint="Enter Job"
+            android:text=""
             android:textColor="#121212"
             android:fontFamily="@font/poppins_regular"
             android:textSize="16sp" />
@@ -138,30 +171,31 @@
             android:textSize="16sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="3" >
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/radioMale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="16sp"
-                android:text="Nam" />
+                android:text="Male" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/radioFemale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:textSize="16sp"
-                android:text="Nữ" />
+                android:text="Female" />
         </RadioGroup>
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -173,8 +207,8 @@
         <TextView
             android:layout_width="@dimen/_40sdp"
             android:layout_height="wrap_content"
+            android:text="Address"
             android:layout_weight="1"
-            android:text="Birthday"
             android:includeFontPadding="false"
             android:fontFamily="@font/poppins_regular"
             android:layout_gravity="start|center_vertical"
@@ -182,13 +216,14 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/itembirthday"
+            android:id="@+id/itemAddress"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
             android:layout_weight="3"
-            android:hint="dd/MM/yyyy"
             android:inputType="text"
+            android:hint="Enter Address"
+            android:text=""
             android:textColor="#121212"
             android:fontFamily="@font/poppins_regular"
             android:textSize="16sp" />

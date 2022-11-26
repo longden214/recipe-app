@@ -72,7 +72,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         });
 
         itemFollwing.setOnClickListener(view -> {
-            startActivity(new Intent(this, FollowingActivity.class));
+            Intent itent2 = new Intent(UserProfileActivity.this,FollowingActivity.class);
+            itent2.putExtra("id",chef.getId());
+            startActivity(itent2);
         });
         id = userLocalDatabase.getInt("id", -1);
         setNewRecipe(mlistreRecipes);

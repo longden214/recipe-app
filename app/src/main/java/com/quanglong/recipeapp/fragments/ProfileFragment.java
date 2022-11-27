@@ -46,6 +46,7 @@ import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.utilities.UserLocalStore;
 import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
+import com.quanglong.recipeapp.viewmodels.UserViewModel;
 
 import java.util.ArrayList;
 
@@ -63,7 +64,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     TextView tv_title;
     TextView dplName;
     UserLocalStore userLocalStore;
-    UserLoginResponse user;
     private CircleImageView profile_image;
     private TextView itemrecipe;
     private TextView itemFollwer;
@@ -76,11 +76,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     private RecipeProfileAdptar recipeProfileAdptar;
     private int id ;
     private SharedPreferences userLocalDatabase;
+    private UserViewModel userViewModel;
 
     public ProfileFragment() {
         // Required empty public constructor
     }
-
+    
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -93,8 +94,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         doInitialization(view);
-
-        user = userLocalStore.getLoggedInUser();
 
         toolbar = view.findViewById(R.id.toolbar);
         this.tv_title = view.findViewById(R.id.toolbar_title);
@@ -111,6 +110,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
                 ((EditProfileDialog) dialog).setCallback(new EditProfileDialog.Callback() {
                     @Override
                     public void onActionClick(String name) {
+                        setUserInfo();
                         Toast.makeText(getActivity(), name, Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -118,22 +118,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
             }
         });
 
-        this.dplName.setText(user.getDisplayName());
-        this.txt_description.setText(user.getDescription());
-
-        if (txt_description.getLineCount() > 2) {
-            addReadMore(txt_description.getText().toString(), txt_description);
-        }
-        if (!user.getAvatar().equals("")){
-            setImageURL(profile_image, user.getAvatar());
-        }else{
-            profile_image.setImageResource(R.drawable.avater_default);
-        }
-        this.itemrecipe.setText(String.valueOf(user.getTotalRecipe()));
-        this.itemFollwer.setText(String.valueOf(user.getTotalFollowedByOthersUser()));
-        this.itemFollwing.setText(String.valueOf(user.getTotalFollowOtherUser()));
-        this.job.setText(user.getJob());
-        this.total_item.setText(user.getTotalRecipe() + " items");
+        setUserInfo();
 
         itemFollwer.setOnClickListener(view1 -> {
             Intent intent = new Intent(getActivity(),FollowerActivity.class);
@@ -150,6 +135,33 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         setNewRecipe(mlistreRecipes);
         getNewRecipe();
 
+    }
+
+    private void setUserInfo() {
+        userViewModel.userDetail(userLocalDatabase.getInt("id", -1),userLocalDatabase.getInt("id", -1) ).observe(getViewLifecycleOwner(), new Observer<UserLoginResponse>() {
+                    @Override
+                    public void onChanged(UserLoginResponse userLoginResponse) {
+                        if (userLoginResponse != null){
+                            dplName.setText(userLoginResponse.getDisplayName());
+                            txt_description.setText(userLoginResponse.getDescription());
+
+                            if (txt_description.getLineCount() > 2) {
+                                addReadMore(txt_description.getText().toString(), txt_description);
+                            }
+                            if (!userLoginResponse.getAvatar().equals("")){
+                                setImageURL(profile_image, userLoginResponse.getAvatar());
+                            }else{
+                                profile_image.setImageResource(R.drawable.avater_default);
+                            }
+                            itemrecipe.setText(String.valueOf(userLoginResponse.getTotalRecipe()));
+                            itemFollwer.setText(String.valueOf(userLoginResponse.getTotalFollowedByOthersUser()));
+                            itemFollwing.setText(String.valueOf(userLoginResponse.getTotalFollowOtherUser()));
+                            job.setText(userLoginResponse.getJob());
+                            total_item.setText(userLoginResponse.getTotalRecipe() + " items");
+                        }
+                    }
+                }
+        );
     }
 
     private void setNewRecipe(ArrayList<Recipe> RecipeSaveList) {
@@ -214,7 +226,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
     }
     private void doInitialization(View view) {
         userLocalStore = new UserLocalStore(getActivity());
-        user = new UserLoginResponse();
         this.dplName = view.findViewById(R.id.itemUsername);
         txt_description = (TextView) view.findViewById(R.id.description);
         button = view.findViewById(R.id.change_profile);
@@ -227,6 +238,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, R
         recyclerView = view.findViewById(R.id.listviewSave);
         viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
     }
 
     @Override

@@ -19,12 +19,31 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Query;
 
 public class UserRepository {
     private UserService apiService;
 
     public UserRepository() {
         apiService = ApiClient.getRetrofit().create(UserService.class);
+    }
+
+    public LiveData<UserLoginResponse> userDetail(int id, int loginUserId){
+        MutableLiveData<UserLoginResponse> data = new MutableLiveData<>();
+
+        apiService.userDetail(id, loginUserId).enqueue(new Callback<UserLoginResponse>() {
+            @Override
+            public void onResponse(Call<UserLoginResponse> call, Response<UserLoginResponse> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<UserLoginResponse> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
     }
 
     public LiveData<String> createUser(User user){

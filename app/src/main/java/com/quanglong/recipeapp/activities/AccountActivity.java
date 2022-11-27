@@ -1,41 +1,28 @@
 package com.quanglong.recipeapp.activities;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.Gravity;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.model.AccountSettingRequest;
+import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.UserViewModel;
-
-import java.util.Calendar;
-import java.util.regex.Pattern;
 
 public class AccountActivity extends AppCompatActivity {
     DatePickerDialog.OnDateSetListener setListener;
@@ -59,10 +46,11 @@ public class AccountActivity extends AppCompatActivity {
         StatusBarConfig.StatusBarCustom(this);
         doInitialization();
         customActionBar();
+
         setUserInfo();
 
         btn_save.setOnClickListener(view -> {
-            if (CheckAllFields()){
+            if (CheckAllFields()) {
                 AccountSettingRequest request = new AccountSettingRequest();
                 request.setId(userLocalDatabase.getInt("id", -1));
                 request.setEmail(itemEmail.getText().toString());
@@ -71,23 +59,23 @@ public class AccountActivity extends AppCompatActivity {
                 request.setAddress(itemAddress.getText().toString());
 
                 int selectedId = radioGroup.getCheckedRadioButtonId();
-                if (selectedId == R.id.radioMale){
+                if (selectedId == R.id.radioMale) {
                     request.setSex(0);
-                }else{
+                } else {
                     request.setSex(1);
                 }
 
                 userViewModel.accountSetting(request).observe(this, new Observer<String>() {
                     @Override
                     public void onChanged(String s) {
-                        if (s.equals("Success!")){
+                        if (s.equals("Success!")) {
                             Toast.makeText(AccountActivity.this, "Update account successfully!", Toast.LENGTH_SHORT).show();
-                        }else{
+                        } else {
                             Toast.makeText(AccountActivity.this, "Update account failed!", Toast.LENGTH_SHORT).show();
                         }
 
-                        startActivity(new Intent(AccountActivity.this,SettingActivity.class));
-                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+//                        startActivity(new Intent(AccountActivity.this, SettingActivity.class));
+//                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                     }
                 });
             }
@@ -95,20 +83,26 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void setUserInfo() {
-        itemEmail.setText(userLocalDatabase.getString("email", ""));
-        itemPhone.setText(userLocalDatabase.getString("phoneNumber", ""));
-        itemJob.setText(userLocalDatabase.getString("job", ""));
+        userViewModel.userDetail(userLocalDatabase.getInt("id", -1), userLocalDatabase.getInt("id", -1)).observe(this, new Observer<UserLoginResponse>() {
+                    @Override
+                    public void onChanged(UserLoginResponse userLoginResponse) {
+                        if (userLoginResponse != null) {
+                            itemEmail.setText(userLoginResponse.getEmail());
+                            itemPhone.setText(userLoginResponse.getPhoneNumber());
+                            itemJob.setText(userLoginResponse.getJob());
+                            itemAddress.setText(userLoginResponse.getAddress());
 
-        if (userLocalDatabase.getInt("sex", -1) == 0 ||
-            userLocalDatabase.getInt("sex", -1) == -1){
-            radioMale.setChecked(true);
-            radioFemale.setChecked(false);
-        }else{
-            radioMale.setChecked(false);
-            radioFemale.setChecked(true);
-        }
-
-        itemAddress.setText(userLocalDatabase.getString("address", ""));
+                            if (userLoginResponse.getSex() == 0) {
+                                radioMale.setChecked(true);
+                                radioFemale.setChecked(false);
+                            } else {
+                                radioMale.setChecked(false);
+                                radioFemale.setChecked(true);
+                            }
+                        }
+                    }
+                }
+        );
     }
 
     private void customActionBar() {
@@ -139,9 +133,9 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected( @NonNull MenuItem item ) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 super.onBackPressed();
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
@@ -159,7 +153,7 @@ public class AccountActivity extends AppCompatActivity {
         if (itemEmail.length() == 0) {
             itemEmail.setError("This field is required");
             return false;
-        }else if (!Patterns.EMAIL_ADDRESS.matcher(itemEmail.getText().toString()).matches()){
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(itemEmail.getText().toString()).matches()) {
             itemEmail.setError("Invalid email address");
             return false;
         }
@@ -167,7 +161,7 @@ public class AccountActivity extends AppCompatActivity {
         if (itemPhone.length() == 0) {
             itemPhone.setError("This field is required");
             return false;
-        }else if(!itemPhone.getText().toString().matches("^[0-9]{10,13}$")){
+        } else if (!itemPhone.getText().toString().matches("^[0-9]{10,13}$")) {
             itemPhone.setError("The phone is invalid");
             return false;
         }

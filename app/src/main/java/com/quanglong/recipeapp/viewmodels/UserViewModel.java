@@ -26,6 +26,10 @@ public class UserViewModel extends ViewModel {
         return userRepository.createUser(user);
     }
 
+    public LiveData<UserLoginResponse> userDetail(int id, int loginUserI) {
+        return userRepository.userDetail(id, loginUserI);
+    }
+
     public LiveData<String> editProfile(EditProfileRequest request) {
         return userRepository.editProfile(request);
     }

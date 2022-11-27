@@ -6,7 +6,9 @@ import com.quanglong.recipeapp.responses.NotificationResponse;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface NotificationAPIService {
@@ -18,4 +20,13 @@ public interface NotificationAPIService {
                                                         @Query("pageIndex") int pageIndex,
                                                         @Query("pageSize") int pageSize
     );
+
+    @PUT("notification/readNotification")
+    Call<String> readNotification(@Query("id") int id);
+
+    @PUT("notification/unReadNotification")
+    Call<String> unreadNotification(@Query("id") int id);
+
+    @DELETE("notification/delete")
+    Call<String> removeNotification(@Query("id") int id);
 }

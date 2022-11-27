@@ -46,6 +46,7 @@ import com.quanglong.recipeapp.model.PopularChef;
 import com.quanglong.recipeapp.responses.CategoryResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.responses.PopularChefResponses;
+import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ import java.util.List;
 import com.quanglong.recipeapp.activities.CatagoryActivity;
 import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
 import com.quanglong.recipeapp.viewmodels.PopularChefsViewModel;
+import com.quanglong.recipeapp.viewmodels.UserViewModel;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -83,6 +85,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     private NewAdapter newAdapter;
     private RecyclerView newrecipe_recycler;
     private RecyclerView trending_recycler;
+    private UserViewModel userViewModel;
     private TrendingAdapter trendingAdapter;
 
     public HomeFragment() {
@@ -109,7 +112,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         trending_see_all.setOnClickListener(this);
         avatar.setOnClickListener(this);
 
-        setImageURL(avatar, userLocalDatabase.getString("avatar", ""));
+        setUserInfo();
 
         edt_search.setOnTouchListener(new View.OnTouchListener()
         {
@@ -134,6 +137,18 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
 
     }
 
+    private void setUserInfo() {
+        userViewModel.userDetail(userLocalDatabase.getInt("id", -1),userLocalDatabase.getInt("id", -1) ).observe(getViewLifecycleOwner(), new Observer<UserLoginResponse>() {
+                    @Override
+                    public void onChanged(UserLoginResponse userLoginResponse) {
+                        if (userLoginResponse != null){
+                            setImageURL(avatar, userLoginResponse.getAvatar());
+                        }
+                    }
+                }
+        );
+    }
+
     private void doInitialization(View view) {
         category_see_all = view.findViewById(R.id.category_see_all);
         chef_see_all = view.findViewById(R.id.chef_see_all);
@@ -146,6 +161,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         categoryList = new ArrayList<Category>();
         popularChefList = new ArrayList<>();
         viewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
         popularChefsViewModel = new  ViewModelProvider(this).get(PopularChefsViewModel.class);
         popularchef_recycler = view.findViewById(R.id.chif_list);

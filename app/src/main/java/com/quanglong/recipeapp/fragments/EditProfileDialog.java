@@ -28,6 +28,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.activities.AccountActivity;
 import com.quanglong.recipeapp.model.EditProfileRequest;
+import com.quanglong.recipeapp.responses.UserLoginResponse;
 import com.quanglong.recipeapp.utilities.Base64Config;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
 import com.quanglong.recipeapp.viewmodels.UserViewModel;
@@ -85,14 +86,7 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
         this.edit_avatar = view.findViewById(R.id.edit_avatar);
         this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
 
-        if (!userLocalDatabase.getString("avatar", "").equals("")){
-            setImageURL(avatar, userLocalDatabase.getString("avatar", ""));
-        }else{
-            avatar.setImageResource(R.drawable.avater_default);
-        }
-        this.name.setText(userLocalDatabase.getString("displayName", ""));
-        this.username.setText(userLocalDatabase.getString("userName", ""));
-        this.description.setText(userLocalDatabase.getString("description", ""));
+        setUserInfo();
 
         close.setOnClickListener(this);
         action.setOnClickListener(this);
@@ -100,6 +94,25 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
         edit_avatar.setOnClickListener(this);
 
         return view;
+    }
+
+    private void setUserInfo() {
+        userViewModel.userDetail(userLocalDatabase.getInt("id", -1),userLocalDatabase.getInt("id", -1) ).observe(getViewLifecycleOwner(), new Observer<UserLoginResponse>() {
+                    @Override
+                    public void onChanged(UserLoginResponse userLoginResponse) {
+                        if (userLoginResponse != null){
+                            if (!userLoginResponse.getAvatar().equals("")){
+                                setImageURL(avatar, userLoginResponse.getAvatar());
+                            }else{
+                                avatar.setImageResource(R.drawable.avater_default);
+                            }
+                            name.setText(userLoginResponse.getDisplayName());
+                            username.setText(userLoginResponse.getUserName());
+                            description.setText(userLoginResponse.getDescription());
+                        }
+                    }
+                }
+        );
     }
 
     @Override

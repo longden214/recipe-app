@@ -1,5 +1,6 @@
 package com.quanglong.recipeapp.fragments;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.activities.PasswordActivity;
+import com.quanglong.recipeapp.activities.SignInActivity;
 import com.quanglong.recipeapp.adapter.NotificationAllAdapter;
 import com.quanglong.recipeapp.listener.NotificationListener;
 import com.quanglong.recipeapp.model.Notifications;
@@ -97,7 +100,44 @@ public class NotificationAllFragment extends Fragment implements NotificationLis
         ((NotificationBottomSheetFragment) bottomSheetFragment).setCallback(new NotificationBottomSheetFragment.Callback() {
             @Override
             public void onNotificationActionClick(int notiId, int optionSelected, int adapterPosition) {
-                Toast.makeText(getActivity(), "id " + notiId + " selected " + optionSelected + " position " + adapterPosition, Toast.LENGTH_SHORT).show();
+                if (optionSelected == 1){
+                    notificationViewModel.readNotification(notiId).observe(getActivity(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String res) {
+                            if (res != null) {
+                                if (res.equals("Success!")){
+                                    mlistNotification.get(adapterPosition).setStatus(mlistNotification.get(adapterPosition).getStatus() == 0 ? 1: 0);
+                                    notificationAllAdapter.notifyItemRangeChanged(adapterPosition,mlistNotification.size());
+                                }else{
+                                    if (res.equals("Failed!")){
+                                        Toast.makeText(getActivity(), "Mark as read failed!", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(getActivity(), res, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }else if (optionSelected == 2){
+                    notificationViewModel.removeNotification(notiId).observe(getActivity(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String res) {
+                            if (res != null) {
+                                if (res.equals("Success!")){
+                                    mlistNotification.remove(adapterPosition);
+                                    notificationAllAdapter.notifyItemRemoved(adapterPosition);
+                                    notificationAllAdapter.notifyItemRangeChanged(adapterPosition,mlistNotification.size());
+                                }else{
+                                    if (res.equals("Failed!")){
+                                        Toast.makeText(getActivity(), "Remove notification failed!", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(getActivity(), res, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             }
         });
         bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());

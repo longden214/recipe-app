@@ -3,9 +3,11 @@ package com.quanglong.recipeapp.adapter;
 import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,6 +43,17 @@ public class FollowerAdapter extends RecyclerView.Adapter<FollowerAdapter.Follow
         setImageURL(holder.image, mlist.get(position).getAvatar());
             holder.name.setText(mlist.get(position).getUserName());
             holder.recipe.setText(Integer.toString(popularChef.getTotalRecipe()));
+
+        if (popularChef.isFollowerUser()){
+            holder.btn_follow.setText("Following");
+            holder.btn_follow.setBackgroundResource(R.drawable.bg_following);
+            holder.btn_follow.setTextColor(Color.parseColor("#121212"));
+        }else{
+            holder.btn_follow.setText("Follow");
+            holder.btn_follow.setBackgroundResource(R.drawable.bg_button_follow);
+            holder.btn_follow.setTextColor(Color.WHITE);
+        }
+
     }
 
     @Override
@@ -52,12 +65,14 @@ public class FollowerAdapter extends RecyclerView.Adapter<FollowerAdapter.Follow
         TextView name;
         ImageView image;
         TextView recipe;
+        Button btn_follow;
 
         public FollowerViewHolder(View v){
             super(v);
             this.image = v.findViewById(R.id.profile_image);
             this.name = v.findViewById(R.id.recipe_chef_name);
             this.recipe=v.findViewById(R.id.location_name);
+            this.btn_follow=v.findViewById(R.id.btn_follow);
         }
     }
 }

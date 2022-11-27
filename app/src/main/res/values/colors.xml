@@ -9,9 +9,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="medium_butt">#129575</color>
     <color name="_default">#129575</color>
+    <color name="toggle_btn">#71B1A1</color>
     <color name="text_color">#121212</color>
     <color name="forgot_pass">#FF9C00</color>
     <color name="recipe_name">#484848</color>
     <color name="btn_send">#FFAD30</color>
+    <color name="btn_following">#797979</color>
     <color name="transparent">@android:color/transparent</color>
 </resources>

@@ -56,4 +56,58 @@ public class NotificationRepository {
 
         return data;
     }
+
+    public LiveData<String> readNotification(int id){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        apiService.readNotification(id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+    public LiveData<String> unreadNotification(int id){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        apiService.unreadNotification(id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+    public LiveData<String> removeNotification(int id){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        apiService.removeNotification(id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
 }

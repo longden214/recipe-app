@@ -64,15 +64,15 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_follow"
         android:layout_width="@dimen/_85sdp"
         android:layout_height="@dimen/_37sdp"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:background="@drawable/bg_button_follow"
         android:fontFamily="@font/poppins_semibold"
         android:includeFontPadding="false"
         android:text="Follow"
-        android:layout_centerVertical="true"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/_11ssp" />

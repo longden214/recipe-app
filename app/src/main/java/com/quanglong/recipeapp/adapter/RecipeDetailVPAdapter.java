@@ -24,7 +24,7 @@ public class RecipeDetailVPAdapter extends FragmentPagerAdapter {
         if (position == 0)
             fragment = new IngridentFragment(id);
         else if (position == 1)
-            fragment = new ProcedureFragment();
+            fragment = new ProcedureFragment(id);
 
         return fragment;
     }

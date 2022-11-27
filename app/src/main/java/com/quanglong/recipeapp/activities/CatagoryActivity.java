@@ -88,7 +88,7 @@ public class CatagoryActivity extends AppCompatActivity implements View.OnClickL
 
     private void getCategoryAll() {
         toggleLoading();
-        viewModel.getCategoryWithParam("", true, true, false,
+        viewModel.getCategoryWithParam("", false, true, false,
                 true, currentPage, 10).observe(this, new Observer<CategoryResponse>() {
             @Override
             public void onChanged(CategoryResponse categories) {

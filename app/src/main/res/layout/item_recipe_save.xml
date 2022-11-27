@@ -121,7 +121,7 @@
             android:layout_weight="1" >
 
             <ImageView
-                android:id="@+id/imageView7"
+                android:id="@+id/btn_save"
                 android:layout_gravity="center"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"

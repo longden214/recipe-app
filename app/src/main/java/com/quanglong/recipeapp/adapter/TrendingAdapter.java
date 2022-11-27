@@ -53,6 +53,13 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
         holder.TrendingTime.setText(trendingRecipe.getCookTime()+ " Mins");
         holder.TrendingRating.setText(Float.toString(trendingRecipe.getAvgRating()));
         setImageURL(holder.TrendingImgAvatar, trendingRecipe.getAuthorAvatar());
+
+        if (trendingRecipe.isSaveRecipe()){
+            holder.btn_save.setImageResource(R.drawable.ic_saved);
+        }else{
+            holder.btn_save.setImageResource(R.drawable.ic_save);
+        }
+
         holder.itemView.setOnClickListener(view ->{
             recipeDetailListener.onRecipeDetailListener(trendingRecipe.getId(),trendingRecipe.getName());
         });
@@ -66,12 +73,13 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
 
     public static final class TrendingViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView TrendingImg,TrendingImgAvatar;
+        ImageView TrendingImg,TrendingImgAvatar, btn_save;
         TextView TrendingName, TrendingAuthor,TrendingTime, TrendingRating,TrendingCategory;
 
         public TrendingViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            btn_save = itemView.findViewById(R.id.btn_save);
             TrendingImg = itemView.findViewById(R.id.imageView2);
             TrendingName = itemView.findViewById(R.id.recipe_name);
             TrendingAuthor = itemView.findViewById(R.id.recipe_chef);

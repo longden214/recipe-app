@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/bg_ingrident"
     android:padding="@dimen/_10sdp"
+    android:layout_marginTop="@dimen/_10sdp"
     android:layout_height="wrap_content">
 
     <TextView
@@ -10,22 +11,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:includeFontPadding="false"
-        android:textColor="#121212"
         android:fontFamily="@font/poppins_semibold"
-        android:textSize="@dimen/_11ssp"
-        android:text="Step 1" />
+        android:includeFontPadding="false"
+        android:text="Step 1"
+        android:textColor="#121212"
+        android:textSize="@dimen/_11ssp" />
 
     <TextView
-        android:id="@+id/textView31"
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/step_number"
         android:layout_marginTop="@dimen/_8sdp"
-        android:includeFontPadding="false"
-        android:textColor="#A9A9A9"
         android:fontFamily="@font/poppins_regular"
-        android:textSize="@dimen/_11ssp"
+        android:includeFontPadding="false"
         android:text="Lorem Ipsum tempor incididunt ut labore et dolore,in voluptate velit esse cillum dolore eu fugiat nulla pariatur?
-Tempor incididunt ut labore et dolore,in voluptate velit esse cillum dolore eu fugiat nulla pariatur?" />
+Tempor incididunt ut labore et dolore,in voluptate velit esse cillum dolore eu fugiat nulla pariatur?"
+        android:textColor="#A9A9A9"
+        android:textSize="@dimen/_11ssp" />
 </RelativeLayout>

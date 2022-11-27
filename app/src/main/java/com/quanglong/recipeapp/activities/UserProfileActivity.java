@@ -26,6 +26,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private TextView description;
     private PopularChef chef;
     private TextView total_item;
+    private Button btn_follow;
     private CircleImageView avatar;
     private RecyclerView recyclerView;
     private ArrayList<Recipe> mlistreRecipes = new ArrayList<>() ;
@@ -70,7 +72,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         });
 
         itemFollwing.setOnClickListener(view -> {
-            startActivity(new Intent(this, FollowingActivity.class));
+            Intent itent2 = new Intent(UserProfileActivity.this,FollowingActivity.class);
+            itent2.putExtra("id",chef.getId());
+            startActivity(itent2);
         });
         id = userLocalDatabase.getInt("id", -1);
         setNewRecipe(mlistreRecipes);
@@ -88,6 +92,16 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         this.job.setText(chef.getJob());
         this.description.setText(chef.getDescription());
         this.total_item.setText(chef.getTotalRecipe() + " items");
+
+        if (chef.isFollowerUser()){
+            this.btn_follow.setText("Following");
+            this.btn_follow.setBackground(getResources().getDrawable(R.drawable.bg_following));
+            this.btn_follow.setTextColor(getResources().getColor(R.color.text_color));
+        }else{
+            this.btn_follow.setText("Follow");
+            this.btn_follow.setBackground(getResources().getDrawable(R.drawable.bg_button_follow));
+            this.btn_follow.setTextColor(getResources().getColor(R.color.white));
+        }
 
     }
 
@@ -172,6 +186,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         this.itemrecipe = findViewById(R.id.itemrecipe);
         this.itemUsername = findViewById(R.id.itemUsername);
         this.job = findViewById(R.id.job);
+        this.btn_follow = findViewById(R.id.btn_follow);
         this.description = findViewById(R.id.description);
         total_item = findViewById(R.id.total_item);
         recyclerView = findViewById(R.id.idMain);

@@ -105,13 +105,13 @@ public class PopularChefsActivity extends AppCompatActivity implements View.OnCl
             public void onChanged(PopularChefResponses popularChefResponses) {
                 if (popularChefResponses.getPopularShow() != null) {
                     totalAvailablePages = popularChefResponses.getTotalPage();
+                    if(currentPage==1){
+                        isLoading=true;
+                    }else {
+                        isLoadingMore=true;
+                    }
+                    toggleLoading();
                     if (popularChefResponses.getPopularShow().size() > 0) {
-                        if(currentPage==1){
-                            isLoading=true;
-                        }else {
-                            isLoadingMore=true;
-                        }
-                        toggleLoading();
                         int oldCount = mlistpopular.size();
                         mlistpopular.addAll(popularChefResponses.getPopularShow());
                         adapter.notifyItemRangeInserted(oldCount, mlistpopular.size());

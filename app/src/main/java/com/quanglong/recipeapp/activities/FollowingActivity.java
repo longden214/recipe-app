@@ -31,7 +31,6 @@ public class FollowingActivity extends AppCompatActivity {
     private ArrayList<PopularChef> mlistPopular = new ArrayList<>();
     private FollowerViewModel followerViewModel;
     private FollowerAdapter followerAdapter;
-    private SharedPreferences userLocalDatabase;
     private int id;
     private int currentPage = 1;
     private int totalAvailablePages = 1;

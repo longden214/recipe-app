@@ -133,7 +133,44 @@ public class NotificationReadFragment extends Fragment implements NotificationLi
         ((NotificationBottomSheetFragment) bottomSheetFragment).setCallback(new NotificationBottomSheetFragment.Callback() {
             @Override
             public void onNotificationActionClick(int notiId, int optionSelected, int adapterPosition) {
-                Toast.makeText(getActivity(), "id " + notiId + " selected " + optionSelected + " position " + adapterPosition, Toast.LENGTH_SHORT).show();
+                if (optionSelected == 1){
+                    notificationViewModel.readNotification(notiId).observe(getActivity(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String res) {
+                            if (res != null) {
+                                if (res.equals("Success!")){
+                                    mlistNotification.get(adapterPosition).setStatus(mlistNotification.get(adapterPosition).getStatus() == 0 ? 1: 0);
+                                    notificationAllAdapter.notifyItemRangeChanged(adapterPosition,mlistNotification.size());
+                                }else{
+                                    if (res.equals("Failed!")){
+                                        Toast.makeText(getActivity(), "Mark as read failed!", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(getActivity(), res, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }else if (optionSelected == 2){
+                    notificationViewModel.removeNotification(notiId).observe(getActivity(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String res) {
+                            if (res != null) {
+                                if (res.equals("Success!")){
+                                    mlistNotification.remove(adapterPosition);
+                                    notificationAllAdapter.notifyItemRemoved(adapterPosition);
+                                    notificationAllAdapter.notifyItemRangeChanged(adapterPosition,mlistNotification.size());
+                                }else{
+                                    if (res.equals("Failed!")){
+                                        Toast.makeText(getActivity(), "Remove notification failed!", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(getActivity(), res, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
             }
         });
         bottomSheetFragment.show(getActivity().getSupportFragmentManager(), bottomSheetFragment.getTag());

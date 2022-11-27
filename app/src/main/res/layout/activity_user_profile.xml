@@ -155,6 +155,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_user_info" />
 
+    <Button
+        android:id="@+id/btn_follow"
+        android:layout_width="@dimen/_85sdp"
+        android:layout_height="@dimen/_37sdp"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/bg_button_follow"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:text="Follow"
+        android:layout_marginEnd="@dimen/_16sdp"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_11ssp"
+        app:layout_constraintTop_toTopOf="@+id/itemUsername"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/itemUsername" />
+
     <TextView
         android:id="@+id/job"
         android:layout_width="@dimen/_200sdp"

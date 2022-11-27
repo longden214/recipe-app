@@ -127,13 +127,13 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
             public void onChanged(RecipeResponse recipeResponse) {
                 if (recipeResponse.getNewRecipeShow()!= null) {
                     totalAvailablePages = recipeResponse.getTotalPage();
+                    if(currentPage==1){
+                        isLoading=true;
+                    }else {
+                        isLoadingMore=true;
+                    }
+                    toggleLoading();
                     if (recipeResponse.getNewRecipeShow().size() > 0) {
-                        if(currentPage==1){
-                            isLoading=true;
-                        }else {
-                            isLoadingMore=true;
-                        }
-                        toggleLoading();
                         int oldCount = mlistreRecipes.size();
                         mlistreRecipes.addAll(recipeResponse.getNewRecipeShow());
                         adapter.notifyItemRangeInserted(oldCount,mlistreRecipes.size());
@@ -160,7 +160,6 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
             }
         }
     }
-
 
     private void doInitialization() {
         this.toolbar = findViewById(R.id.toolbar);

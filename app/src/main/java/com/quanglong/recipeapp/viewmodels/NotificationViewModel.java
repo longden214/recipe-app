@@ -21,4 +21,16 @@ public class NotificationViewModel extends ViewModel {
     public LiveData<NotificationResponse> getNotificationWithParam(int userId,int status,int pageIndex,int pageSize){
         return notificationReponsitory.getNotificationWithParam(userId,status,pageIndex,pageSize);
     }
+
+    public LiveData<String> readNotification(int id){
+        return notificationReponsitory.readNotification(id);
+    }
+
+    public LiveData<String> unreadNotification(int id){
+        return notificationReponsitory.unreadNotification(id);
+    }
+
+    public LiveData<String> removeNotification(int id){
+        return notificationReponsitory.removeNotification(id);
+    }
 }

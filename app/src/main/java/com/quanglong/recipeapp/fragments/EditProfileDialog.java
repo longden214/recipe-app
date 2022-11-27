@@ -7,8 +7,10 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +22,19 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.activities.AccountActivity;
+import com.quanglong.recipeapp.model.EditProfileRequest;
+import com.quanglong.recipeapp.responses.UserLoginResponse;
+import com.quanglong.recipeapp.utilities.Base64Config;
+import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
+import com.quanglong.recipeapp.viewmodels.UserViewModel;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +55,7 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
     private Callback callback;
     private Bitmap bitmap;
     private ArrayList<Uri> images_picker = new ArrayList<>();
+    private UserViewModel userViewModel;
 
     static EditProfileDialog newInstance() {
         return new EditProfileDialog();
@@ -66,6 +78,7 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
         ImageView close = view.findViewById(R.id.fullscreen_dialog_close);
         TextView action = view.findViewById(R.id.fullscreen_dialog_save);
         TextView btn_sett_acc = view.findViewById(R.id.btn_setting_account);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         this.avatar = view.findViewById(R.id.profile_image);
         this.name = view.findViewById(R.id.itemName);
         this.username = view.findViewById(R.id.itemUsername);
@@ -73,14 +86,7 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
         this.edit_avatar = view.findViewById(R.id.edit_avatar);
         this.userLocalDatabase = getActivity().getSharedPreferences("userDetails", 0);
 
-        if (!userLocalDatabase.getString("avatar", "").equals("")){
-            setImageURL(avatar, userLocalDatabase.getString("avatar", ""));
-        }else{
-            avatar.setImageResource(R.drawable.avater_default);
-        }
-        this.name.setText(userLocalDatabase.getString("displayName", ""));
-        this.username.setText(userLocalDatabase.getString("userName", ""));
-        this.description.setText(userLocalDatabase.getString("description", ""));
+        setUserInfo();
 
         close.setOnClickListener(this);
         action.setOnClickListener(this);
@@ -88,6 +94,25 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
         edit_avatar.setOnClickListener(this);
 
         return view;
+    }
+
+    private void setUserInfo() {
+        userViewModel.userDetail(userLocalDatabase.getInt("id", -1),userLocalDatabase.getInt("id", -1) ).observe(getViewLifecycleOwner(), new Observer<UserLoginResponse>() {
+                    @Override
+                    public void onChanged(UserLoginResponse userLoginResponse) {
+                        if (userLoginResponse != null){
+                            if (!userLoginResponse.getAvatar().equals("")){
+                                setImageURL(avatar, userLoginResponse.getAvatar());
+                            }else{
+                                avatar.setImageResource(R.drawable.avater_default);
+                            }
+                            name.setText(userLoginResponse.getDisplayName());
+                            username.setText(userLoginResponse.getUserName());
+                            description.setText(userLoginResponse.getDescription());
+                        }
+                    }
+                }
+        );
     }
 
     @Override
@@ -121,6 +146,7 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
                 break;
 
             case R.id.btn_setting_account:
+
                 Intent intent = new Intent(getActivity(), AccountActivity.class);
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
@@ -129,8 +155,38 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
 
             case R.id.fullscreen_dialog_save:
                 if (checkAllField()){
-                    callback.onActionClick("Whatever");
-                    dismiss();
+                    EditProfileRequest request = new EditProfileRequest();
+                    request.setId(userLocalDatabase.getInt("id", -1));
+                    request.setUserName(username.getText().toString());
+                    request.setDisplayName(name.getText().toString());
+                    request.setSex(0);
+                    request.setDescription(description.getText().toString());
+
+
+                    if (images_picker.size() > 0){
+                        try {
+                            Uri filepath = images_picker.get(0);
+                            InputStream inputStream = getActivity().getContentResolver().openInputStream(filepath);
+                            bitmap = BitmapFactory.decodeStream(inputStream);
+
+                            request.setImageInput(Base64Config.Base64Split(encodeBitmapImage(bitmap)));
+                        } catch (Exception ex) {
+                        }
+                    }else{
+                        request.setImageInput(new ArrayList<>());
+                    }
+
+                    userViewModel.editProfile(request).observe(getViewLifecycleOwner(), new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if (s.equals("Success!")){
+                                callback.onActionClick("Edit profile successfully!");
+                            }else{
+                                callback.onActionClick("Edit profile failed!");
+                            }
+                            dismiss();
+                        }
+                    });
                 }
                 break;
         }
@@ -214,5 +270,12 @@ public class EditProfileDialog extends DialogFragment implements View.OnClickLis
         }
 
         return true;
+    }
+
+    private String encodeBitmapImage(Bitmap bitmap) {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] bytesofimage = byteArrayOutputStream.toByteArray();
+        return android.util.Base64.encodeToString(bytesofimage, Base64.NO_WRAP);
     }
 }

@@ -53,6 +53,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         holder.RecipeAuthor.setText("by " +recipe.getAuthor());
         holder.RecipeTime.setText(recipe.getCookTime()+ " Mins");
         holder.RecipeRating.setText(Float.toString(recipe.getAvgRating()));
+
+        if (recipe.isSaveRecipe()){
+            holder.btn_save.setImageResource(R.drawable.ic_saved);
+        }else{
+            holder.btn_save.setImageResource(R.drawable.ic_save);
+        }
+
         holder.itemView.setOnClickListener(view ->{
             recipeDetailListener.onRecipeDetailListener(recipe.getId(),recipe.getName());
         });
@@ -67,12 +74,13 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public static final class RecipeViewHolder extends RecyclerView.ViewHolder{
 
-        ImageView RecipeImg,RecipeImgAvatar;
+        ImageView RecipeImg,RecipeImgAvatar, btn_save;
         TextView RecipeName, RecipeAuthor,RecipeTime, RecipeRating;
 
         public RecipeViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            btn_save = itemView.findViewById(R.id.btn_save);
             RecipeImg = itemView.findViewById(R.id.imageView2);
             RecipeName = itemView.findViewById(R.id.textView9);
             RecipeAuthor = itemView.findViewById(R.id.recipe_chef);

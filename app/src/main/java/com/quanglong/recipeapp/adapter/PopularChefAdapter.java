@@ -50,7 +50,12 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
             return;
         }
 
-        setImageURL(holder.PopularChefImg, popularChef.getAvatar());
+        if (!popularChef.getAvatar().equals("")){
+            setImageURL(holder.PopularChefImg, popularChef.getAvatar());
+        }else{
+            holder.PopularChefImg.setImageResource(R.drawable.avater_default);
+        }
+
         holder.PopularChefName.setText(popularChef.getUserName());
         holder.totalRecipes.setText(Integer.toString(popularChef.getTotalRecipe()));
 

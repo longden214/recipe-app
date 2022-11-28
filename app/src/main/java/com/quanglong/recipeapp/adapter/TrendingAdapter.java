@@ -52,7 +52,12 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
         holder.TrendingCategory.setText(trendingRecipe.getCategoryDisplay());
         holder.TrendingTime.setText(trendingRecipe.getCookTime()+ " Mins");
         holder.TrendingRating.setText(Float.toString(trendingRecipe.getAvgRating()));
-        setImageURL(holder.TrendingImgAvatar, trendingRecipe.getAuthorAvatar());
+
+        if (!trendingRecipe.getAuthorAvatar().equals("")){
+            setImageURL(holder.TrendingImgAvatar, trendingRecipe.getAuthorAvatar());
+        }else{
+            holder.TrendingImgAvatar.setImageResource(R.drawable.avater_default);
+        }
 
         if (trendingRecipe.isSaveRecipe()){
             holder.btn_save.setImageResource(R.drawable.ic_saved);

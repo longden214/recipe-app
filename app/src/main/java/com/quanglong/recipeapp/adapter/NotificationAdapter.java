@@ -1,9 +1,12 @@
 package com.quanglong.recipeapp.adapter;
 
+import android.content.Context;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.quanglong.recipeapp.fragments.IngridentFragment;
 import com.quanglong.recipeapp.fragments.NotificationAllFragment;
@@ -11,11 +14,16 @@ import com.quanglong.recipeapp.fragments.NotificationReadFragment;
 import com.quanglong.recipeapp.fragments.NotificationUnreadFragment;
 import com.quanglong.recipeapp.fragments.ProcedureFragment;
 
-public class NotificationAdapter extends FragmentPagerAdapter   {
+public class NotificationAdapter extends FragmentPagerAdapter {
 
-    public NotificationAdapter(@NonNull FragmentManager fm)
+    Context mContext;
+    int mTotalTabs;
+
+    public NotificationAdapter(Context context , FragmentManager fragmentManager , int totalTabs)
     {
-        super(fm);
+        super(fragmentManager);
+        mContext = context;
+        mTotalTabs = totalTabs;
     }
 
     @NonNull
@@ -36,20 +44,6 @@ public class NotificationAdapter extends FragmentPagerAdapter   {
     @Override
     public int getCount()
     {
-        return 3;
-    }
-
-    @Override
-    public CharSequence getPageTitle(int position)
-    {
-        String title = null;
-        if (position == 0)
-            title = "All";
-        else if (position == 1)
-            title = "Read";
-        else if (position == 2)
-            title = "Unread";
-
-        return title;
+        return mTotalTabs;
     }
 }

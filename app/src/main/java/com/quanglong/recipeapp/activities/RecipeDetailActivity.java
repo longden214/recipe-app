@@ -23,14 +23,20 @@ import android.widget.Toast;
 import com.google.android.material.tabs.TabLayout;
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.RecipeDetailVPAdapter;
+import com.quanglong.recipeapp.fragments.NotificationBottomSheetFragment;
 import com.quanglong.recipeapp.fragments.RateDialog;
 import com.quanglong.recipeapp.fragments.ShareDialog;
+import com.quanglong.recipeapp.model.Notifications;
+import com.quanglong.recipeapp.model.RatingRequest;
 import com.quanglong.recipeapp.model.Recipe;
 import com.quanglong.recipeapp.model.RecipeRequest;
+import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.responses.RecipeDetailResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
+
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -118,7 +124,6 @@ public class RecipeDetailActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
 
     private void customActionBar() {
@@ -183,7 +188,35 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
     private void ShowRateDialog() {
         FragmentManager fm = getSupportFragmentManager();
-        RateDialog rateDialog = new RateDialog();
+        RateDialog rateDialog = new RateDialog(recipe.getAvgRating());
+        ((RateDialog) rateDialog).setCallback(new RateDialog.Callback() {
+            @Override
+            public void onActionClick(float rating) {
+                RatingRequest request = new RatingRequest();
+                request.setRecipeId(recipe.getId());
+                request.setRating((int)(Math.round(rating)));
+                request.setUserId(userLocalDatabase.getInt("id", -1));
+
+                recipeViewModel.recipeRating(request).observe(RecipeDetailActivity.this, new Observer<RecipeAddResponse>() {
+                    @Override
+                    public void onChanged(RecipeAddResponse res) {
+                        if (res != null) {
+                            if (res.getMessage().equals("Success!")){
+                                recipe.setTotalRating(recipe.getTotalRating() + 1);
+                                recipeReview.setText("(" + Integer.toString(recipe.getTotalRating()) + " Reviews)");
+                            }else{
+                                if (res.getMessage().equals("Failed!")){
+                                    Toast.makeText(RecipeDetailActivity.this, "Rating recipe failed!", Toast.LENGTH_LONG).show();
+                                }else{
+                                    Toast.makeText(RecipeDetailActivity.this, res.getMessage(), Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+        });
+
         rateDialog.show(fm,"RateDialog");
     }
 

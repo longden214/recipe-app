@@ -40,7 +40,13 @@ public class FollowerAdapter extends RecyclerView.Adapter<FollowerAdapter.Follow
             if(popularChef == null){
                 return;
             }
-        setImageURL(holder.image, mlist.get(position).getAvatar());
+
+            if (!mlist.get(position).getAvatar().equals("")){
+                setImageURL(holder.image, mlist.get(position).getAvatar());
+            }else{
+                holder.image.setImageResource(R.drawable.avater_default);
+            }
+
             holder.name.setText(mlist.get(position).getUserName());
             holder.recipe.setText(Integer.toString(popularChef.getTotalRecipe()));
 

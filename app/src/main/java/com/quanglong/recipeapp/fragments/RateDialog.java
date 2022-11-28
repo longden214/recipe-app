@@ -23,6 +23,20 @@ public class RateDialog extends DialogFragment implements View.OnClickListener {
 
     Button btn_send;
     RatingBar ratingBar;
+    private RateDialog.Callback callback;
+    private float ratingValue;
+
+    public RateDialog(float ratingValue) {
+        this.ratingValue = ratingValue;
+    }
+
+    static RateDialog newInstance() {
+        return new RateDialog(newInstance().ratingValue);
+    }
+
+    public void setCallback(RateDialog.Callback callback) {
+        this.callback = callback;
+    }
 
     @Nullable
     @Override
@@ -43,6 +57,7 @@ public class RateDialog extends DialogFragment implements View.OnClickListener {
 
         this.btn_send = view.findViewById(R.id.btn_send);
         this.ratingBar = view.findViewById(R.id.ratingBar);
+        this.ratingBar.setRating(ratingValue);
 
         this.ratingBar.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -59,8 +74,12 @@ public class RateDialog extends DialogFragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.btn_send){
-            Toast.makeText(getActivity(), "Star value: " + ratingBar.getRating(), Toast.LENGTH_SHORT).show();
+            callback.onActionClick(ratingBar.getRating());
             dismiss();
         }
+    }
+
+    public interface Callback {
+        void onActionClick(float rating);
     }
 }

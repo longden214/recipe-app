@@ -57,11 +57,29 @@ public class NotificationFragment extends Fragment {
         viewPager = view.findViewById(R.id.viewPager);
         tabLayout = view.findViewById(R.id.tabLayout);
 
-        viewPagerAdapter = new NotificationAdapter(getActivity().getSupportFragmentManager());
-        viewPager.setAdapter(viewPagerAdapter);
+        tabLayout.addTab(tabLayout.newTab().setText("All"));
+        tabLayout.addTab(tabLayout.newTab().setText("Read"));
+        tabLayout.addTab(tabLayout.newTab().setText("Unread"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        // It is used to join TabLayout with ViewPager.
-        tabLayout.setupWithViewPager(viewPager);
+        NotificationAdapter adapter=new NotificationAdapter(getActivity(),getChildFragmentManager(),tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener(){
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
+        });
 
     }
 }

@@ -211,6 +211,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:visibility="visible"
             android:id="@+id/recipe_nutrion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -476,7 +477,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="@dimen/_500sdp"
             android:layout_below="@id/tabLayout"
             android:contentDescription="@string/app_name"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -62,6 +62,9 @@
             android:name=".activities.CookingStepsActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.EditCookingStepsActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.PasswordActivity"
             android:exported="false"
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
@@ -75,6 +78,9 @@
             android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
         <activity
             android:name=".activities.AddRecipeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.EditRecipeActivity"
             android:exported="false" />
         <activity
             android:name=".activities.SignUpActivity"

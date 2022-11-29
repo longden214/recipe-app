@@ -137,23 +137,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         getNewRecipe();
         setTrending(TrendingRecipeList);
         getTrending();
-        setNotificationFirebase();
-
-    }
-
-    private void setNotificationFirebase() {
-        // Get Device Token
-//        FirebaseMessaging.getInstance().getToken()
-//                .addOnCompleteListener(new OnCompleteListener<String>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<String> task) {
-//                        if (!task.isSuccessful()) {
-//                            return;
-//                        }
-//                        String token = task.getResult();
-//                        System.out.println("TOKEN: " + token);
-//                    }
-//                });
     }
 
     private void setUserInfo() {

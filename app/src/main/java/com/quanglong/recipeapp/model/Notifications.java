@@ -2,6 +2,8 @@ package com.quanglong.recipeapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Notifications {
     @SerializedName("createDate")
     private String createDate;
@@ -19,6 +21,9 @@ public class Notifications {
     private String userDisplay;
     @SerializedName("userId")
     private int userId;
+
+    @SerializedName("listTokenDevice")
+    private List<String> listTokenDevice;
 
     public String getCreateDate() {
         return createDate;
@@ -60,6 +65,14 @@ public class Notifications {
         this.notificationType = notificationType;
     }
 
+    public List<String> getListTokenDevice() {
+        return listTokenDevice;
+    }
+
+    public void setListTokenDevice(List<String> listTokenDevice) {
+        this.listTokenDevice = listTokenDevice;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -84,7 +97,8 @@ public class Notifications {
         this.userId = userId;
     }
 
-    public Notifications(String createDate, String createUserDisplay, String description, int id, String notificationType, int status, String userDisplay, int userId) {
+    public Notifications(String createDate, String createUserDisplay, String description, int id,
+                         String notificationType, int status, String userDisplay, int userId, List<String> listTokenDevice) {
         this.createDate = createDate;
         this.createUserDisplay = createUserDisplay;
         this.description = description;
@@ -93,6 +107,7 @@ public class Notifications {
         this.status = status;
         this.userDisplay = userDisplay;
         this.userId = userId;
+        this.listTokenDevice = listTokenDevice;
     }
 
     public Notifications() {

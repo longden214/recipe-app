@@ -81,7 +81,7 @@ public class RecipeSaveAdptar extends RecyclerView.Adapter<RecipeSaveAdptar.Reci
                             if(s != null){
                                 if(s.equals("Success!")){
                                     RecipeSaveList.get(holder.getAdapterPosition()).setSaveRecipe(RecipeSaveList.get(holder.getAdapterPosition()).isSaveRecipe() == true?false:true);
-                                    notifyItemRangeChanged(holder.getAdapterPosition(),RecipeSaveList.size());
+                                    notifyItemChanged(holder.getAdapterPosition());
                                 }else {
                                     if(s.equals("Failed!")){
                                         Toast.makeText(v.getContext(), "Save failed!", Toast.LENGTH_SHORT).show();
@@ -99,7 +99,7 @@ public class RecipeSaveAdptar extends RecyclerView.Adapter<RecipeSaveAdptar.Reci
                         public void onChanged(String s) {
                             if(s.equals("Success!")){
                                 RecipeSaveList.get(holder.getAdapterPosition()).setSaveRecipe(RecipeSaveList.get(holder.getAdapterPosition()).isSaveRecipe() == true?false:true);
-                                notifyItemRangeChanged(holder.getAdapterPosition(),RecipeSaveList.size());
+                                notifyItemChanged(holder.getAdapterPosition());
                             }else {
                                 if(s.equals("Failed!")){
                                     Toast.makeText(v.getContext(), "Save failed!", Toast.LENGTH_SHORT).show();

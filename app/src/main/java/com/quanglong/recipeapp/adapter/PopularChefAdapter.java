@@ -90,7 +90,7 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
                             if (s != null) {
                                 if (s.equals("Success!")){
                                     mlist.get(holder.getAdapterPosition()).setFollowerUser(mlist.get(holder.getAdapterPosition()).isFollowerUser() == true ? false: true);
-                                    notifyItemRangeChanged(holder.getAdapterPosition(),mlist.size());
+                                    notifyItemChanged(holder.getAdapterPosition());
                                 }else{
                                     if (s.equals("Failed!")){
                                         Toast.makeText(v.getContext(), "Follow failed!", Toast.LENGTH_SHORT).show();
@@ -108,7 +108,7 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
                         public void onChanged(RecipeAddResponse recipeAddResponse) {
                             if (recipeAddResponse.getMessage().equals("Success!")){
                                 mlist.get(holder.getAdapterPosition()).setFollowerUser(mlist.get(holder.getAdapterPosition()).isFollowerUser() == false ? true: false);
-                                notifyItemRangeChanged(holder.getAdapterPosition(),mlist.size());
+                                notifyItemChanged(holder.getAdapterPosition());
                             }else{
                                 if (recipeAddResponse.getMessage().equals("Failed!")){
                                     Toast.makeText(v.getContext(), "Follow failed!", Toast.LENGTH_LONG).show();

@@ -152,7 +152,7 @@ public class EditRecipeActivity extends AppCompatActivity implements View.OnClic
     private void customActionBar() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
-        this.activityAddRecipeBinding.toolbarTitle.setText("Add Recipe");
+        this.activityAddRecipeBinding.toolbarTitle.setText("Edit Recipe");
     }
 
     @Override

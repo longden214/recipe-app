@@ -90,7 +90,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
                             if(s != null){
                                 if(s.equals("Success!")){
                                     TrendingList.get(holder.getAdapterPosition()).setSaveRecipe(TrendingList.get(holder.getAdapterPosition()).isSaveRecipe() == true?false:true);
-                                    notifyItemRangeChanged(holder.getAdapterPosition(),TrendingList.size());
+                                    notifyItemChanged(holder.getAdapterPosition());
                                 }else {
                                     if(s.equals("Failed!")){
                                         Toast.makeText(v.getContext(), "Save failed!", Toast.LENGTH_SHORT).show();
@@ -108,7 +108,7 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
                         public void onChanged(String s) {
                             if(s.equals("Success!")){
                                 TrendingList.get(holder.getAdapterPosition()).setSaveRecipe(TrendingList.get(holder.getAdapterPosition()).isSaveRecipe() == true?false:true);
-                                notifyItemRangeChanged(holder.getAdapterPosition(),TrendingList.size());
+                                notifyItemChanged(holder.getAdapterPosition());
                             }else {
                                 if(s.equals("Failed!")){
                                     Toast.makeText(v.getContext(), "Save failed!", Toast.LENGTH_SHORT).show();

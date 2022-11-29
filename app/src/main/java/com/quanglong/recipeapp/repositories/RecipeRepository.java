@@ -100,6 +100,24 @@ public class RecipeRepository {
         return data;
     }
 
+    public LiveData<RecipeAddResponse> RecipeUpdate(RecipeDataRequest dataRequest){
+        MutableLiveData<RecipeAddResponse> data = new MutableLiveData<>();
+
+        apiService.recipeUpdate(dataRequest).enqueue(new Callback<RecipeAddResponse>() {
+            @Override
+            public void onResponse(Call<RecipeAddResponse> call, Response<RecipeAddResponse> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<RecipeAddResponse> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
     public LiveData<String> RecipeDelete(int recipe_id, int user_id){
         MutableLiveData<String> data = new MutableLiveData<>();
 

@@ -12,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,14 +27,17 @@ import com.quanglong.recipeapp.adapter.RecipeDetailVPAdapter;
 import com.quanglong.recipeapp.fragments.NotificationBottomSheetFragment;
 import com.quanglong.recipeapp.fragments.RateDialog;
 import com.quanglong.recipeapp.fragments.ShareDialog;
+import com.quanglong.recipeapp.model.FollowRequest;
 import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.model.RatingRequest;
 import com.quanglong.recipeapp.model.Recipe;
 import com.quanglong.recipeapp.model.RecipeRequest;
+import com.quanglong.recipeapp.model.SaveRecipeRequest;
 import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.responses.RecipeDetailResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
+import com.quanglong.recipeapp.viewmodels.FollowerViewModel;
 import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
 
 import java.util.List;
@@ -62,6 +66,9 @@ public class RecipeDetailActivity extends AppCompatActivity {
     private RecipeViewModel recipeViewModel;
     private SharedPreferences userLocalDatabase;
     private Button btn_follow;
+    private FollowerViewModel followerViewModel;
+    private Menu menu;
+    private SharedPreferences userlocalData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +91,50 @@ public class RecipeDetailActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         getRecipeDetail();
 
+        this.btn_follow.setOnClickListener(view -> {
+            if(btn_follow.getText().toString().equals("Following")){
+                followerViewModel.unFollow(userLocalDatabase.getInt("id",-1),recipe.getAuthorId()).observe(this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        if (s != null) {
+                            if (s.equals("Success!")){
+                                btn_follow.setText("Follow");
+                                btn_follow.setBackgroundResource(R.drawable.bg_button_follow);
+                                btn_follow.setTextColor(Color.WHITE);
+                            }else{
+                                if (s.equals("Failed!")){
+                                    Toast.makeText(view.getContext(), "Follow failed!", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(view.getContext(), s, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                    }
+                });
+            }else{
+                FollowRequest followRequest = new FollowRequest(userLocalDatabase.getInt("id",-1),recipe.getAuthorId());
+                followerViewModel.saveFollow(followRequest).observe(this, new Observer<RecipeAddResponse>() {
+                    @Override
+                    public void onChanged(RecipeAddResponse recipeAddResponse) {
+                        if (recipeAddResponse.getMessage().equals("Success!")){
+                            btn_follow.setText("Following");
+                            btn_follow.setBackgroundResource(R.drawable.bg_following);
+                            btn_follow.setTextColor(Color.parseColor("#121212"));
+                        }else{
+                            if (recipeAddResponse.getMessage().equals("Failed!")){
+                                Toast.makeText(view.getContext(), "Follow failed!", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(view.getContext(), recipeAddResponse.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void SetRecipeDetail(){
+
         setImageURL(imageView,recipe.getImage());
         this.recipeName.setText(recipe.getName());
         this.time.setText(recipe.getCookTime()+ " mins");
@@ -155,11 +203,22 @@ public class RecipeDetailActivity extends AppCompatActivity {
         recipeViewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         recipe = new Recipe();
         this.userLocalDatabase = getSharedPreferences("userDetails", 0);
+        followerViewModel = new ViewModelProvider(this).get(FollowerViewModel.class);
+        this.userlocalData = getSharedPreferences("userDetails",0);
     }
 
     @Override
     public boolean onCreateOptionsMenu( Menu menu ) {
         getMenuInflater().inflate(R.menu.recipe_header_menu, menu);
+        this.menu = menu;
+        MenuItem bedMenuItem = menu.findItem(R.id.menu_unsave);
+
+        if (recipe.isSaveRecipe()){
+            bedMenuItem.setTitle("Unsave");
+        }else{
+            bedMenuItem.setTitle("Save");
+        }
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -177,7 +236,46 @@ public class RecipeDetailActivity extends AppCompatActivity {
 
                 break;
             case R.id.menu_unsave:
-                Toast.makeText(this, "Unsave Clicked", Toast.LENGTH_SHORT).show();
+
+                if(recipe.isSaveRecipe()){
+                    recipeViewModel.unRecipe(recipe.getId(),userlocalData.getInt("id",-1)).observe(this, new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if(s != null){
+                                if(s.equals("Success!")){
+                                    MenuItem bedMenuItem = menu.findItem(R.id.menu_unsave);
+                                    bedMenuItem.setTitle("Save");
+                                    recipe.setSaveRecipe(false);
+                                }else {
+                                    if(s.equals("Failed!")){
+                                        Toast.makeText(RecipeDetailActivity.this, "Save failed!", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(RecipeDetailActivity.this, s, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }else {
+                    SaveRecipeRequest saveRecipeRequest = new SaveRecipeRequest(recipe.getId(),userlocalData.getInt("id",-1));
+                    recipeViewModel.saveRecipe(saveRecipeRequest).observe(this, new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if(s.equals("Success!")){
+                                MenuItem bedMenuItem = menu.findItem(R.id.menu_unsave);
+                                bedMenuItem.setTitle("Unsave");
+                                recipe.setSaveRecipe(true);
+                            }else {
+                                if(s.equals("Failed!")){
+                                    Toast.makeText(RecipeDetailActivity.this, "Save failed!", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(RecipeDetailActivity.this, s, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                    });
+                }
+
                 break;
             case android.R.id.home:
                 super.onBackPressed();

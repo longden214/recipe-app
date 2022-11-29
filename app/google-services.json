@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "227960849880",
+    "project_id": "chef-recipe-a6969",
+    "storage_bucket": "chef-recipe-a6969.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227960849880:android:0885c2c0ccbc173b435ead",
+        "android_client_info": {
+          "package_name": "com.quanglong.recipeapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227960849880-3cabl2mi2qka51a9fo1fgpijigspit46.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrkfsFbGH8AS5H7GNxxrko1XJC8KtS3sw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227960849880-3cabl2mi2qka51a9fo1fgpijigspit46.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

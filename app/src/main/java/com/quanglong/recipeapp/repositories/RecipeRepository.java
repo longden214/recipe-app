@@ -4,10 +4,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.quanglong.recipeapp.apiServices.RecipeService;
+import com.quanglong.recipeapp.model.FollowRequest;
 import com.quanglong.recipeapp.model.RecipeRequest;
 import com.quanglong.recipeapp.apiServices.UserService;
 import com.quanglong.recipeapp.model.LoginRequest;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
+import com.quanglong.recipeapp.model.SaveRecipeRequest;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.network.ApiClient;
 import com.quanglong.recipeapp.responses.RecipeAddResponse;
@@ -101,6 +103,40 @@ public class RecipeRepository {
         MutableLiveData<String> data = new MutableLiveData<>();
 
         apiService.RecipeDelete(recipe_id,user_id).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+    public LiveData<String> saveRecipe(SaveRecipeRequest saveRecipeRequest){
+        MutableLiveData<String> data = new MutableLiveData<>();
+        apiService.saveRicpe(saveRecipeRequest).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+        return data;
+    }
+
+    public LiveData<String> unRecipe(int recipeId, int userId){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        apiService.unRecipe(recipeId,userId).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 data.setValue(response.body());

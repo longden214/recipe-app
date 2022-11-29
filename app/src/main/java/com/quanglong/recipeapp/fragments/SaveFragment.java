@@ -72,7 +72,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener, Reci
     }
     private void setNewRecipe(ArrayList<Recipe> RecipeSaveList) {
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(),1));
-        recipeSaveAdptar = new RecipeSaveAdptar(getActivity(),RecipeSaveList,this);
+        recipeSaveAdptar = new RecipeSaveAdptar(getActivity(),RecipeSaveList,this,getViewLifecycleOwner());
         recyclerView.setAdapter(recipeSaveAdptar);
     }
 

@@ -77,7 +77,7 @@ public class FollowingActivity extends AppCompatActivity {
     private void setFollowing(ArrayList<PopularChef> mlistPopular){
         StaggeredGridLayoutManager sglm = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(sglm);
-        followerAdapter = new FollowerAdapter(mlistPopular,FollowingActivity.this);
+        followerAdapter = new FollowerAdapter(mlistPopular,FollowingActivity.this,this);
         recyclerView.setAdapter(followerAdapter);
     }
     private void getFollowing(){

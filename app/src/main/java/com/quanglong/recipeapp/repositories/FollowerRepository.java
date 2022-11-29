@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.quanglong.recipeapp.apiServices.FolloweService;
+import com.quanglong.recipeapp.model.FollowRequest;
 import com.quanglong.recipeapp.network.ApiClient;
 import com.quanglong.recipeapp.responses.PopularChefResponses;
+import com.quanglong.recipeapp.responses.RecipeAddResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +48,40 @@ public class FollowerRepository {
                 data.setValue(null);
             }
         });
+        return data;
+    }
+
+    public LiveData<RecipeAddResponse> saveFollow(FollowRequest followRequest){
+        MutableLiveData<RecipeAddResponse> data = new MutableLiveData<>();
+        followeService.saveFollow(followRequest).enqueue(new Callback<RecipeAddResponse>() {
+            @Override
+            public void onResponse(Call<RecipeAddResponse> call, Response<RecipeAddResponse> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<RecipeAddResponse> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+        return data;
+    }
+
+    public LiveData<String> unFollow(int userId, int followerId){
+        MutableLiveData<String> data = new MutableLiveData<>();
+
+        followeService.unFollow(userId,followerId).enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
         return data;
     }
 }

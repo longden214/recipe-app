@@ -3,8 +3,10 @@ package com.quanglong.recipeapp.viewmodels;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.quanglong.recipeapp.model.FollowRequest;
 import com.quanglong.recipeapp.model.LoginRequest;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
+import com.quanglong.recipeapp.model.SaveRecipeRequest;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.repositories.RecipeRepository;
 import com.quanglong.recipeapp.repositories.UserRepository;
@@ -40,5 +42,13 @@ public class RecipeViewModel extends ViewModel {
 
     public LiveData<String> recipeDelete(int recipe_id, int user_id) {
         return recipeRepository.RecipeDelete(recipe_id, user_id);
+    }
+
+    public LiveData<String> saveRecipe(SaveRecipeRequest saveRecipeRequest){
+        return recipeRepository.saveRecipe(saveRecipeRequest);
+    }
+
+    public LiveData<String> unRecipe(int recipeId, int userId){
+        return recipeRepository.unRecipe(recipeId,userId);
     }
 }

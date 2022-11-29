@@ -307,7 +307,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         trending_recycler.setHasFixedSize(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         trending_recycler.setLayoutManager(layoutManager);
-        trendingAdapter = new TrendingAdapter(getActivity(), RecipeList,this);
+        trendingAdapter = new TrendingAdapter(getActivity(), RecipeList,this,getViewLifecycleOwner());
         trending_recycler.setAdapter(trendingAdapter);
     }
 

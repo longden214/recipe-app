@@ -17,7 +17,7 @@ public class ApiClient {
                     .create();
 
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://172.22.32.1:8080/APIRecipes/recipesApi/")
+                    .baseUrl("http://192.168.56.1:8080/APIRecipes/recipesApi/")
                     .addConverterFactory(ScalarsConverterFactory.create())
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();

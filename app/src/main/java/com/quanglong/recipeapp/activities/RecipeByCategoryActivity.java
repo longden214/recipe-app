@@ -90,7 +90,7 @@ public class RecipeByCategoryActivity extends AppCompatActivity implements View.
 
     private void setNewRecipe(ArrayList<Recipe> recipesList) {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        adapter = new RecipeAdapter(recipesList,this,this);
+        adapter = new RecipeAdapter(recipesList,this,this,this);
         recyclerView.setAdapter(adapter);
     }
 

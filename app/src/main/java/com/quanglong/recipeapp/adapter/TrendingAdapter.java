@@ -3,18 +3,24 @@ package com.quanglong.recipeapp.adapter;
 import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.listener.RecipeDetailListener;
 import com.quanglong.recipeapp.model.Recipe;
+import com.quanglong.recipeapp.model.SaveRecipeRequest;
+import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,19 +29,24 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
     Context context;
     List<Recipe> TrendingList;
     private RecipeDetailListener recipeDetailListener;
+    private LifecycleOwner lifecycleOwner;
+    private RecipeViewModel recipeViewModel;
+    private SharedPreferences userlocalData;
 
 
-    public TrendingAdapter(Context context, List<Recipe> TrendingList,RecipeDetailListener recipeDetailListener) {
+    public TrendingAdapter(Context context, List<Recipe> TrendingList,RecipeDetailListener recipeDetailListener,LifecycleOwner lifecycleOwner) {
         this.context = context;
         this.TrendingList= TrendingList;
         this.recipeDetailListener = recipeDetailListener;
+        this.lifecycleOwner = lifecycleOwner;
     }
 
     @NonNull
     @Override
     public TrendingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recipe_trending,parent,false);
-
+        recipeViewModel = new RecipeViewModel();
+        this.userlocalData = view.getContext().getSharedPreferences("userDetails",0);
         return new TrendingAdapter.TrendingViewHolder(view);
     }
 
@@ -62,6 +73,48 @@ public class TrendingAdapter extends RecyclerView.Adapter<TrendingAdapter.Trendi
 
         holder.itemView.setOnClickListener(view ->{
             recipeDetailListener.onRecipeDetailListener(trendingRecipe.getId(),trendingRecipe.getName());
+        });
+
+        holder.btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.btn_save.equals(R.drawable.ic_saved)){
+                    recipeViewModel.unRecipe(trendingRecipe.getId(),userlocalData.getInt("id",-1)).observe(lifecycleOwner, new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if(s != null){
+                                if(s.equals("Success!")){
+                                    TrendingList.get(holder.getAdapterPosition()).setSaveRecipe(TrendingList.get(holder.getAdapterPosition()).isSaveRecipe() == true?false:true);
+                                    notifyItemRangeChanged(holder.getAdapterPosition(),TrendingList.size());
+                                }else {
+                                    if(s.equals("Failed!")){
+                                        Toast.makeText(v.getContext(), "Save failed!", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(v.getContext(), s, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }else {
+                    SaveRecipeRequest saveRecipeRequest = new SaveRecipeRequest(trendingRecipe.getId(),userlocalData.getInt("id",-1));
+                    recipeViewModel.saveRecipe(saveRecipeRequest).observe(lifecycleOwner, new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if(s.equals("Success!")){
+                                TrendingList.get(holder.getAdapterPosition()).setSaveRecipe(TrendingList.get(holder.getAdapterPosition()).isSaveRecipe() == true?false:true);
+                                notifyItemRangeChanged(holder.getAdapterPosition(),TrendingList.size());
+                            }else {
+                                if(s.equals("Failed!")){
+                                    Toast.makeText(v.getContext(), "Save failed!", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(v.getContext(), s, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                    });
+                }
+            }
         });
 
     }

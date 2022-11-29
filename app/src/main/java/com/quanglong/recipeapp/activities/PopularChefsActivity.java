@@ -77,7 +77,7 @@ public class PopularChefsActivity extends AppCompatActivity implements View.OnCl
 
     private void setPopularRecycler(ArrayList<PopularChef> popularChefList) {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new PopularChefAdapter(popularChefList,PopularChefsActivity.this,this);
+        adapter = new PopularChefAdapter(popularChefList,PopularChefsActivity.this,this,this);
         recyclerView.setAdapter(adapter);
     }
 

@@ -3,19 +3,25 @@ package com.quanglong.recipeapp.adapter;
 import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.listener.RecipeDetailListener;
 import com.quanglong.recipeapp.model.PopularChef;
 import com.quanglong.recipeapp.model.Recipe;
+import com.quanglong.recipeapp.model.SaveRecipeRequest;
+import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,12 +30,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     Context mContext;
     ArrayList<Recipe> mlist;
     private RecipeDetailListener recipeDetailListener;
+    private LifecycleOwner lifecycleOwner;
+    private RecipeViewModel recipeViewModel;
+    private SharedPreferences userlocalData;
 
 
-    public RecipeAdapter(ArrayList<Recipe> _list, Context _mContext,RecipeDetailListener recipeDetailListener) {
+    public RecipeAdapter(ArrayList<Recipe> _list, Context _mContext,RecipeDetailListener recipeDetailListener,LifecycleOwner lifecycleOwner) {
         this.mlist = _list;
         this.mContext = _mContext;
         this.recipeDetailListener = recipeDetailListener;
+        this.lifecycleOwner =lifecycleOwner;
     }
 
     @NonNull
@@ -37,7 +47,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public RecipeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(mContext).inflate(R.layout.item_recipe,parent,false);
         RecipeViewHolder mvh = new RecipeViewHolder(v);
-
+        recipeViewModel = new RecipeViewModel();
+        this.userlocalData = v.getContext().getSharedPreferences("userDetails",0);
         return mvh;
     }
 
@@ -62,6 +73,47 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
         holder.itemView.setOnClickListener(view ->{
             recipeDetailListener.onRecipeDetailListener(recipe.getId(),recipe.getName());
+        });
+        holder.btn_save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(holder.btn_save.equals(R.drawable.ic_saved)){
+                    recipeViewModel.unRecipe(recipe.getId(),userlocalData.getInt("id",-1)).observe(lifecycleOwner, new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if(s != null){
+                                if(s.equals("Success!")){
+                                    mlist.get(holder.getAdapterPosition()).setSaveRecipe(mlist.get(holder.getAdapterPosition()).isSaveRecipe() == true?false:true);
+                                    notifyItemRangeChanged(holder.getAdapterPosition(),mlist.size());
+                                }else {
+                                    if(s.equals("Failed!")){
+                                        Toast.makeText(v.getContext(), "Save failed!", Toast.LENGTH_SHORT).show();
+                                    }else {
+                                        Toast.makeText(v.getContext(), s, Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }else {
+                    SaveRecipeRequest saveRecipeRequest = new SaveRecipeRequest(recipe.getId(),userlocalData.getInt("id",-1));
+                    recipeViewModel.saveRecipe(saveRecipeRequest).observe(lifecycleOwner, new Observer<String>() {
+                        @Override
+                        public void onChanged(String s) {
+                            if(s.equals("Success!")){
+                                mlist.get(holder.getAdapterPosition()).setSaveRecipe(mlist.get(holder.getAdapterPosition()).isSaveRecipe() == true?false:true);
+                                notifyItemRangeChanged(holder.getAdapterPosition(),mlist.size());
+                            }else {
+                                if(s.equals("Failed!")){
+                                    Toast.makeText(v.getContext(), "Save failed!", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(v.getContext(), s, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                    });
+                }
+            }
         });
 //        setImageURL(holder.RecipeImgAvatar, recipe.getAuthorAvatar());
 

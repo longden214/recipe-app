@@ -23,6 +23,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ImageView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.activities.NewRecipeActivity;
 import com.quanglong.recipeapp.activities.PopularChefsActivity;
@@ -47,6 +50,7 @@ import com.quanglong.recipeapp.responses.CategoryResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.responses.PopularChefResponses;
 import com.quanglong.recipeapp.responses.UserLoginResponse;
+import com.quanglong.recipeapp.utilities.FCMSend;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
 
 import java.util.ArrayList;
@@ -133,8 +137,23 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         getNewRecipe();
         setTrending(TrendingRecipeList);
         getTrending();
+        setNotificationFirebase();
 
+    }
 
+    private void setNotificationFirebase() {
+        // Get Device Token
+//        FirebaseMessaging.getInstance().getToken()
+//                .addOnCompleteListener(new OnCompleteListener<String>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<String> task) {
+//                        if (!task.isSuccessful()) {
+//                            return;
+//                        }
+//                        String token = task.getResult();
+//                        System.out.println("TOKEN: " + token);
+//                    }
+//                });
     }
 
     private void setUserInfo() {
@@ -375,6 +394,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
             case R.id.btn_search_filter:
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
+
+//                FCMSend.pushNotification(
+//                        getContext(),
+//                        "eQQn-vXSQqOE_lfDXjnb4E:APA91bEy0duhEskjhKn1X4lclZetEo5MKGKWWyUcbNLaw33zHpu2bZ6BZu0MvR5tRETUcqy6YXJg2wKENYvX381lWpcLu7TsFlEBLMqjZ8wpN51xmbpjTo1qEF0-NscT5Riw_9sGSn63",
+//                        "Hello",
+//                        "Hello World Message"
+//                        );
                 break;
             case R.id.category_see_all:
                 Intent intent2 = new Intent(getActivity(),CatagoryActivity.class);

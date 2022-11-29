@@ -77,7 +77,7 @@ public class NewRecipeActivity extends AppCompatActivity implements View.OnClick
 
     private void setNewRecipe(ArrayList<Recipe> recipesList) {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        adapter = new RecipeAdapter(recipesList,this,this);
+        adapter = new RecipeAdapter(recipesList,this,this,this);
         recyclerView.setAdapter(adapter);
     }
 

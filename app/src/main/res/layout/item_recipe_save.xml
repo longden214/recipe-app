@@ -114,17 +114,17 @@
 
         <androidx.cardview.widget.CardView
             android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            app:cardCornerRadius="@dimen/_50sdp"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/_10sdp"
-            android:layout_weight="1" >
+            android:layout_weight="1"
+            app:cardCornerRadius="@dimen/_50sdp">
 
             <ImageView
                 android:id="@+id/btn_save"
-                android:layout_gravity="center"
                 android:layout_width="@dimen/_16sdp"
                 android:layout_height="@dimen/_16sdp"
+                android:layout_gravity="center"
                 app:srcCompat="@drawable/ic_saved" />
         </androidx.cardview.widget.CardView>
 

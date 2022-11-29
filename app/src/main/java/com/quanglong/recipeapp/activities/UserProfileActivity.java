@@ -14,20 +14,25 @@ import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.adapter.RecipeAdapter;
 import com.quanglong.recipeapp.adapter.RecipeSaveAdptar;
 import com.quanglong.recipeapp.listener.RecipeDetailListener;
+import com.quanglong.recipeapp.model.FollowRequest;
 import com.quanglong.recipeapp.model.PopularChef;
 import com.quanglong.recipeapp.model.Recipe;
 import com.quanglong.recipeapp.model.RecipeRequest;
+import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
+import com.quanglong.recipeapp.viewmodels.FollowerViewModel;
 import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -52,6 +57,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
     private RecipeSaveAdptar recipeSaveAdptar;
     private SharedPreferences userLocalDatabase;
     private int id ;
+    private FollowerViewModel followerViewModel;
+
+
 
 
     @Override
@@ -75,6 +83,46 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             Intent itent2 = new Intent(UserProfileActivity.this,FollowingActivity.class);
             itent2.putExtra("id",chef.getId());
             startActivity(itent2);
+        });
+        btn_follow.setOnClickListener(view ->{
+            if(btn_follow.getText().toString().equals("Following")){
+                followerViewModel.unFollow(userLocalDatabase.getInt("id",-1),chef.getId()).observe(this, new Observer<String>() {
+                    @Override
+                    public void onChanged(String s) {
+                        if (s != null) {
+                            if (s.equals("Success!")){
+                                btn_follow.setText("Follow");
+                                btn_follow.setBackgroundResource(R.drawable.bg_button_follow);
+                                btn_follow.setTextColor(Color.WHITE);
+                            }else{
+                                if (s.equals("Failed!")){
+                                    Toast.makeText(view.getContext(), "Follow failed!", Toast.LENGTH_SHORT).show();
+                                }else {
+                                    Toast.makeText(view.getContext(), s, Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        }
+                    }
+                });
+            }else{
+                FollowRequest followRequest = new FollowRequest(userLocalDatabase.getInt("id",-1),chef.getId());
+                followerViewModel.saveFollow(followRequest).observe(this, new Observer<RecipeAddResponse>() {
+                    @Override
+                    public void onChanged(RecipeAddResponse recipeAddResponse) {
+                        if (recipeAddResponse.getMessage().equals("Success!")){
+                            btn_follow.setText("Following");
+                            btn_follow.setBackgroundResource(R.drawable.bg_following);
+                            btn_follow.setTextColor(Color.parseColor("#121212"));
+                        }else{
+                            if (recipeAddResponse.getMessage().equals("Failed!")){
+                                Toast.makeText(view.getContext(), "Follow failed!", Toast.LENGTH_LONG).show();
+                            }else{
+                                Toast.makeText(view.getContext(), recipeAddResponse.getMessage(), Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }
+                });
+            }
         });
         id = userLocalDatabase.getInt("id", -1);
         setNewRecipe(mlistreRecipes);
@@ -107,7 +155,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
 
     private void setNewRecipe(ArrayList<Recipe> RecipeSaveList) {
         recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        recipeSaveAdptar = new RecipeSaveAdptar(this,RecipeSaveList,this);
+        recipeSaveAdptar = new RecipeSaveAdptar(this,RecipeSaveList,this,this);
         recyclerView.setAdapter(recipeSaveAdptar);
     }
 
@@ -192,6 +240,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         recyclerView = findViewById(R.id.idMain);
         viewModel = new ViewModelProvider(this).get(RecipeViewModel.class);
         this.userLocalDatabase = UserProfileActivity.this.getSharedPreferences("userDetails", 0);
+        followerViewModel = new ViewModelProvider(this).get(FollowerViewModel.class);
     }
 
     @Override

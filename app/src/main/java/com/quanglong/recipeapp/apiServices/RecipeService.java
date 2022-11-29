@@ -1,8 +1,10 @@
 package com.quanglong.recipeapp.apiServices;
 
+import com.quanglong.recipeapp.model.FollowRequest;
 import com.quanglong.recipeapp.model.RatingRequest;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.RecipeRequest;
+import com.quanglong.recipeapp.model.SaveRecipeRequest;
 import com.quanglong.recipeapp.model.User;
 import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.responses.RecipeDetailResponse;
@@ -42,4 +44,11 @@ public interface RecipeService {
 
     @DELETE("recipes/delete")
     Call<String> RecipeDelete(@Query("id") int id,@Query("userId") int userId);
+
+    @POST("recipeSave")
+    Call<String> saveRicpe(@Body SaveRecipeRequest saveRecipeRequest);
+
+    @DELETE("recipeSave/delete")
+    Call<String> unRecipe(@Query("recipeId") int recipeId,
+                          @Query("userId") int userId);
 }

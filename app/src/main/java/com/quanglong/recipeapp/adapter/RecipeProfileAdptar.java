@@ -3,6 +3,7 @@ package com.quanglong.recipeapp.adapter;
 import static com.quanglong.recipeapp.utilities.BindingAdapter.setImageURL;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,6 +23,7 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
+import com.quanglong.recipeapp.activities.EditRecipeActivity;
 import com.quanglong.recipeapp.listener.RecipeDetailListener;
 import com.quanglong.recipeapp.listener.RecipeListener;
 import com.quanglong.recipeapp.model.Recipe;
@@ -77,23 +79,30 @@ public class RecipeProfileAdptar extends RecyclerView.Adapter<RecipeProfileAdpta
             popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem menuItem) {
+                    String menuSelected = menuItem.toString();
                     // Toast message on menu item clicked
                     int id = newRecipe.getId();
-                    int user_id = userLocalDatabase.getInt("id", -1);
-                    recipeViewModel.recipeDelete(id,user_id).observe(lifecycleOwner, new Observer<String>() {
-                        @Override
-                        public void onChanged(String res) {
-                            if (res != null) {
-                                if (res.equals("Success!")) {
-                                    RecipeSaveList.remove(holder.getAdapterPosition());
-                                    notifyItemRemoved(holder.getAdapterPosition());
-                                    notifyItemRangeChanged(holder.getAdapterPosition(),RecipeSaveList.size());
-                                }else{
-                                    Toast.makeText(view.getContext(), res, Toast.LENGTH_SHORT).show();
+                    if (menuSelected.equals("Remove")){
+                        int user_id = userLocalDatabase.getInt("id", -1);
+                        recipeViewModel.recipeDelete(id,user_id).observe(lifecycleOwner, new Observer<String>() {
+                            @Override
+                            public void onChanged(String res) {
+                                if (res != null) {
+                                    if (res.equals("Success!")) {
+                                        RecipeSaveList.remove(holder.getAdapterPosition());
+                                        notifyItemRemoved(holder.getAdapterPosition());
+                                        notifyItemRangeChanged(holder.getAdapterPosition(),RecipeSaveList.size());
+                                    }else{
+                                        Toast.makeText(view.getContext(), res, Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
-                        }
-                    });
+                        });
+                    }else if(menuSelected.equals("Edit")){
+                        Intent intent = new Intent(view.getContext(), EditRecipeActivity.class);
+                        intent.putExtra("id",id);
+                        context.startActivity(intent);
+                    }
                     return true;
                 }
             });

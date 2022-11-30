@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.quanglong.recipeapp.model.FollowRequest;
 import com.quanglong.recipeapp.model.LoginRequest;
+import com.quanglong.recipeapp.model.RatingRequest;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.SaveRecipeRequest;
 import com.quanglong.recipeapp.model.User;
@@ -36,12 +37,21 @@ public class RecipeViewModel extends ViewModel {
     public LiveData<RecipeAddResponse> createRecipe(RecipeDataRequest dataRequest) {
         return recipeRepository.RecipeInsert(dataRequest);
     }
+
+    public LiveData<RecipeAddResponse> updateRecipe(RecipeDataRequest dataRequest) {
+        return recipeRepository.RecipeUpdate(dataRequest);
+    }
+
     public LiveData<RecipeDetailResponse> getRecipeDetailWithParam(int id,int loginUserId){
         return recipeRepository.getRecipeDetailWithParam(id,loginUserId);
     }
 
     public LiveData<String> recipeDelete(int recipe_id, int user_id) {
         return recipeRepository.RecipeDelete(recipe_id, user_id);
+    }
+
+    public LiveData<RecipeAddResponse> recipeRating(RatingRequest request) {
+        return recipeRepository.recipeRating(request);
     }
 
     public LiveData<String> saveRecipe(SaveRecipeRequest saveRecipeRequest){

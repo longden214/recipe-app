@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.quanglong.recipeapp.apiServices.RecipeService;
+import com.quanglong.recipeapp.model.RatingRequest;
 import com.quanglong.recipeapp.model.FollowRequest;
 import com.quanglong.recipeapp.model.RecipeRequest;
 import com.quanglong.recipeapp.apiServices.UserService;
@@ -99,6 +100,24 @@ public class RecipeRepository {
         return data;
     }
 
+    public LiveData<RecipeAddResponse> RecipeUpdate(RecipeDataRequest dataRequest){
+        MutableLiveData<RecipeAddResponse> data = new MutableLiveData<>();
+
+        apiService.recipeUpdate(dataRequest).enqueue(new Callback<RecipeAddResponse>() {
+            @Override
+            public void onResponse(Call<RecipeAddResponse> call, Response<RecipeAddResponse> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<RecipeAddResponse> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
     public LiveData<String> RecipeDelete(int recipe_id, int user_id){
         MutableLiveData<String> data = new MutableLiveData<>();
 
@@ -110,6 +129,24 @@ public class RecipeRepository {
 
             @Override
             public void onFailure(Call<String> call, Throwable t) {
+                data.setValue(null);
+            }
+        });
+
+        return data;
+    }
+
+    public LiveData<RecipeAddResponse> recipeRating(RatingRequest request){
+        MutableLiveData<RecipeAddResponse> data = new MutableLiveData<>();
+
+        apiService.recipeRating(request).enqueue(new Callback<RecipeAddResponse>() {
+            @Override
+            public void onResponse(Call<RecipeAddResponse> call, Response<RecipeAddResponse> response) {
+                data.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<RecipeAddResponse> call, Throwable t) {
                 data.setValue(null);
             }
         });

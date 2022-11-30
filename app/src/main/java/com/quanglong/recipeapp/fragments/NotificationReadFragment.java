@@ -140,7 +140,7 @@ public class NotificationReadFragment extends Fragment implements NotificationLi
                             if (res != null) {
                                 if (res.equals("Success!")){
                                     mlistNotification.get(adapterPosition).setStatus(mlistNotification.get(adapterPosition).getStatus() == 0 ? 1: 0);
-                                    notificationAllAdapter.notifyItemRangeChanged(adapterPosition,mlistNotification.size());
+                                    notificationAllAdapter.notifyItemChanged(adapterPosition);
                                 }else{
                                     if (res.equals("Failed!")){
                                         Toast.makeText(getActivity(), "Mark as read failed!", Toast.LENGTH_SHORT).show();

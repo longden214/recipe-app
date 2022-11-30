@@ -39,6 +39,7 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_edit_profile.xml" value="0.264" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_follower.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_following.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_introductory.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_notification.xml" value="0.24010416666666667" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/layout/activity_password.xml" value="0.25416666666666665" />
@@ -101,6 +102,8 @@
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/menu/recipe_header_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/menu/recipe_menu.xml" value="0.2" />
         <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/menu/setting_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.249" />
+        <entry key="..\:/MyCode/Mobile/JavaAndroid/RecipeApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.124" />
       </map>
     </option>
   </component>

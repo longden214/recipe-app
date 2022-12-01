@@ -20,8 +20,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
 import com.quanglong.recipeapp.model.FollowRequest;
+import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.model.PopularChef;
 import com.quanglong.recipeapp.responses.RecipeAddResponse;
+import com.quanglong.recipeapp.utilities.FCMSend;
 import com.quanglong.recipeapp.viewmodels.FollowerViewModel;
 
 import java.util.ArrayList;
@@ -102,6 +104,21 @@ public class FollowerAdapter extends RecyclerView.Adapter<FollowerAdapter.Follow
                             if (recipeAddResponse.getMessage().equals("Success!")){
                                 mlist.get(holder.getAdapterPosition()).setFollowerUser(mlist.get(holder.getAdapterPosition()).isFollowerUser() == false ? true: false);
                                 notifyItemChanged(holder.getAdapterPosition());
+
+                                if (recipeAddResponse.getNotificationModels().size() > 0){
+                                    for (Notifications item : recipeAddResponse.getNotificationModels()) {
+                                        if (item.getListTokenDevice().size() > 0){
+                                            for (String itemToken: item.getListTokenDevice()) {
+                                                FCMSend.pushNotification(
+                                                        mContext,
+                                                        itemToken,
+                                                        item.getNotificationType(),
+                                                        item.getDescription()
+                                                );
+                                            }
+                                        }
+                                    }
+                                }
                             }else{
                                 if (recipeAddResponse.getMessage().equals("Failed!")){
                                     Toast.makeText(v.getContext(), "Follow failed!", Toast.LENGTH_LONG).show();

@@ -19,16 +19,15 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.quanglong.recipeapp.R;
-import com.quanglong.recipeapp.listener.CategoryListener;
 import com.quanglong.recipeapp.listener.UserListener;
-import com.quanglong.recipeapp.model.Category;
 import com.quanglong.recipeapp.model.FollowRequest;
+import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.model.PopularChef;
 import com.quanglong.recipeapp.responses.RecipeAddResponse;
+import com.quanglong.recipeapp.utilities.FCMSend;
 import com.quanglong.recipeapp.viewmodels.FollowerViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.PopularChefViewHolder> {
     Context mContext;
@@ -38,7 +37,7 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
     private FollowerViewModel followerViewModel;
     private SharedPreferences userlocaldata;
 
-    public PopularChefAdapter(ArrayList<PopularChef> _list, Context _mContext,UserListener userListener,LifecycleOwner lifecycleOwner) {
+    public PopularChefAdapter(ArrayList<PopularChef> _list, Context _mContext, UserListener userListener, LifecycleOwner lifecycleOwner) {
         this.mlist = _list;
         this.mContext = _mContext;
         this.userListener = userListener;
@@ -48,34 +47,34 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
     @NonNull
     @Override
     public PopularChefViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(mContext).inflate(R.layout.item_user,parent,false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.item_user, parent, false);
         PopularChefViewHolder mvh = new PopularChefViewHolder(v);
         followerViewModel = new FollowerViewModel();
-        this.userlocaldata = v.getContext().getSharedPreferences("userDetails",0);
+        this.userlocaldata = v.getContext().getSharedPreferences("userDetails", 0);
         return mvh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull PopularChefViewHolder holder, int position) {
         PopularChef popularChef = mlist.get(position);
-        if (popularChef == null){
+        if (popularChef == null) {
             return;
         }
 
-        if (!popularChef.getAvatar().equals("")){
+        if (!popularChef.getAvatar().equals("")) {
             setImageURL(holder.PopularChefImg, popularChef.getAvatar());
-        }else{
+        } else {
             holder.PopularChefImg.setImageResource(R.drawable.avater_default);
         }
 
         holder.PopularChefName.setText(popularChef.getUserName());
         holder.totalRecipes.setText(Integer.toString(popularChef.getTotalRecipe()));
 
-        if (popularChef.isFollowerUser()){
+        if (popularChef.isFollowerUser()) {
             holder.btn_follow.setText("Following");
             holder.btn_follow.setBackgroundResource(R.drawable.bg_following);
             holder.btn_follow.setTextColor(Color.parseColor("#121212"));
-        }else{
+        } else {
             holder.btn_follow.setText("Follow");
             holder.btn_follow.setBackgroundResource(R.drawable.bg_button_follow);
             holder.btn_follow.setTextColor(Color.WHITE);
@@ -83,36 +82,52 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
         holder.btn_follow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(holder.btn_follow.getText().toString().equals("Following")){
-                    followerViewModel.unFollow(userlocaldata.getInt("id",-1),popularChef.getId()).observe(lifecycleOwner, new Observer<String>() {
+                if (holder.btn_follow.getText().toString().equals("Following")) {
+                    followerViewModel.unFollow(userlocaldata.getInt("id", -1), popularChef.getId()).observe(lifecycleOwner, new Observer<String>() {
                         @Override
                         public void onChanged(String s) {
                             if (s != null) {
-                                if (s.equals("Success!")){
-                                    mlist.get(holder.getAdapterPosition()).setFollowerUser(mlist.get(holder.getAdapterPosition()).isFollowerUser() == true ? false: true);
+                                if (s.equals("Success!")) {
+                                    mlist.get(holder.getAdapterPosition()).setFollowerUser(mlist.get(holder.getAdapterPosition()).isFollowerUser() == true ? false : true);
                                     notifyItemChanged(holder.getAdapterPosition());
-                                }else{
-                                    if (s.equals("Failed!")){
+                                } else {
+                                    if (s.equals("Failed!")) {
                                         Toast.makeText(v.getContext(), "Follow failed!", Toast.LENGTH_SHORT).show();
-                                    }else {
+                                    } else {
                                         Toast.makeText(v.getContext(), s, Toast.LENGTH_LONG).show();
                                     }
                                 }
                             }
                         }
                     });
-                }else{
-                    FollowRequest followRequest = new FollowRequest(userlocaldata.getInt("id",-1),popularChef.getId());
-                    followerViewModel.saveFollow(followRequest).observe(lifecycleOwner, new Observer< RecipeAddResponse>() {
+                } else {
+                    FollowRequest followRequest = new FollowRequest(userlocaldata.getInt("id", -1), popularChef.getId());
+                    followerViewModel.saveFollow(followRequest).observe(lifecycleOwner, new Observer<RecipeAddResponse>() {
                         @Override
                         public void onChanged(RecipeAddResponse recipeAddResponse) {
-                            if (recipeAddResponse.getMessage().equals("Success!")){
-                                mlist.get(holder.getAdapterPosition()).setFollowerUser(mlist.get(holder.getAdapterPosition()).isFollowerUser() == false ? true: false);
+                            if (recipeAddResponse.getMessage().equals("Success!")) {
+                                mlist.get(holder.getAdapterPosition()).setFollowerUser(mlist.get(holder.getAdapterPosition()).isFollowerUser() == false ? true : false);
                                 notifyItemChanged(holder.getAdapterPosition());
-                            }else{
-                                if (recipeAddResponse.getMessage().equals("Failed!")){
+
+                                if (recipeAddResponse.getNotificationModels().size() > 0){
+                                    for (Notifications item : recipeAddResponse.getNotificationModels()) {
+                                        if (item.getListTokenDevice().size() > 0){
+                                            for (String itemToken: item.getListTokenDevice()) {
+                                                FCMSend.pushNotification(
+                                                        mContext,
+                                                        itemToken,
+                                                        item.getNotificationType(),
+                                                        item.getDescription()
+                                                );
+                                            }
+                                        }
+                                    }
+                                }
+
+                            } else {
+                                if (recipeAddResponse.getMessage().equals("Failed!")) {
                                     Toast.makeText(v.getContext(), "Follow failed!", Toast.LENGTH_LONG).show();
-                                }else{
+                                } else {
                                     Toast.makeText(v.getContext(), recipeAddResponse.getMessage(), Toast.LENGTH_LONG).show();
                                 }
                             }
@@ -121,7 +136,7 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
                 }
             }
         });
-        holder.itemView.setOnClickListener(view ->{
+        holder.itemView.setOnClickListener(view -> {
             userListener.onUserClicked(popularChef);
         });
     }
@@ -131,7 +146,7 @@ public class PopularChefAdapter extends RecyclerView.Adapter<PopularChefAdapter.
         return mlist.size();
     }
 
-    public static final class PopularChefViewHolder extends RecyclerView.ViewHolder{
+    public static final class PopularChefViewHolder extends RecyclerView.ViewHolder {
 
         ImageView PopularChefImg;
         TextView PopularChefName, totalRecipes;

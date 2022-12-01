@@ -15,11 +15,13 @@ import com.quanglong.recipeapp.adapter.RecipeAdapter;
 import com.quanglong.recipeapp.adapter.RecipeSaveAdptar;
 import com.quanglong.recipeapp.listener.RecipeDetailListener;
 import com.quanglong.recipeapp.model.FollowRequest;
+import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.model.PopularChef;
 import com.quanglong.recipeapp.model.Recipe;
 import com.quanglong.recipeapp.model.RecipeRequest;
 import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
+import com.quanglong.recipeapp.utilities.FCMSend;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.FollowerViewModel;
 import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
@@ -113,6 +115,21 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
                             btn_follow.setText("Following");
                             btn_follow.setBackgroundResource(R.drawable.bg_following);
                             btn_follow.setTextColor(Color.parseColor("#121212"));
+
+                            if (recipeAddResponse.getNotificationModels().size() > 0){
+                                for (Notifications item : recipeAddResponse.getNotificationModels()) {
+                                    if (item.getListTokenDevice().size() > 0){
+                                        for (String itemToken: item.getListTokenDevice()) {
+                                            FCMSend.pushNotification(
+                                                    UserProfileActivity.this,
+                                                    itemToken,
+                                                    item.getNotificationType(),
+                                                    item.getDescription()
+                                            );
+                                        }
+                                    }
+                                }
+                            }
                         }else{
                             if (recipeAddResponse.getMessage().equals("Failed!")){
                                 Toast.makeText(view.getContext(), "Follow failed!", Toast.LENGTH_LONG).show();
@@ -136,7 +153,7 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
         this.itemrecipe.setText(Integer.toString(chef.getTotalRecipe()));
         this.itemFollwer.setText(Integer.toString(chef.getTotalFollowedByOthersUser()));
         this.itemFollwing.setText(Integer.toString(chef.getTotalFollowOtherUser()));
-        this.itemUsername.setText(chef.getUserName());
+        this.itemUsername.setText(chef.getDisplayName());
         this.job.setText(chef.getJob());
         this.description.setText(chef.getDescription());
         this.total_item.setText(chef.getTotalRecipe() + " items");
@@ -151,6 +168,9 @@ public class UserProfileActivity extends AppCompatActivity implements View.OnCli
             this.btn_follow.setTextColor(getResources().getColor(R.color.white));
         }
 
+        if (chef.getId() == userLocalDatabase.getInt("id", -1)){
+            this.btn_follow.setVisibility(View.GONE);
+        }
     }
 
     private void setNewRecipe(ArrayList<Recipe> RecipeSaveList) {

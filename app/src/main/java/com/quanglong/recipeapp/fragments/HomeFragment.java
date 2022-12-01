@@ -144,7 +144,12 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
                     @Override
                     public void onChanged(UserLoginResponse userLoginResponse) {
                         if (userLoginResponse != null){
-                            setImageURL(avatar, userLoginResponse.getAvatar());
+                            if (!userLoginResponse.getAvatar().equals("")){
+                                setImageURL(avatar, userLoginResponse.getAvatar());
+                            }else{
+                                avatar.setImageResource(R.drawable.avater_default);
+                            }
+
                         }
                     }
                 }
@@ -377,13 +382,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
             case R.id.btn_search_filter:
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
                 startActivity(intent);
-
-//                FCMSend.pushNotification(
-//                        getContext(),
-//                        "eQQn-vXSQqOE_lfDXjnb4E:APA91bEy0duhEskjhKn1X4lclZetEo5MKGKWWyUcbNLaw33zHpu2bZ6BZu0MvR5tRETUcqy6YXJg2wKENYvX381lWpcLu7TsFlEBLMqjZ8wpN51xmbpjTo1qEF0-NscT5Riw_9sGSn63",
-//                        "Hello",
-//                        "Hello World Message"
-//                        );
+                
                 break;
             case R.id.category_see_all:
                 Intent intent2 = new Intent(getActivity(),CatagoryActivity.class);

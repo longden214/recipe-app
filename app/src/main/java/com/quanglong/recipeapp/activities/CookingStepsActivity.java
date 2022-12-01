@@ -29,6 +29,7 @@ import com.quanglong.recipeapp.model.Notifications;
 import com.quanglong.recipeapp.model.RecipeDataRequest;
 import com.quanglong.recipeapp.model.Step;
 import com.quanglong.recipeapp.responses.RecipeAddResponse;
+import com.quanglong.recipeapp.utilities.FCMSend;
 import com.quanglong.recipeapp.utilities.RealPathUtil;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.CategoryViewModel;
@@ -125,6 +126,21 @@ public class CookingStepsActivity extends AppCompatActivity implements View.OnCl
                                 startActivity(intent);
 
                                 List<Notifications> notificationModels = s.getNotificationModels();
+
+                                if (notificationModels.size() > 0){
+                                    for (Notifications item : notificationModels) {
+                                        if (item.getListTokenDevice().size() > 0){
+                                            for (String itemToken: item.getListTokenDevice()) {
+                                                FCMSend.pushNotification(
+                                                        CookingStepsActivity.this,
+                                                        itemToken,
+                                                        item.getNotificationType(),
+                                                        item.getDescription()
+                                                );
+                                            }
+                                        }
+                                    }
+                                }
                             }else{
                                 if (s.getMessage().equals("Failed!")){
                                     Toast.makeText(CookingStepsActivity.this, "Create recipe failed!", Toast.LENGTH_LONG).show();

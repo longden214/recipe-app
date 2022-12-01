@@ -36,6 +36,7 @@ import com.quanglong.recipeapp.model.SaveRecipeRequest;
 import com.quanglong.recipeapp.responses.RecipeAddResponse;
 import com.quanglong.recipeapp.responses.RecipeDetailResponse;
 import com.quanglong.recipeapp.responses.RecipeResponse;
+import com.quanglong.recipeapp.utilities.FCMSend;
 import com.quanglong.recipeapp.utilities.StatusBarConfig;
 import com.quanglong.recipeapp.viewmodels.FollowerViewModel;
 import com.quanglong.recipeapp.viewmodels.RecipeViewModel;
@@ -120,6 +121,21 @@ public class RecipeDetailActivity extends AppCompatActivity {
                             btn_follow.setText("Following");
                             btn_follow.setBackgroundResource(R.drawable.bg_following);
                             btn_follow.setTextColor(Color.parseColor("#121212"));
+
+                            if (recipeAddResponse.getNotificationModels().size() > 0){
+                                for (Notifications item : recipeAddResponse.getNotificationModels()) {
+                                    if (item.getListTokenDevice().size() > 0){
+                                        for (String itemToken: item.getListTokenDevice()) {
+                                            FCMSend.pushNotification(
+                                                    RecipeDetailActivity.this,
+                                                    itemToken,
+                                                    item.getNotificationType(),
+                                                    item.getDescription()
+                                            );
+                                        }
+                                    }
+                                }
+                            }
                         }else{
                             if (recipeAddResponse.getMessage().equals("Failed!")){
                                 Toast.makeText(view.getContext(), "Follow failed!", Toast.LENGTH_LONG).show();
@@ -302,6 +318,21 @@ public class RecipeDetailActivity extends AppCompatActivity {
                             if (res.getMessage().equals("Success!")){
                                 recipe.setTotalRating(recipe.getTotalRating() + 1);
                                 recipeReview.setText("(" + Integer.toString(recipe.getTotalRating()) + " Reviews)");
+
+                                if (res.getNotificationModels().size() > 0){
+                                    for (Notifications item : res.getNotificationModels()) {
+                                        if (item.getListTokenDevice().size() > 0){
+                                            for (String itemToken: item.getListTokenDevice()) {
+                                                FCMSend.pushNotification(
+                                                        RecipeDetailActivity.this,
+                                                        itemToken,
+                                                        item.getNotificationType(),
+                                                        item.getDescription()
+                                                );
+                                            }
+                                        }
+                                    }
+                                }
                             }else{
                                 if (res.getMessage().equals("Failed!")){
                                     Toast.makeText(RecipeDetailActivity.this, "Rating recipe failed!", Toast.LENGTH_LONG).show();

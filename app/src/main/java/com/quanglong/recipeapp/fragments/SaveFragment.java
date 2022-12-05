@@ -77,6 +77,7 @@ public class SaveFragment extends Fragment implements View.OnClickListener, Reci
     }
 
     private void getNewRecipe() {
+        mlistreRecipes.clear();
         viewModel.getSaveRecipe(userLocalDatabase.getInt("id", -1),1,20).observe(getViewLifecycleOwner(), new Observer<RecipeResponse>() {
             @Override
             public void onChanged(RecipeResponse recipeResponse) {

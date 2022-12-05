@@ -59,7 +59,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_centerVertical="true"
-                android:src="@drawable/ic_avatar" />
+                android:src="@drawable/avater_default" />
 
             <EditText
                 android:id="@+id/edt_search"
@@ -158,16 +158,32 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/category_list"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/_16sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_category_title" />
+            android:minHeight="190dp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/category_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <ProgressBar
+                android:id="@+id/progressBar_cate_loading"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                app:layout_constraintHorizontal_bias="0.501"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/layout_popular_chif"
@@ -224,16 +240,30 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chif_list"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/_16sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_popular_chif" />
+            android:minHeight="150dp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/chif_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/_16sdp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_chef_loading"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                app:layout_constraintHorizontal_bias="0.501"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/layout_new_recipe"
@@ -290,16 +320,32 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/new_recipe_list"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/_16sdp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_new_recipe" />
+            android:minHeight="@dimen/_170sdp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/new_recipe_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/_16sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_new_loading"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:visibility="gone"
+                android:layout_centerInParent="true"
+                app:layout_constraintHorizontal_bias="0.501"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:id="@+id/layout_trending"
@@ -356,17 +402,30 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/trending_list"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
-            android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:paddingStart="@dimen/_16sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_trending" />
+            android:minHeight="@dimen/_250sdp"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/trending_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="80dp"
+                android:clipToPadding="false"
+                android:paddingStart="@dimen/_16sdp" />
+
+            <ProgressBar
+                android:id="@+id/progressBar_trending_loading"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:visibility="visible"
+                android:layout_centerInParent="true"
+                app:layout_constraintHorizontal_bias="0.501"/>
+
+        </RelativeLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

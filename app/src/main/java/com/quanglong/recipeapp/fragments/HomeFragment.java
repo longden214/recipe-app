@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ImageView;
 
@@ -32,6 +33,7 @@ import com.quanglong.recipeapp.activities.PopularChefsActivity;
 import com.quanglong.recipeapp.activities.RecipeByCategoryActivity;
 import com.quanglong.recipeapp.activities.RecipeDetailActivity;
 import com.quanglong.recipeapp.activities.SearchActivity;
+import com.quanglong.recipeapp.activities.SignInActivity;
 import com.quanglong.recipeapp.activities.TrendingActivity;
 import com.quanglong.recipeapp.activities.UserProfileActivity;
 import com.quanglong.recipeapp.adapter.CategoryAdapter;
@@ -91,6 +93,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     private RecyclerView trending_recycler;
     private UserViewModel userViewModel;
     private TrendingAdapter trendingAdapter;
+    private ProgressBar progressBar_cate_loading;
+    private boolean isCateLoading = false;
+    private ProgressBar progressBar_chef_loading;
+    private boolean isChefLoading = false;
+    private ProgressBar progressBar_new_loading;
+    private boolean isNewLoading = false;
+    private ProgressBar progressBar_trending_loading;
+    private boolean isTrendingLoading = false;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -100,13 +110,20 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+        doInitialization(view);
+
+        if (userLocalDatabase.getInt("id", -1) == -1){
+            Intent intent = new Intent(getActivity(), SignInActivity.class);
+            startActivity(intent);
+        }
+
+        return view;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        doInitialization(view);
 
         edt_search.clearFocus();
         btn_filter.setOnClickListener(this);
@@ -116,7 +133,9 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         trending_see_all.setOnClickListener(this);
         avatar.setOnClickListener(this);
 
-        setUserInfo();
+        if (userLocalDatabase.getInt("id", -1) != -1){
+            setUserInfo();
+        }
 
         edt_search.setOnTouchListener(new View.OnTouchListener()
         {
@@ -140,13 +159,13 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     }
 
     private void setUserInfo() {
-        userViewModel.userDetail(userLocalDatabase.getInt("id", -1),userLocalDatabase.getInt("id", -1) ).observe(getViewLifecycleOwner(), new Observer<UserLoginResponse>() {
+        userViewModel.userDetail(userLocalDatabase.getInt("id", -1), userLocalDatabase.getInt("id", -1)).observe(getViewLifecycleOwner(), new Observer<UserLoginResponse>() {
                     @Override
                     public void onChanged(UserLoginResponse userLoginResponse) {
-                        if (userLoginResponse != null){
-                            if (!userLoginResponse.getAvatar().equals("")){
+                        if (userLoginResponse != null) {
+                            if (!userLoginResponse.getAvatar().equals("")) {
                                 setImageURL(avatar, userLoginResponse.getAvatar());
-                            }else{
+                            } else {
                                 avatar.setImageResource(R.drawable.avater_default);
                             }
 
@@ -177,7 +196,46 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
         NewRecipeList = new ArrayList<>();
         TrendingRecipeList = new ArrayList<>();
         trending_recycler = view.findViewById(R.id.trending_list);
+        progressBar_cate_loading = view.findViewById(R.id.progressBar_cate_loading);
+        progressBar_chef_loading = view.findViewById(R.id.progressBar_chef_loading);
+        progressBar_new_loading = view.findViewById(R.id.progressBar_new_loading);
+        progressBar_trending_loading = view.findViewById(R.id.progressBar_trending_loading);
+    }
 
+    private void toggleCateLoading() {
+            if (isCateLoading) {
+                progressBar_cate_loading.setVisibility(View.GONE);
+                isCateLoading = false;
+            } else {
+                progressBar_cate_loading.setVisibility(View.VISIBLE);
+            }
+    }
+
+    private void toggleChefLoading() {
+        if (isChefLoading) {
+            progressBar_chef_loading.setVisibility(View.GONE);
+            isChefLoading = false;
+        } else {
+            progressBar_chef_loading.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void toggleNewLoading() {
+        if (isNewLoading) {
+            progressBar_new_loading.setVisibility(View.GONE);
+            isNewLoading = false;
+        } else {
+            progressBar_new_loading.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void toggleTrendingLoading() {
+        if (isTrendingLoading) {
+            progressBar_trending_loading.setVisibility(View.GONE);
+            isTrendingLoading = false;
+        } else {
+            progressBar_trending_loading.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setCategoryRecycler(List<Category> categoryList) {
@@ -189,11 +247,14 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     }
 
     public void getAllCategory(){
+        toggleCateLoading();
         viewModel.getCategoryWithParam("", false, true, false,
                 true, 1, 10).observe(getViewLifecycleOwner(), new Observer<CategoryResponse>() {
             @Override
             public void onChanged(CategoryResponse categories) {
                 if (categories != null) {
+                    isCateLoading = true;
+                    toggleCateLoading();
                     if (categories.getCaregoties().size() > 0) {
                         int oldCount = categoryList.size();
 
@@ -214,6 +275,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     }
 
     private void getPopularChef() {
+        toggleChefLoading();
         ChefRequest chefRequest = new ChefRequest();
         chefRequest.setKeyword("");
         chefRequest.setEmail("");
@@ -235,6 +297,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
             @Override
             public void onChanged(PopularChefResponses popularChefResponses) {
                 if (popularChefResponses.getPopularShow() != null) {
+                    isChefLoading = true;
+                    toggleChefLoading();
                     if (popularChefResponses.getPopularShow().size() > 0) {
                         int oldCount = popularChefList.size();
 
@@ -256,6 +320,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     }
 
     private void getNewRecipe() {
+        toggleNewLoading();
         RecipeRequest newRequest = new RecipeRequest();
         newRequest.setKeyword("");
         newRequest.setListCatId(new int[]{});
@@ -299,6 +364,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
             @Override
             public void onChanged(RecipeResponse recipeResponse) {
                 if (recipeResponse.getNewRecipeShow()!= null) {
+                    isNewLoading = true;
+                    toggleNewLoading();
                     if (recipeResponse.getNewRecipeShow().size() > 0) {
                         int oldCount = NewRecipeList.size();
                         NewRecipeList.addAll(recipeResponse.getNewRecipeShow());
@@ -319,6 +386,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
     }
 
     private void getTrending() {
+        toggleTrendingLoading();
         RecipeRequest newRequest = new RecipeRequest();
         newRequest.setKeyword("");
         newRequest.setListCatId(new int[]{});
@@ -362,6 +430,8 @@ public class HomeFragment extends Fragment implements View.OnClickListener, Cate
             @Override
             public void onChanged(RecipeResponse recipeResponse) {
                 if (recipeResponse.getNewRecipeShow()!= null) {
+                    isTrendingLoading = true;
+                    toggleTrendingLoading();
                     if (recipeResponse.getNewRecipeShow().size() > 0) {
                         int oldCount = TrendingRecipeList.size();
                         TrendingRecipeList.addAll(recipeResponse.getNewRecipeShow());

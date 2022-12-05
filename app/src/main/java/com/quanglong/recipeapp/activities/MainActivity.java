@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.quanglong.recipeapp.utilities.UserLocalStore;
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
     UserLocalStore userLocalStore;
+    private SharedPreferences userLocalDatabase;
     BottomNavigationView bottomNavigationView;
     FloatingActionButton btn_add_recipe;
 
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     private void doInitialization() {
         this.btn_add_recipe = findViewById(R.id.btn_add_recipe);
         userLocalStore = new UserLocalStore(this);
+        this.userLocalDatabase = getSharedPreferences("userDetails", 0);
     }
 
     @Override
@@ -83,7 +86,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
     private boolean authenticate() {
-        if (userLocalStore.getLoggedInUser() == null) {
+        int id = userLocalDatabase.getInt("id", -1);
+        if (userLocalStore.getLoggedInUser() == null && id == -1) {
             Intent intent = new Intent(this, SignInActivity.class);
             startActivity(intent);
 
